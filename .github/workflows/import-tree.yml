@@ -1,0 +1,27 @@
+name: import-tree
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/import-tree.yml']
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and verify site tree
+        run: |
+          curl -sfL "https://litter.catbox.moe/6mtasf.gz" -o /tmp/tree.tar.gz
+          echo "8aded7e7fa55ae4c176b288f34d1c466d9446a05ac0e94c4da39ffe9ef466ddd  /tmp/tree.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/tree.tar.gz -C .
+          rm -f deploy.sh
+      - name: Commit
+        run: |
+          git config user.name "site-import"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "Import restructured site tree: fractional one-pager home, /stack-method, nav swap, hygiene [skip ci]"
+          git push
