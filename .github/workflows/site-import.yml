@@ -1,0 +1,29 @@
+name: site-import
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.sync/manifest']
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and verify
+        run: |
+          URL=$(sed -n 1p .sync/manifest)
+          SHA=$(sed -n 2p .sync/manifest)
+          curl -sfL "$URL" -o /tmp/tree.tar.gz
+          echo "$SHA  /tmp/tree.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/tree.tar.gz -C .
+          rm -f deploy.sh
+      - name: Commit
+        run: |
+          git config user.name "site-import"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "Import: $(sed -n 3p .sync/manifest) [skip ci]"
+          git push
