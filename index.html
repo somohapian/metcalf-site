@@ -528,7 +528,7 @@ a { color: inherit; text-decoration: none; }
 <style>
 /* ================= V2 RESTRUCTURE (2026-07) ================= */
 .hero { padding: 128px 32px 72px; }
-.hero-cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+.hero-cta { display:flex; gap:28px; align-items:center; justify-content:center; flex-wrap:wrap;
   margin-top:38px; opacity:0; animation: fadeUp 1s 0.75s ease forwards; }
 .btn-solid, .btn-ghost { font-family: var(--body); font-size:15px; font-weight:500;
   letter-spacing:0.02em; border-radius:2px; }
@@ -538,6 +538,8 @@ a { color: inherit; text-decoration: none; }
 .btn-ghost { padding:13px 25px; border:1px solid var(--ink); color: var(--ink);
   transition: color 0.25s ease, border-color 0.25s ease; }
 .btn-ghost:hover { color: var(--brick); border-color: var(--brick); }
+.btn-textlink { font-family: var(--body); font-size:15px; font-weight:500; letter-spacing:0.02em; color: var(--brick); border-bottom:1px solid var(--brick); padding-bottom:2px; transition: opacity 0.2s ease; }
+.btn-textlink:hover { opacity:0.7; }
 
 /* STACK strip */
 .stack-strip { max-width: 880px; margin: 0 auto; padding: 16px 24px 88px; text-align:center; }
@@ -639,7 +641,7 @@ a { color: inherit; text-decoration: none; }
   <p class="hero-definition"><strong>Fractional recruiting</strong> is a hiring partnership where a recruiter or recruiting team is embedded into a small business at a flat monthly fee, replacing both the contingent agency model and the cost of a full-time internal hire.</p>
   <div class="hero-cta">
     <a href="/services#contact" class="btn-solid">Start a Conversation</a>
-    <a href="/services" class="btn-ghost">See services and pricing</a>
+    <a href="/services" class="btn-textlink">See services and pricing &rarr;</a>
   </div>
 </section>
 
@@ -742,7 +744,7 @@ a { color: inherit; text-decoration: none; }
   <p>The first call is thirty minutes and runs the same way every time. We ask what is not working in your hiring. We ask what the dream scenario looks like. We show you how the model works and where fractional is different. If it fits, we make you a concrete offer with a number in it. Then we stop talking. No drip campaign, no chase. If we are not the right tool, we say so on the call and point you somewhere better.</p>
   <div class="hero-cta">
     <a href="/services#contact" class="btn-solid">Start a Conversation</a>
-    <a href="/services" class="btn-ghost">See services and pricing</a>
+    <a href="/services" class="btn-textlink">See services and pricing &rarr;</a>
   </div>
 </section>
 
