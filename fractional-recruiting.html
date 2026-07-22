@@ -35,7 +35,7 @@
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","name":"The STACK Method (forthcoming)","author":{"@type":"Person","name":"Jay Metcalf"},"publisher":"Metcalf Search","description":"A practical guide to how small businesses hire, built around the STACK Method: Source, Tempo, Assess, Close, Keep.","bookFormat":"https://schema.org/Hardcover","datePublished":"2026"}</script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Fractional Recruiting", "description": "Fractional recruiting is a hiring partnership embedded in a small business at a flat monthly fee. The third option between agencies and a full-time hire.", "datePublished": "2026-05-10", "author": {"@type": "Person", "name": "Jay Metcalf", "url": "https://metcalfsearch.com/about"}, "publisher": {"@type": "Organization", "name": "Metcalf Search", "logo": {"@type": "ImageObject", "url": "https://metcalfsearch.com/logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://metcalfsearch.com/fractional-recruiting"}, "dateModified": "2026-05-17"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Fractional Recruiting", "description": "Fractional recruiting is a hiring partnership embedded in a small business at a flat monthly fee. The third option between agencies and a full-time hire.", "datePublished": "2026-05-10", "author": {"@type": "Person", "name": "Jay Metcalf", "url": "https://metcalfsearch.com/about"}, "publisher": {"@type": "Organization", "name": "Metcalf Search", "logo": {"@type": "ImageObject", "url": "https://metcalfsearch.com/logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://metcalfsearch.com/fractional-recruiting"}, "dateModified": "2026-07-21"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://metcalfsearch.com/"},{"@type":"ListItem","position":2,"name":"Fractional Recruiting","item":"https://metcalfsearch.com/fractional-recruiting"}]}</script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>
@@ -310,6 +310,26 @@ a{color:inherit;text-decoration:none;}
   .faq-grid .faq-card, .faq-list > .faq-item {
     transition: grid-column 0.2s ease, background 0.2s ease;
   }
+
+/* pillar TOC */
+.toc{max-width:760px;margin:0 auto 72px;padding:0 24px;}
+.toc-inner{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:20px 0;}
+.toc-label{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 12px;}
+.toc ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 28px;counter-reset:toc;}
+.toc li{counter-increment:toc;font-family:var(--body);font-size:14px;line-height:1.7;}
+.toc li::before{content:counter(toc,decimal-leading-zero);color:var(--celadon-deep);font-weight:600;margin-right:8px;font-size:11px;}
+.toc a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent;}
+.toc a:hover{color:var(--brick);border-bottom-color:var(--brick);}
+/* cost math block */
+.mathbox{background:var(--paper-warm);border:1px solid var(--rule);border-radius:2px;padding:24px 28px;margin:32px 0;font-family:var(--body);font-size:15px;line-height:1.8;}
+.mathbox .mathrow{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px dotted var(--rule);}
+.mathbox .mathrow:last-child{border-bottom:none;}
+.mathbox .mathrow span:last-child{font-weight:600;white-space:nowrap;color:var(--ink);}
+.mathbox .mathnote{margin:14px 0 0;font-size:13px;color:var(--ink-faint);font-style:italic;}
+/* model definition list */
+.deflist{margin:28px 0;}
+.deflist p{margin:0 0 14px;padding-left:16px;border-left:2px solid var(--celadon-mist);}
+.illus{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 6px;}
 </style>
 
 
@@ -332,22 +352,54 @@ a{color:inherit;text-decoration:none;}
 </nav>
 
 <section class="page-hero">
-  <div class="eyebrow">THE PILLAR</div>
+  <div class="eyebrow">FRACTIONAL RECRUITING</div>
   <h1>Fractional Recruiter: A Third Option for <span class="accent">Small Business</span> Hiring</h1>
   <p class="sub">Flat monthly fee. No per-hire commissions. A recruiter embedded in the business, working the way an in-house team would.</p>
 </section>
 
 <div class="capsule"><strong>Fractional recruiting</strong> is a hiring partnership where a recruiter or recruiting team is embedded into a small business at a flat monthly fee, replacing both the contingent agency model and the cost of a full-time internal hire. It is built for businesses with ongoing hiring needs, where neither the agency model nor a six-figure internal hire fits the volume.</div>
 
+
+<nav class="toc" aria-label="On this page">
+  <div class="toc-inner">
+    <p class="toc-label">On this page</p>
+    <ol>
+      <li><a href="#what-it-is">What fractional recruiting is</a></li>
+      <li><a href="#family">Why it exists</a></li>
+      <li><a href="#three-options">The three options</a></li>
+      <li><a href="#models">Every hiring model, defined</a></li>
+      <li><a href="#cost">What it costs</a></li>
+      <li><a href="#who">Who it is for</a></li>
+      <li><a href="#wrong">When it is the wrong choice</a></li>
+      <li><a href="#engagement">How an engagement runs</a></li>
+      <li><a href="#example">An illustrative example</a></li>
+      <li><a href="#columbus">Fractional recruiting in Columbus</a></li>
+      <li><a href="#stack">How it connects to STACK</a></li>
+      <li><a href="#faq">Common questions</a></li>
+    </ol>
+  </div>
+</nav>
+
 <article class="prose">
-<h2>What Fractional Recruiting actually is</h2>
+<h2 id="what-it-is">What Fractional Recruiting actually is</h2>
 
 <p>Fractional Recruiting is a flat monthly subscription that gives a small or medium business an embedded recruiting function without the cost of a full-time recruiter or the per-hire gamble of a contingency agency. The work happens inside the client's hiring process, not outside of it. The fee does not change when a role gets filled, when two roles get filled in the same month, or when a role takes longer than expected.</p>
 
 <p>Most SMB owners think they have two options when hiring gets hard. Option one is paying $15,000, $20,000, or more per hire knowing that if the person leaves at month five you are out that fee. Option two is hiring a recruiter onto payroll at $80,000 to $120,000 a year, plus benefits, plus the question of what they do during the quarters you are not hiring. Fractional Recruiting is the third option, and for businesses between roughly ten and two hundred employees, it is usually the right one.</p>
 
+
+<h2 id="family">Why the model exists at all</h2>
+
+<p>Fractional recruiting is not a new idea. It is an old idea arriving late to a function that needed it.</p>
+
+<p>Small businesses have been buying fractional CFOs for years. A company doing eight million in revenue cannot justify a $220,000 finance chief, but it still needs someone who can build a forecast a bank will take seriously, so it buys a slice of one. The same logic produced the fractional CMO, the fractional COO, the fractional CTO, and the fractional general counsel. The pattern is identical every time: the expertise is necessary, the full-time salary is not, and the market solved it by selling a fraction of a senior person instead of the whole of a junior one.</p>
+
+<p>Recruiting was an obvious candidate for the same treatment and it got there last. The reason is that the staffing industry already had a way to sell hiring help, and that way was the contingency fee. Contingency works well for the agency, and it works acceptably for a business with one urgent search a year. It does not work for a company that needs to hire six people annually, every year, and wants a hiring process at the end of it instead of a stack of invoices.</p>
+
+<p>So the shortest accurate description is this: a fractional recruiter is to hiring what a fractional CFO is to finance. Senior capability, bought continuously, at the fraction you actually use.</p>
+
 <section class="comparison">
-  <h2>The three options, side by side</h2>
+  <h2 id="three-options">The three options, side by side</h2>
   <p class="comparison-lede">Three real ways a small business can get hiring done. The trade-offs are below.</p>
   <div class="comp-table-wrap">
     <table class="comp-table">
@@ -412,16 +464,104 @@ a{color:inherit;text-decoration:none;}
     <a href="/comparison">full comparison chart</a>.
   </p>
 </section>
-<h2>Who this is for</h2>
 
-<p>The model works best in businesses 10+ employees who have a few hiring needs throughout the year, but before they have the need for a full time recruiter on staff.</p>
+<h2 id="models">Every hiring model, defined</h2>
 
-<h2>A concrete example</h2>
+<p>Buyers usually compare fractional recruiting against whichever model they used last. It helps to see the whole field. There are eleven common ways a business gets hiring work done, and each one has a cost structure, a natural buyer, and a failure mode.</p>
 
-<p>A forty-person fabrication shop in Marion, Ohio lost its plant manager in March. Under the contingency model, the owner would have called three contingency firms, paid one of them roughly $28,000 for a candidate who quit at ten months, and been back at zero in January. Under the full-time recruiter model, the owner could not justify a full-time recruiter for a role he hires once every five years. Under Fractional Recruiting, the partnership was already in place for a project coordinator search, the plant manager search was absorbed into the existing scope, and the role was filled in five weeks with a candidate who is still there.</p>
+<div class="deflist">
+<p><strong>Ad-hoc DIY hiring.</strong> The owner or hiring manager posts the job, reads the applicants, and runs the interviews personally. Costs no money and enormous time. Fails when the applicant flow is poor, because there is no plan B.</p>
+<p><strong>Offshore sourcing.</strong> An overseas team builds candidate lists and sends outbound messages at low hourly cost. Good at volume, weak on judgment, and the handoff to someone who can actually assess is still yours to solve.</p>
+<p><strong>Virtual assistant.</strong> A general-purpose remote assistant handles posting, scheduling, and inbox triage. Real relief on coordination, no recruiting expertise, and no pipeline built.</p>
+<p><strong>AI recruiting tools.</strong> Software that screens, ranks, or messages candidates automatically. Useful as an accelerator inside a working process. It cannot diagnose a broken one, and it is not a substitute for someone accountable for the outcome.</p>
+<p><strong>Full-time internal recruiter.</strong> A recruiter on payroll, fully dedicated. The strongest option once hiring is constant. The problem is the load factor: at low volume you pay six figures for someone with idle quarters.</p>
+<p><strong>Fractional recruiter.</strong> A senior recruiter embedded at a flat monthly fee, working across every open role. Built for ongoing but sub-full-time hiring volume. Breaks down if you genuinely only hire once every few years.</p>
+<p><strong>Contingency agency.</strong> Paid 20 to 30 percent of first-year salary, only when you hire their candidate. No risk up front. The incentive is speed and salary, the relationship ends at the placement, and the guarantee usually runs 30 to 90 days.</p>
+<p><strong>Staffing agency.</strong> Supplies temporary or temp-to-hire workers at an hourly markup, commonly 35 to 40 percent over the worker's rate. The right tool when you need coverage next week. An expensive way to fill a permanent seat.</p>
+<p><strong>Contract recruiter.</strong> An individual recruiter engaged hourly or on a fixed term, usually for a hiring surge. Flexible and focused. Leaves when the contract ends, and typically takes the process knowledge with them.</p>
+<p><strong>RPO.</strong> Recruitment process outsourcing, where a vendor takes over some or all of the hiring function under contract. Designed for enterprise volume. The commitment and minimums rarely fit a company under 200 people.</p>
+<p><strong>Retained search.</strong> A firm paid in installments to run a dedicated executive search, whether or not it closes. The right instrument for a confidential C-suite hire. Priced accordingly, and not meant for filling a coordinator role.</p>
+</div>
+
+<p>The <a href="/comparison">full comparison chart</a> puts all eleven side by side on cost, ownership, and what each one actually delivers.</p>
+
+<h2 id="cost">What fractional recruiting costs</h2>
+
+<p>Fractional recruiting is priced as a flat monthly subscription. The fee is driven by how many roles run concurrently, how senior and how specialized those roles are, and how much onsite time the partnership includes. It is not driven by how many people you end up hiring, which is the entire point: filling three roles in a strong month costs the same as filling one in a slow one.</p>
+
+<p>The useful comparison is not the monthly number in isolation. It is the annual cost of the three real options at your actual hiring volume. Take a company hiring six roles a year at an average salary of $65,000.</p>
+
+<div class="mathbox">
+  <div class="mathrow"><span>Contingency agency, 6 hires at 25 percent of $65,000</span><span>$97,500 / yr</span></div>
+  <div class="mathrow"><span>Full-time internal recruiter, $95,000 salary plus ~30 percent loaded cost</span><span>$123,500 / yr</span></div>
+  <div class="mathrow"><span>Plus recruiting tools and job board spend for that recruiter</span><span>$8,000&ndash;$15,000 / yr</span></div>
+  <div class="mathrow"><span>Fractional partnership, flat monthly fee, tools and ad spend included</span><span>12 payments</span></div>
+  <p class="mathnote">Salary and load assumptions vary by market. The shape of the comparison does not.</p>
+</div>
+
+<p>Run that math at different volumes and the crossovers show up quickly. Below roughly two hires a year, a contingency agency is usually the cheapest way to get it done, because you only pay when you hire and the fee never has to be justified against idle months. Above roughly twelve to fifteen hires a year, a full-time internal recruiter starts winning on pure cost per hire, because the salary is spread across enough searches to make sense. Fractional recruiting is built for the wide middle, where contingency fees compound faster than anyone budgeted and a full-time recruiter cannot be justified to anyone who reads the P&amp;L.</p>
+
+<p>Two costs are easy to leave out of the comparison and both favor the fractional model. The first is tooling. A recruiter is only as good as their access, and LinkedIn Recruiter, job board seats, and sourcing software run into five figures annually before anyone has been hired. In a fractional partnership those come with the recruiter. The second is the cost of the seat sitting empty. A role open an extra six weeks costs real money in coverage, overtime, and lost output, and that number frequently dwarfs the difference between any two of these models.</p>
+
+<p>Current tier pricing for Metcalf Search partnerships is published on the <a href="/activate">activation page</a>. There is no per-hire fee on any tier, tiers can move up or down at any monthly cycle, and rates are grandfathered when they do.</p>
+
+<h2 id="who">Who this is for</h2>
+
+<p>The model fits businesses with roughly 10 to 200 employees that hire continuously but not constantly. In practice that means three or more hires a year, or one to two roles open at any given moment. Industry matters less than most owners expect. The hiring playbook for a fabricator, a law firm, and a real estate brokerage is more similar than it is different.</p>
+
+<p>The clearer signal is behavioral. A fractional partnership tends to be the right call when referrals have stopped producing candidates, when roles sit open past sixty days without a real shortlist, when the owner or a hiring manager is personally reading resumes at night, or when you have written an agency check in the last eighteen months and felt it clear the account.</p>
+
+<p>It is usually too early when the company is under ten people and the owner both is the hiring process and prefers it that way, or when hiring happens once every few years and there is nothing to build a rhythm around.</p>
+
+<h2 id="wrong">When fractional recruiting is the wrong choice</h2>
+
+<p>The model has a real failure mode and it is worth stating plainly, because the wrong fit wastes a year for everyone.</p>
+
+<div class="deflist">
+<p><strong>You hire once every two or three years.</strong> There is nothing for a monthly partnership to do between searches. Pay a contingency fee when the need appears and keep the money in the business the rest of the time.</p>
+<p><strong>You need one confidential executive hire.</strong> A single C-suite search with discretion requirements is what retained search exists for. Different instrument, different price, right tool.</p>
+<p><strong>You need bodies on site next week.</strong> That is a staffing agency. Fractional recruiting builds a hiring function, which is slower and more durable than a warm body on Monday.</p>
+<p><strong>Your role requires a deep specialist network you cannot buy generally.</strong> Some niches, certain clinical specialties and some regulated engineering disciplines among them, are genuinely better served by a boutique that has spent a decade in that one lane.</p>
+<p><strong>Nobody internally has time to interview.</strong> A recruiter can fill the top of the funnel and run the process, but somebody at your company still has to meet the finalists and decide. If that person does not exist yet, fix that before hiring anyone to feed them candidates.</p>
+</div>
+
+<h2 id="engagement">How an engagement actually runs</h2>
+
+<p>The first week is the part most owners want described concretely, so here it is.</p>
+
+<div class="deflist">
+<p><strong>Activation.</strong> A tier is chosen and the partnership starts. A kickoff call is scheduled within 48 hours.</p>
+<p><strong>Week one.</strong> Kickoff covers role intake, comp bands, the profile of who has succeeded in the seat before, and the interview panel. Active sourcing begins during that call. A branded careers page goes up if you do not already have one worth using.</p>
+<p><strong>Week two.</strong> The first wave of vetted candidates reaches you. Every one of them has been screened by a person before your calendar gets touched.</p>
+<p><strong>Ongoing.</strong> Weekly search cadence per open role, candidate communication handled between interviews, debrief structure kept moving, offer construction and closing support through the start date.</p>
+<p><strong>Between searches.</strong> This is where a fractional partnership separates from an agency. Downtime goes into building talent pools for roles you know are coming, improving the careers page, running the referral program, and doing stay interviews with the people you already have so the next opening is one you chose rather than one that happened to you.</p>
+</div>
+
+<h2 id="example">An illustrative example</h2>
+
+<p class="illus">Composite illustration</p>
+<p>Consider a forty-person fabrication shop in Marion, Ohio that loses its plant manager in March. The details below are a composite drawn from how these three models typically play out, not a single client engagement.</p>
+
+<p>Under the contingency model, the owner calls three agencies, pays one of them roughly $28,000, and the placement leaves at ten months. The guarantee expired at ninety days. It is January and the search starts over at zero.</p>
+
+<p>Under the full-time recruiter model, the math never clears. A plant manager is a role this business fills once every five years. Nobody is putting a recruiter on payroll for that.</p>
+
+<p>Under a fractional partnership, the arrangement is already running for a project coordinator search. The plant manager opening is absorbed into existing scope at no additional fee, the shortlist is built from a pipeline that was already warm, and the seat is filled in five weeks. The difference is not that the fractional recruiter is a better recruiter. It is that the relationship did not have to be rebuilt from scratch in March.</p>
+
+<h2 id="columbus">Fractional recruiting in Columbus and Central Ohio</h2>
+
+<p>Metcalf Search is based in Grove City and works across the Columbus metro, including Dublin, Westerville, Hilliard, Grove City, Marion, Newark, and Lancaster, with partnerships running statewide and remote-first searches nationally.</p>
+
+<p>Central Ohio is a specific hiring market and it rewards knowing it. Intel's Licking County investment, the distribution corridor along I-70 and Rickenbacker, and a healthcare and insurance base anchored by OhioHealth, Nationwide, and OSU have reset wage expectations for skilled trades, logistics, and administrative talent faster than most small business comp bands have moved. A Columbus small business competing for a maintenance technician or a staff accountant is now bidding against employers with recruiting budgets it cannot match on spend. It can, however, match them on speed and on candidate experience, and that is a hiring process problem rather than a money problem.</p>
+
+<h2 id="stack">How this connects to the STACK Method</h2>
+
+<p>Inside a partnership, the work is organized by <a href="/stack-method">the STACK Method</a>, the five-letter framework used to locate where a hire is actually breaking down before spending money on the wrong fix. Every search gets a sourcing plan, a tempo commitment, a structured assessment, an offer sequence, and a ninety-day retention plan.</p>
+
+<p>The five letters are <a href="/source">Source</a>, for when qualified candidates are not applying, <a href="/tempo">Tempo</a>, for when candidates ghost or the process stalls, <a href="/assess">Assess</a>, for when the interviews go well and the hires do not, <a href="/close">Close</a>, for when offers get rejected or countered, and <a href="/keep">Keep</a>, for when new hires leave inside the first year. It also works on its own as a diagnostic. When a search stalls, name the letter it stalled on and start there.</p>
 
 <section class="faq-section" style="max-width:760px;margin:96px auto;padding:0 24px;">
-  <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,40px);margin:0 0 32px;color:var(--ink);">What a Fractional Recruiter actually does</h2>
+  <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,40px);margin:0 0 32px;color:var(--ink);" id="faq">Common questions about fractional recruiting</h2>
   <div class="faq-list">
     <details class="faq-item" style="border-top:1px solid var(--rule);padding:24px 0;">
       <summary style="font-family:var(--display);font-weight:500;font-size:20px;color:var(--ink);cursor:pointer;list-style:none;">
@@ -485,7 +625,7 @@ a{color:inherit;text-decoration:none;}
 <h2>How Metcalf Search delivers this</h2>
 
 <p>Partnerships run on flat monthly tiers (Recruiting Partner, Partner Plus, Partner Pro) sized to the volume and complexity of your hiring. Onsite time is included on the higher tiers. There is no per-hire fee. The full scope lives on the <a href="/services">Services</a> page, and the kinds of businesses this works for live on <a href="/who-we-serve">Who We Serve</a>.</p>
-<p class="byline" style="margin:64px 0 0;padding-top:20px;border-top:1px solid var(--rule);font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:0.04em;color:var(--ink-faint);">By Metcalf Search · Published May 17, 2026 · Updated May 17, 2026
+<p class="byline" style="margin:64px 0 0;padding-top:20px;border-top:1px solid var(--rule);font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:0.04em;color:var(--ink-faint);">By Metcalf Search · Published May 17, 2026 · Updated July 21, 2026
   </p>
 </article>
 
@@ -617,5 +757,6 @@ window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('sc
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
-</script></body>
+</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTerm", "@id": "https://metcalfsearch.com/fractional-recruiting#definedterm", "name": "Fractional Recruiting", "alternateName": ["Fractional Recruiter", "Embedded Recruiting Partnership"], "description": "Fractional recruiting is a hiring partnership where a recruiter or recruiting team is embedded into a small business at a flat monthly fee, replacing both the contingent agency model and the cost of a full-time internal hire.", "inDefinedTermSet": {"@type": "DefinedTermSet", "name": "Small Business Hiring Terms", "url": "https://metcalfsearch.com/fractional-recruiting"}, "url": "https://metcalfsearch.com/fractional-recruiting"}</script>
+</body>
 </html>
