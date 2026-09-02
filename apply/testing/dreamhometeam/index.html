@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Work Style Profile | Metcalf Search</title>
+<title>Enhanced Workplace Assessment | Metcalf Search</title>
 <link rel="icon" href="https://metcalfsearch.com/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
@@ -70,8 +70,8 @@ const CONFIG = {
 </header>
 <main>
   <div id="intro" class="step active">
-    <h1>Work Style Profile</h1>
-    <p class="lead">We use this short profile to understand how you like to work, so we can put you in front of the right role. About 8 minutes. There are no right or wrong answers. Go with your first instinct and answer for how you actually are at work, not how you think you should be.</p>
+    <h1>Enhanced Workplace Assessment</h1>
+    <p class="lead">A DISC-based work style profile, enhanced with a short read on how you approach results. We use it to understand how you like to work, so we can put you in front of the right role. About 8 minutes. There are no right or wrong answers. Go with your first instinct and answer for how you actually are at work, not how you think you should be.</p>
     <div class="card">
       <label class="field">Your name</label>
       <input type="text" id="cName" autocomplete="name">
@@ -160,7 +160,7 @@ let pos = 0;
 
 const $ = id => document.getElementById(id);
 document.documentElement.style.setProperty("--brand", CONFIG.brandColor);
-$("hdrName").textContent = "Work Style Profile";
+$("hdrName").textContent = "Enhanced Workplace Assessment";
 $("hdrSub").textContent = "for " + CONFIG.clientName + (CONFIG.clientSub ? ", " + CONFIG.clientSub : "");
 if (CONFIG.role) $("cRole").value = CONFIG.role;
 
@@ -260,7 +260,7 @@ function finish() {
   const name = $("cName").value.trim(), email = $("cEmail").value.trim(), role = $("cRole").value.trim() || "(not given)";
   const pct = k => Math.round((r.s[k] + 24) / 48 * 100);
   const body =
-`WORK STYLE PROFILE
+`ENHANCED WORKPLACE ASSESSMENT (DISC-based + locus of control)
 Client: ${CONFIG.clientName}
 Candidate: ${name} <${email}>
 Role: ${role}
@@ -289,12 +289,12 @@ async function send(body, name, r) {
   try {
     const res = await fetch("https://formsubmit.co/ajax/" + CONFIG.resultsTo, {
       method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({ _subject: `Work Style Profile: ${name} (${CONFIG.clientName})`, _template: "box", _captcha: "false", name, email: $("cEmail").value.trim(), results: body })
+      body: JSON.stringify({ _subject: `Enhanced Workplace Assessment: ${name} (${CONFIG.clientName})`, _template: "box", _captcha: "false", name, email: $("cEmail").value.trim(), results: body })
     });
     const j = await res.json(); ok = String(j.success) === "true";
   } catch (e) { ok = false; }
   if (!ok) {
-    const href = `mailto:${CONFIG.resultsTo}?subject=${encodeURIComponent("Work Style Profile: " + name)}&body=${encodeURIComponent(body)}`;
+    const href = `mailto:${CONFIG.resultsTo}?subject=${encodeURIComponent("Enhanced Workplace Assessment: " + name)}&body=${encodeURIComponent(body)}`;
     $("fallback").innerHTML = `One last step: please <a href="${href}">tap here to send your results</a> so the team receives them.`;
     $("fallback").style.display = "block";
   }
