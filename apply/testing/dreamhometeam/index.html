@@ -253,7 +253,7 @@ function score() {
     } else {
       const internal = a.c === q.item.internal; if (internal) loc++;
       raw.push(`L${q.idx + 1}:${"ab"[a.c]}${internal ? "(int)" : "(ext)"}`);
-      if (q.item.type === "open") open.push(`  L${q.idx + 1} "${q.item.stem}"\n    Answer: ${a.txt}\n    Then chose: ${q.item.opts[a.c]} ${internal ? "[internal]" : "[external]"}`);
+      if (q.item.type === "open") open.push(`  ${q.item.stem}\n  > ${a.txt}\n  Then chose: ${q.item.opts[a.c]} (${internal ? "internal" : "external"})`);
     }
   });
   const ranked = Object.keys(s).sort((x, y) => s[y] - s[x]);
@@ -270,28 +270,36 @@ function finish() {
   const r = score();
   const name = $("cName").value.trim(), email = $("cEmail").value.trim(), role = $("cRole").value.trim() || "(not given)";
   const pct = k => Math.round((r.s[k] + 24) / 48 * 100);
+  const gauge = "|" + Array.from({length: 8}, (_, i) => i + 1 === Math.max(r.loc, 1) && r.loc > 0 ? String(r.loc) : "-").join("") + "|";
   const body =
-`ENHANCED WORKPLACE ASSESSMENT (DISC-based + locus of control)
-Client: ${CONFIG.clientName}
-Candidate: ${name} <${email}>
-Role: ${role}
+`ENHANCED WORKPLACE ASSESSMENT
+${name}  <${email}>
+Role: ${role}   Client: ${CONFIG.clientName}
 Completed: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}
 
-DISC (net = Most minus Least, 24 groups)
-  D ${String(r.s.D).padStart(3)}  (most ${r.most.D}, least ${r.least.D})  ${pct("D")}%
-  I ${String(r.s.I).padStart(3)}  (most ${r.most.I}, least ${r.least.I})  ${pct("I")}%
-  S ${String(r.s.S).padStart(3)}  (most ${r.most.S}, least ${r.least.S})  ${pct("S")}%
-  C ${String(r.s.C).padStart(3)}  (most ${r.most.C}, least ${r.least.C})  ${pct("C")}%
-Primary: ${r.ranked[0]}   Secondary: ${r.ranked[1]}   Lowest: ${r.ranked[3]}
-Pattern strength: ${r.gap >= 6 ? "clear" : r.gap >= 3 ? "moderate" : "flat (blended style, treat primary loosely)"}
-Read: ${READS[r.ranked[0]]}
+RESULTS
+  DISC: ${r.ranked[0]} primary, ${r.ranked[1]} secondary, ${r.ranked[3]} lowest (${r.gap >= 6 ? "clear pattern" : r.gap >= 3 ? "moderate pattern" : "flat, blended style"})
+  ${READS[r.ranked[0]]}
+  Locus of control: ${r.loc} of 8, ${r.locRead}
 
-LOCUS OF CONTROL (8 scenarios, count of internal choices, 0 to 8)
-  Score: ${r.loc} of 8   ${r.locRead}
-  Free-text answers (read L7 and L8 side by side):
-${r.open.join("\n")}
+DISC
+  D  ${String(pct("D")).padStart(3)}%
+  I  ${String(pct("I")).padStart(3)}%
+  S  ${String(pct("S")).padStart(3)}%
+  C  ${String(pct("C")).padStart(3)}%
 
-Raw answers: ${r.raw.join("  ")}`;
+LOCUS OF CONTROL
+  External ${gauge} Internal   (${r.loc} of 8 internal choices${r.loc === 0 ? ", none" : ""})
+
+IN THEIR OWN WORDS
+${r.open.join("\n\n")}
+
+
+
+
+RAW ANSWERS (most/least per word group; L = locus item, a/b chosen, int/ext)
+  net scores: D ${r.s.D}, I ${r.s.I}, S ${r.s.S}, C ${r.s.C}
+  ${r.raw.join("  ")}`;
   send(body, name, r);
 }
 
