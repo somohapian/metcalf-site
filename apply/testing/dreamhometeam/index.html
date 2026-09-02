@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Work Style Profile | Metcalf Search</title>
+<link rel="icon" href="https://metcalfsearch.com/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* ============ CONFIG: the only block you should ever need to touch ============ */
+const CONFIG = {
+  clientName: "The Dream Home Team",      // the hiring company; shown to the candidate and in the results email
+  clientSub: "Keller Williams Consultants Realty",
+  brandColor: "#6f9b7c",
+  role: "",                       // optional: prefill a role name, or leave blank and the candidate types it
+  resultsTo: "jay@metcalfsearch.com",     // results land here via FormSubmit (one-time activation email on first use); also the mailto fallback
+  showResultToCandidate: false    // true = candidate sees their primary style after submitting
+};
+</script>
+<style>
+  :root { --brand: #6f9b7c; --ink: #1f2421; --muted: #4a534f; --line: #d8dcd6; --bg: #fafaf7; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Geist, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.5; }
+  header { background: #fff; border-bottom: 1px solid var(--line); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  header img { height: 36px; width: auto; }
+  header .name { font-weight: 700; font-size: 18px; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  main { max-width: 680px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 30px; margin: 0 0 8px; }
+  .done h2 { font-family: Fraunces, Georgia, serif; }
+  p.lead { color: var(--muted); margin: 0 0 20px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+  label.field { display: block; font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+  input[type=text], input[type=email] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+  .step { display: none; }
+  .step.active { display: block; }
+  .qnum { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .prompt { font-weight: 600; margin: 4px 0 12px; }
+  table.ml { width: 100%; border-collapse: collapse; }
+  table.ml th { font-size: 12px; color: var(--muted); font-weight: 600; padding: 4px; }
+  table.ml td { padding: 8px 4px; border-top: 1px solid var(--line); }
+  table.ml td.word { font-size: 16px; }
+  table.ml td.pick { text-align: center; width: 64px; }
+  table.ml input[type=radio] { width: 22px; height: 22px; accent-color: var(--brand); }
+  .likert { display: flex; gap: 6px; justify-content: space-between; margin-top: 8px; }
+  .likert label { flex: 1; text-align: center; border: 1px solid #ccc; border-radius: 6px; padding: 10px 4px; font-size: 13px; cursor: pointer; background: #fff; }
+  .likert input { display: none; }
+  .likert input:checked + span { display: block; }
+  .likert label.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .likert-key { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
+  button { font-size: 16px; padding: 12px 20px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; cursor: pointer; }
+  button.ghost { background: #fff; color: var(--brand); }
+  button:disabled { opacity: .4; cursor: default; }
+  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-bottom: 18px; }
+  .bar div { height: 100%; background: var(--brand); width: 0; transition: width .2s; }
+  .err { color: var(--brand); font-size: 13px; margin-top: 8px; display: none; }
+  .done { text-align: center; padding: 30px 10px; }
+  .done h2 { margin: 0 0 8px; }
+  .small { font-size: 13px; color: var(--muted); }
+  a { color: var(--brand); }
+</style>
+</head>
+<body>
+<header>
+  <img src="https://metcalfsearch.com/logo.png" alt="Metcalf Search" width="160" height="40">
+  <div><div class="name" id="hdrName"></div><div class="sub" id="hdrSub"></div></div>
+</header>
+<main>
+  <div id="intro" class="step active">
+    <h1>Work Style Profile</h1>
+    <p class="lead">We use this short profile to understand how you like to work, so we can put you in front of the right role. About 8 minutes. There are no right or wrong answers. Go with your first instinct and answer for how you actually are at work, not how you think you should be.</p>
+    <div class="card">
+      <label class="field">Your name</label>
+      <input type="text" id="cName" autocomplete="name">
+      <label class="field">Email</label>
+      <input type="email" id="cEmail" autocomplete="email">
+      <label class="field">Role you are applying for</label>
+      <input type="text" id="cRole">
+      <div class="err" id="introErr">Please fill in your name and email.</div>
+    </div>
+    <div class="card small">
+      <strong>How it works.</strong> You will see 24 groups of four words. In each group pick the one word that is <strong>most</strong> like you and the one that is <strong>least</strong> like you. A few short statements are mixed in; for those, just say how much you agree.
+    </div>
+    <div class="nav"><span></span><button id="startBtn">Start</button></div>
+  </div>
+
+  <div id="quiz" class="step">
+    <div class="bar"><div id="barFill"></div></div>
+    <div class="card" id="qCard"></div>
+    <div class="err" id="qErr">Pick one Most and one Least (they cannot be the same word).</div>
+    <div class="nav">
+      <button class="ghost" id="backBtn">Back</button>
+      <button id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <div id="finish" class="step">
+    <div class="card done">
+      <h2>Thank you</h2>
+      <p id="doneMsg">Your profile has been sent to the hiring team. You can close this page.</p>
+      <p class="small" id="fallback" style="display:none"></p>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ---------- Items. Each DISC group: four words, one per style, shuffled at render. ---------- */
+const DISC = [
+  [["Decisive","D"],["Outgoing","I"],["Patient","S"],["Precise","C"]],
+  [["Competitive","D"],["Persuasive","I"],["Loyal","S"],["Careful","C"]],
+  [["Direct","D"],["Enthusiastic","I"],["Steady","S"],["Accurate","C"]],
+  [["Bold","D"],["Talkative","I"],["Easygoing","S"],["Analytical","C"]],
+  [["Results-driven","D"],["Sociable","I"],["Supportive","S"],["Systematic","C"]],
+  [["Takes charge","D"],["Lively","I"],["Calm","S"],["Cautious","C"]],
+  [["Independent","D"],["Optimistic","I"],["Agreeable","S"],["Thorough","C"]],
+  [["Forceful","D"],["Charming","I"],["Consistent","S"],["Organized","C"]],
+  [["Confident","D"],["Inspiring","I"],["Gentle","S"],["Logical","C"]],
+  [["Demanding","D"],["Playful","I"],["Cooperative","S"],["Reserved","C"]],
+  [["Ambitious","D"],["Expressive","I"],["Dependable","S"],["Exact","C"]],
+  [["Quick to act","D"],["Trusting","I"],["Good listener","S"],["Fact-based","C"]],
+  [["Assertive","D"],["Fun-loving","I"],["Team player","S"],["Disciplined","C"]],
+  [["Blunt","D"],["Spontaneous","I"],["Predictable","S"],["Perfectionist","C"]],
+  [["Risk-taker","D"],["Popular","I"],["Even-tempered","S"],["Detail-focused","C"]],
+  [["Pioneering","D"],["Convincing","I"],["Peacemaker","S"],["Follows the rules","C"]],
+  [["Determined","D"],["Animated","I"],["Modest","S"],["Private","C"]],
+  [["Impatient","D"],["Emotional","I"],["Slow to change","S"],["Critical","C"]],
+  [["Self-reliant","D"],["Generous","I"],["Helpful","S"],["Skeptical","C"]],
+  [["Commanding","D"],["Cheerful","I"],["Content","S"],["Tactful","C"]],
+  [["Problem-solver","D"],["Storyteller","I"],["Loyal to the team","S"],["Planner","C"]],
+  [["Strong-willed","D"],["Open","I"],["Kind","S"],["Deliberate","C"]],
+  [["Goal-focused","D"],["Warm","I"],["Relaxed","S"],["Methodical","C"]],
+  [["Driven","D"],["Upbeat","I"],["Stable","S"],["Questioning","C"]]
+];
+/* Locus of control. rev=true means agreeing signals EXTERNAL, so it is reverse scored. */
+const LOC = [
+  {t:"When I miss a goal at work, the first thing I look at is what I could have done differently.", rev:false},
+  {t:"A lot of what happens in a job comes down to luck and timing.", rev:true},
+  {t:"How far I get in my career comes down mostly to my own effort.", rev:false},
+  {t:"There is not much point planning far ahead because things change anyway.", rev:true},
+  {t:"When a plan falls apart, I can usually find a way to make something work.", rev:false},
+  {t:"Getting ahead is mostly about who you know.", rev:true},
+  {t:"I would rather be judged on my results than on how things happened to go.", rev:false},
+  {t:"When things go wrong at work, it is usually because of something outside my control.", rev:true}
+];
+
+/* Build the sequence: a locus statement after every third DISC group. */
+const SEQ = [];
+let li = 0;
+DISC.forEach((g, i) => {
+  const order = [0,1,2,3];
+  for (let k = order.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [order[k], order[j]] = [order[j], order[k]]; }
+  SEQ.push({type:"disc", idx:i, words: order.map(o => g[o])});
+  if ((i + 1) % 3 === 0 && li < LOC.length) SEQ.push({type:"loc", idx:li, item: LOC[li++]});
+});
+const answers = new Array(SEQ.length).fill(null);
+let pos = 0;
+
+const $ = id => document.getElementById(id);
+document.documentElement.style.setProperty("--brand", CONFIG.brandColor);
+$("hdrName").textContent = "Work Style Profile";
+$("hdrSub").textContent = "for " + CONFIG.clientName + (CONFIG.clientSub ? ", " + CONFIG.clientSub : "");
+if (CONFIG.role) $("cRole").value = CONFIG.role;
+
+function show(id) { document.querySelectorAll(".step").forEach(s => s.classList.remove("active")); $(id).classList.add("active"); window.scrollTo(0,0); }
+
+$("startBtn").onclick = () => {
+  const ok = $("cName").value.trim() && /.+@.+\..+/.test($("cEmail").value.trim());
+  $("introErr").style.display = ok ? "none" : "block";
+  if (!ok) return;
+  show("quiz"); render();
+};
+
+function render() {
+  const q = SEQ[pos];
+  $("barFill").style.width = Math.round(pos / SEQ.length * 100) + "%";
+  $("qErr").style.display = "none";
+  let h = `<div class="qnum">${pos + 1} of ${SEQ.length}</div>`;
+  if (q.type === "disc") {
+    const a = answers[pos] || {};
+    h += `<div class="prompt">Which is MOST like you, and which is LEAST like you?</div>
+      <table class="ml"><tr><th></th><th>Most</th><th>Least</th></tr>`;
+    q.words.forEach((w, i) => {
+      h += `<tr><td class="word">${w[0]}</td>
+        <td class="pick"><input type="radio" name="m" value="${i}" ${a.m === i ? "checked" : ""}></td>
+        <td class="pick"><input type="radio" name="l" value="${i}" ${a.l === i ? "checked" : ""}></td></tr>`;
+    });
+    h += `</table>`;
+  } else {
+    const a = answers[pos];
+    h += `<div class="prompt">${q.item.t}</div><div class="likert">`;
+    for (let v = 1; v <= 5; v++) h += `<label class="${a === v ? "on" : ""}"><input type="radio" name="k" value="${v}" ${a === v ? "checked" : ""}><span>${v}</span></label>`;
+    h += `</div><div class="likert-key"><span>Strongly disagree</span><span>Strongly agree</span></div>`;
+  }
+  $("qCard").innerHTML = h;
+  $("qCard").querySelectorAll("input").forEach(inp => inp.addEventListener("change", capture));
+  $("backBtn").disabled = pos === 0;
+  $("nextBtn").textContent = pos === SEQ.length - 1 ? "Finish" : "Next";
+}
+
+function capture() {
+  const q = SEQ[pos];
+  if (q.type === "disc") {
+    const m = $("qCard").querySelector('input[name=m]:checked'), l = $("qCard").querySelector('input[name=l]:checked');
+    answers[pos] = { m: m ? +m.value : undefined, l: l ? +l.value : undefined };
+  } else {
+    const k = $("qCard").querySelector('input[name=k]:checked');
+    answers[pos] = k ? +k.value : null;
+    $("qCard").querySelectorAll(".likert label").forEach(lb => lb.classList.toggle("on", lb.querySelector("input").checked));
+  }
+}
+
+function valid() {
+  const q = SEQ[pos], a = answers[pos];
+  if (q.type === "disc") return a && a.m !== undefined && a.l !== undefined && a.m !== a.l;
+  return a !== null;
+}
+
+$("backBtn").onclick = () => { if (pos > 0) { pos--; render(); } };
+$("nextBtn").onclick = () => {
+  if (!valid()) { $("qErr").style.display = "block"; return; }
+  if (pos < SEQ.length - 1) { pos++; render(); } else finish();
+};
+
+/* ---------- Scoring ---------- */
+const READS = {
+  D: "Direct, results-first, comfortable with conflict and fast decisions. Watch for impatience with process and people who need more time.",
+  I: "People-first, persuasive, energized by interaction. Strong at building rapport and momentum; watch for follow-through on detail.",
+  S: "Steady, loyal, a stabilizer. Reliable and team-minded; may resist sudden change and avoid confrontation.",
+  C: "Precise, analytical, standards-driven. Strong on accuracy and process; may slow down to get it right and can read as reserved."
+};
+function score() {
+  const s = { D:0, I:0, S:0, C:0 }, most = { D:0, I:0, S:0, C:0 }, least = { D:0, I:0, S:0, C:0 };
+  let loc = 0; const raw = [];
+  SEQ.forEach((q, i) => {
+    const a = answers[i];
+    if (q.type === "disc") {
+      const mS = q.words[a.m][1], lS = q.words[a.l][1];
+      most[mS]++; least[lS]++; s[mS]++; s[lS]--;
+      raw.push(`${q.idx + 1}:${q.words[a.m][0]}/${q.words[a.l][0]}`);
+    } else {
+      const v = q.item.rev ? 6 - a : a; loc += v;
+      raw.push(`L${q.idx + 1}:${a}`);
+    }
+  });
+  const ranked = Object.keys(s).sort((x, y) => s[y] - s[x]);
+  const gap = s[ranked[0]] - s[ranked[1]];
+  const locRead = loc >= 32 ? "Strong internal (owns outcomes; expects effort to drive results)"
+    : loc >= 26 ? "Leans internal"
+    : loc >= 20 ? "Mixed"
+    : "Leans external (tends to attribute outcomes to luck, timing, or others). Worth probing in interview.";
+  return { s, most, least, ranked, gap, loc, locRead, raw };
+}
+
+function finish() {
+  $("barFill").style.width = "100%";
+  const r = score();
+  const name = $("cName").value.trim(), email = $("cEmail").value.trim(), role = $("cRole").value.trim() || "(not given)";
+  const pct = k => Math.round((r.s[k] + 24) / 48 * 100);
+  const body =
+`WORK STYLE PROFILE
+Client: ${CONFIG.clientName}
+Candidate: ${name} <${email}>
+Role: ${role}
+Completed: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}
+
+DISC (net = Most minus Least, 24 groups)
+  D ${String(r.s.D).padStart(3)}  (most ${r.most.D}, least ${r.least.D})  ${pct("D")}%
+  I ${String(r.s.I).padStart(3)}  (most ${r.most.I}, least ${r.least.I})  ${pct("I")}%
+  S ${String(r.s.S).padStart(3)}  (most ${r.most.S}, least ${r.least.S})  ${pct("S")}%
+  C ${String(r.s.C).padStart(3)}  (most ${r.most.C}, least ${r.least.C})  ${pct("C")}%
+Primary: ${r.ranked[0]}   Secondary: ${r.ranked[1]}   Lowest: ${r.ranked[3]}
+Pattern strength: ${r.gap >= 6 ? "clear" : r.gap >= 3 ? "moderate" : "flat (blended style, treat primary loosely)"}
+Read: ${READS[r.ranked[0]]}
+
+LOCUS OF CONTROL (8 items, 8 to 40, higher = more internal)
+  Score: ${r.loc}   ${r.locRead}
+
+Raw answers: ${r.raw.join("  ")}`;
+  send(body, name, r);
+}
+
+async function send(body, name, r) {
+  show("finish");
+  if (CONFIG.showResultToCandidate) $("doneMsg").textContent = `Your primary work style came out as ${r.ranked[0]} with ${r.ranked[1]} secondary. Your full profile has been sent to the hiring team.`;
+  let ok = false;
+  try {
+    const res = await fetch("https://formsubmit.co/ajax/" + CONFIG.resultsTo, {
+      method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ _subject: `Work Style Profile: ${name} (${CONFIG.clientName})`, _template: "box", _captcha: "false", name, email: $("cEmail").value.trim(), results: body })
+    });
+    const j = await res.json(); ok = String(j.success) === "true";
+  } catch (e) { ok = false; }
+  if (!ok) {
+    const href = `mailto:${CONFIG.resultsTo}?subject=${encodeURIComponent("Work Style Profile: " + name)}&body=${encodeURIComponent(body)}`;
+    $("fallback").innerHTML = `One last step: please <a href="${href}">tap here to send your results</a> so the team receives them.`;
+    $("fallback").style.display = "block";
+  }
+}
+</script>
+</body>
+</html>
