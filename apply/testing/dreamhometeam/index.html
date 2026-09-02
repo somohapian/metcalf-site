@@ -15,7 +15,7 @@ const CONFIG = {
   clientSub: "Keller Williams Consultants Realty",
   brandColor: "#6f9b7c",
   role: "",                       // optional: prefill a role name, or leave blank and the candidate types it
-  resultsTo: "jay@metcalfsearch.com",     // results land here via FormSubmit (one-time activation email on first use); also the mailto fallback
+  resultsTo: "jay@metcalfsearch.com",     // results land here via FormSubmit
   showResultToCandidate: false    // true = candidate sees their primary style after submitting
 };
 </script>
@@ -44,12 +44,11 @@ const CONFIG = {
   table.ml td.word { font-size: 16px; }
   table.ml td.pick { text-align: center; width: 64px; }
   table.ml input[type=radio] { width: 22px; height: 22px; accent-color: var(--brand); }
-  .likert { display: flex; gap: 6px; justify-content: space-between; margin-top: 8px; }
-  .likert label { flex: 1; text-align: center; border: 1px solid #ccc; border-radius: 6px; padding: 10px 4px; font-size: 13px; cursor: pointer; background: #fff; }
-  .likert input { display: none; }
-  .likert input:checked + span { display: block; }
-  .likert label.on { background: var(--brand); color: #fff; border-color: var(--brand); }
-  .likert-key { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .choice { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .choice label { display: block; border: 1px solid #ccc; border-radius: 8px; padding: 12px 14px; font-size: 15px; cursor: pointer; background: #fff; line-height: 1.4; }
+  .choice input { display: none; }
+  .choice label.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+  textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; font-family: inherit; resize: vertical; }
   .nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
   button { font-size: 16px; padding: 12px 20px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; cursor: pointer; }
   button.ghost { background: #fff; color: var(--brand); }
@@ -82,7 +81,7 @@ const CONFIG = {
       <div class="err" id="introErr">Please fill in your name and email.</div>
     </div>
     <div class="card small">
-      <strong>How it works.</strong> You will see 24 groups of four words. In each group pick the one word that is <strong>most</strong> like you and the one that is <strong>least</strong> like you. A few short statements are mixed in; for those, just say how much you agree.
+      <strong>How it works.</strong> You will see 24 groups of four words. In each group pick the one word that is <strong>most</strong> like you and the one that is <strong>least</strong> like you. A few short workplace scenarios are mixed in; for those, pick the answer that is closer to you. Two of them ask for one sentence in your own words.
     </div>
     <div class="nav"><span></span><button id="startBtn">Start</button></div>
   </div>
@@ -90,7 +89,7 @@ const CONFIG = {
   <div id="quiz" class="step">
     <div class="bar"><div id="barFill"></div></div>
     <div class="card" id="qCard"></div>
-    <div class="err" id="qErr">Pick one Most and one Least (they cannot be the same word).</div>
+    <div class="err" id="qErr">Please answer before moving on (for word groups, pick one Most and one Least, not the same word).</div>
     <div class="nav">
       <button class="ghost" id="backBtn">Back</button>
       <button id="nextBtn">Next</button>
@@ -101,7 +100,6 @@ const CONFIG = {
     <div class="card done">
       <h2>Thank you</h2>
       <p id="doneMsg">Your profile has been sent to the hiring team. You can close this page.</p>
-      <p class="small" id="fallback" style="display:none"></p>
     </div>
   </div>
 </main>
@@ -134,16 +132,25 @@ const DISC = [
   [["Goal-focused","D"],["Warm","I"],["Relaxed","S"],["Methodical","C"]],
   [["Driven","D"],["Upbeat","I"],["Stable","S"],["Questioning","C"]]
 ];
-/* Locus of control. rev=true means agreeing signals EXTERNAL, so it is reverse scored. */
+/* Locus of control: scenario items. Each has two options; "internal" marks which option index (0 or 1) is the internal-attribution answer.
+   type "pair" = choose one. type "open" = one free-text sentence first, then choose one. */
 const LOC = [
-  {t:"When I miss a goal at work, the first thing I look at is what I could have done differently.", rev:false},
-  {t:"A lot of what happens in a job comes down to luck and timing.", rev:true},
-  {t:"How far I get in my career comes down mostly to my own effort.", rev:false},
-  {t:"There is not much point planning far ahead because things change anyway.", rev:true},
-  {t:"When a plan falls apart, I can usually find a way to make something work.", rev:false},
-  {t:"Getting ahead is mostly about who you know.", rev:true},
-  {t:"I would rather be judged on my results than on how things happened to go.", rev:false},
-  {t:"When things go wrong at work, it is usually because of something outside my control.", rev:true}
+  {type:"pair", stem:"A deal or project you had been working for six weeks goes to someone else. Which is closer to your first thought?",
+   opts:["I should have moved faster after the second meeting.","Their price was always going to be hard to beat this quarter."], internal:0},
+  {type:"pair", stem:"You get passed over for a promotion you expected. Which is closer to how you would explain it to a friend that night?",
+   opts:["The timing was not right; they needed someone in that seat before I had a chance to show what I could do.","I did not make my case early enough, and they did not know I wanted it."], internal:1},
+  {type:"pair", stem:"A client or customer is unhappy with work your team delivered. Which sounds more like you?",
+   opts:["I will go back through what we sent and figure out where I could have caught it.","Some clients are going to be unhappy no matter what; the scope was never clear."], internal:0},
+  {type:"pair", stem:"A new hire misses their 90-day goals. Most people in that seat would say the main reason was:",
+   opts:["the ramp-up plan was not realistic for the job.","they waited too long to ask for help."], internal:1},
+  {type:"pair", stem:"Someone has had three jobs in three years. Most people in that position would say it comes down to:",
+   opts:["bad luck with companies going through changes.","taking jobs without asking enough questions up front."], internal:1},
+  {type:"pair", stem:"An employee's numbers drop for two months in a row. Most people in that situation would say the honest reason is:",
+   opts:["they let a few habits slip and need to tighten back up.","the market, the leads, or the territory changed on them."], internal:0},
+  {type:"open", stem:"Think of a time something you cared about at work did not work out. In one sentence, what was the main cause?",
+   follow:"That cause was mostly about...", opts:["something you did or did not do.","the situation you were in."], internal:0},
+  {type:"open", stem:"Think of the best result you have had at work in the last couple of years. In one sentence, what made it happen?",
+   follow:"That result came mostly from...", opts:["being in the right place with the right people.","something you did differently or better than usual."], internal:1}
 ];
 
 /* Build the sequence: a locus statement after every third DISC group. */
@@ -189,13 +196,15 @@ function render() {
     });
     h += `</table>`;
   } else {
-    const a = answers[pos];
-    h += `<div class="prompt">${q.item.t}</div><div class="likert">`;
-    for (let v = 1; v <= 5; v++) h += `<label class="${a === v ? "on" : ""}"><input type="radio" name="k" value="${v}" ${a === v ? "checked" : ""}><span>${v}</span></label>`;
-    h += `</div><div class="likert-key"><span>Strongly disagree</span><span>Strongly agree</span></div>`;
+    const a = answers[pos] || {};
+    h += `<div class="prompt">${q.item.stem}</div>`;
+    if (q.item.type === "open") h += `<textarea id="otxt" rows="3" placeholder="One sentence is plenty">${a.txt || ""}</textarea><div class="prompt" style="margin-top:14px">${q.item.follow}</div>`;
+    h += `<div class="choice">`;
+    q.item.opts.forEach((o, i) => { h += `<label class="${a.c === i ? "on" : ""}"><input type="radio" name="k" value="${i}" ${a.c === i ? "checked" : ""}><span>${o}</span></label>`; });
+    h += `</div>`;
   }
   $("qCard").innerHTML = h;
-  $("qCard").querySelectorAll("input").forEach(inp => inp.addEventListener("change", capture));
+  $("qCard").querySelectorAll("input, textarea").forEach(inp => inp.addEventListener("input", capture));
   $("backBtn").disabled = pos === 0;
   $("nextBtn").textContent = pos === SEQ.length - 1 ? "Finish" : "Next";
 }
@@ -206,16 +215,17 @@ function capture() {
     const m = $("qCard").querySelector('input[name=m]:checked'), l = $("qCard").querySelector('input[name=l]:checked');
     answers[pos] = { m: m ? +m.value : undefined, l: l ? +l.value : undefined };
   } else {
-    const k = $("qCard").querySelector('input[name=k]:checked');
-    answers[pos] = k ? +k.value : null;
-    $("qCard").querySelectorAll(".likert label").forEach(lb => lb.classList.toggle("on", lb.querySelector("input").checked));
+    const k = $("qCard").querySelector('input[name=k]:checked'), t = $("otxt");
+    answers[pos] = { c: k ? +k.value : undefined, txt: t ? t.value.trim() : "" };
+    $("qCard").querySelectorAll(".choice label").forEach(lb => lb.classList.toggle("on", lb.querySelector("input").checked));
   }
 }
 
 function valid() {
   const q = SEQ[pos], a = answers[pos];
   if (q.type === "disc") return a && a.m !== undefined && a.l !== undefined && a.m !== a.l;
-  return a !== null;
+  if (q.item.type === "open" && !(a && a.txt)) return false;
+  return a && a.c !== undefined;
 }
 
 $("backBtn").onclick = () => { if (pos > 0) { pos--; render(); } };
@@ -233,7 +243,7 @@ const READS = {
 };
 function score() {
   const s = { D:0, I:0, S:0, C:0 }, most = { D:0, I:0, S:0, C:0 }, least = { D:0, I:0, S:0, C:0 };
-  let loc = 0; const raw = [];
+  let loc = 0; const raw = [], open = [];
   SEQ.forEach((q, i) => {
     const a = answers[i];
     if (q.type === "disc") {
@@ -241,17 +251,18 @@ function score() {
       most[mS]++; least[lS]++; s[mS]++; s[lS]--;
       raw.push(`${q.idx + 1}:${q.words[a.m][0]}/${q.words[a.l][0]}`);
     } else {
-      const v = q.item.rev ? 6 - a : a; loc += v;
-      raw.push(`L${q.idx + 1}:${a}`);
+      const internal = a.c === q.item.internal; if (internal) loc++;
+      raw.push(`L${q.idx + 1}:${"ab"[a.c]}${internal ? "(int)" : "(ext)"}`);
+      if (q.item.type === "open") open.push(`  L${q.idx + 1} "${q.item.stem}"\n    Answer: ${a.txt}\n    Then chose: ${q.item.opts[a.c]} ${internal ? "[internal]" : "[external]"}`);
     }
   });
   const ranked = Object.keys(s).sort((x, y) => s[y] - s[x]);
   const gap = s[ranked[0]] - s[ranked[1]];
-  const locRead = loc >= 32 ? "Strong internal (owns outcomes; expects effort to drive results)"
-    : loc >= 26 ? "Leans internal"
-    : loc >= 20 ? "Mixed"
+  const locRead = loc >= 7 ? "Strong internal (owns outcomes; expects effort to drive results)"
+    : loc >= 5 ? "Leans internal"
+    : loc >= 3 ? "Mixed"
     : "Leans external (tends to attribute outcomes to luck, timing, or others). Worth probing in interview.";
-  return { s, most, least, ranked, gap, loc, locRead, raw };
+  return { s, most, least, ranked, gap, loc, locRead, raw, open };
 }
 
 function finish() {
@@ -275,8 +286,10 @@ Primary: ${r.ranked[0]}   Secondary: ${r.ranked[1]}   Lowest: ${r.ranked[3]}
 Pattern strength: ${r.gap >= 6 ? "clear" : r.gap >= 3 ? "moderate" : "flat (blended style, treat primary loosely)"}
 Read: ${READS[r.ranked[0]]}
 
-LOCUS OF CONTROL (8 items, 8 to 40, higher = more internal)
-  Score: ${r.loc}   ${r.locRead}
+LOCUS OF CONTROL (8 scenarios, count of internal choices, 0 to 8)
+  Score: ${r.loc} of 8   ${r.locRead}
+  Free-text answers (read L7 and L8 side by side):
+${r.open.join("\n")}
 
 Raw answers: ${r.raw.join("  ")}`;
   send(body, name, r);
@@ -285,19 +298,15 @@ Raw answers: ${r.raw.join("  ")}`;
 async function send(body, name, r) {
   show("finish");
   if (CONFIG.showResultToCandidate) $("doneMsg").textContent = `Your primary work style came out as ${r.ranked[0]} with ${r.ranked[1]} secondary. Your full profile has been sent to the hiring team.`;
-  let ok = false;
-  try {
-    const res = await fetch("https://formsubmit.co/ajax/" + CONFIG.resultsTo, {
-      method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({ _subject: `Enhanced Workplace Assessment: ${name} (${CONFIG.clientName})`, _template: "box", _captcha: "false", name, email: $("cEmail").value.trim(), results: body })
-    });
-    const j = await res.json(); ok = String(j.success) === "true";
-  } catch (e) { ok = false; }
-  if (!ok) {
-    const href = `mailto:${CONFIG.resultsTo}?subject=${encodeURIComponent("Enhanced Workplace Assessment: " + name)}&body=${encodeURIComponent(body)}`;
-    $("fallback").innerHTML = `One last step: please <a href="${href}">tap here to send your results</a> so the team receives them.`;
-    $("fallback").style.display = "block";
+  const payload = JSON.stringify({ _subject: `Enhanced Workplace Assessment: ${name} (${CONFIG.clientName})`, _template: "box", _captcha: "false", name, email: $("cEmail").value.trim(), results: body });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/" + CONFIG.resultsTo, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: payload });
+      if (res.ok) return;
+    } catch (e) {}
+    await new Promise(r => setTimeout(r, 1500 * (attempt + 1)));
   }
+  console.warn("Result delivery could not be confirmed.");
 }
 </script>
 </body>
