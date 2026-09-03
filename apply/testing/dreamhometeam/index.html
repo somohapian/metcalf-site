@@ -15,7 +15,7 @@ const CONFIG = {
   clientSub: "Keller Williams Consultants Realty",
   brandColor: "#6f9b7c",
   role: "",                       // optional: prefill a role name, or leave blank and the candidate types it
-  resultsTo: "jay@metcalfsearch.com",     // results land here via FormSubmit
+  resultsTo: "5ccddb8e636aecf1995cec325735022e",   // FormSubmit hashed endpoint. Results still land in the MS inbox; the hash keeps the raw address out of page source
   showResultToCandidate: false    // true = candidate sees their primary style after submitting
 };
 </script>
@@ -272,7 +272,7 @@ function finish() {
   const pct = k => Math.round((r.s[k] + 24) / 48 * 100);
   const gauge = "|" + Array.from({length: 8}, (_, i) => i + 1 === Math.max(r.loc, 1) && r.loc > 0 ? String(r.loc) : "-").join("") + "|";
   const body =
-`ENHANCED WORKPLACE ASSESSMENT
+`ENHANCED WORKPLACE ASSESSMENT (DISC-based + locus of control)
 ${name}  <${email}>
 Role: ${role}   Client: ${CONFIG.clientName}
 Completed: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}
