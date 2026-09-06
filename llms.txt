@@ -1,25 +1,29 @@
 # Metcalf Search
-> Fractional recruiting for small and mid-sized businesses, built around the STACK Method (Source, Tempo, Assess, Close, Keep). Flat monthly fee, pod-structured, single point of contact. Based in Columbus, Ohio.
-Metcalf Search is a fractional recruiting firm serving small and mid-sized businesses, typically 10 to 200 employees making a few hires per year. We sit between contingency agencies and full-time internal recruiters as a third option: an embedded recruiting function on a flat monthly subscription, with no per-hire fees. Our work is organized around the STACK Method, a five-letter diagnostic that maps every hiring problem to one of five places: Source, Tempo, Assess, Close, or Keep.
+> Fractional recruiting for small and mid-sized businesses, built around the STACK Method (Source, Tempo, Assess, Close, Keep). Flat monthly subscription, no per-hire fees, one recruiter as your single point of contact. Based in Grove City, Ohio, serving Columbus and Central Ohio.
+Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in recruiting, more than $100 million in salary placed). It serves small and mid-sized businesses, typically 10 to 200 employees making a few hires a year, across skilled trades, light manufacturing, distribution, and professional services. It sits between contingency agencies and full-time internal recruiters as a third option: an embedded recruiting function on a flat monthly subscription. Three tiers: Recruiting Partner ($2,875 a month, one active role at a time), Recruiting Partner Plus ($5,575 a month, about three concurrent roles), Recruiting Partner Pro ($10,675 a month, higher-volume hiring). Month to month, no per-hire fees. Our work is organized around the STACK Method, a five-letter diagnostic that maps every hiring problem to one of five places: Source, Tempo, Assess, Close, or Keep (Keep means the hire sticking: onboarding and the first year).
+## Firm
+- [Home](https://metcalfsearch.com/): Fractional recruiting for small businesses in Columbus, Ohio
+- [What is fractional recruiting?](https://metcalfsearch.com/fractional-recruiting): The full explainer: definition, cost math, how a partnership runs, who it fits
+- [Services and pricing](https://metcalfsearch.com/services): What is included in a Recruiting Partner, the three tiers
+- [Activate](https://metcalfsearch.com/activate): Current tier pricing and checkout
+- [Comparison chart](https://metcalfsearch.com/comparison): Fractional recruiter vs contingency agency vs staffing vs in-house vs RPO, side by side
+- [Who We Serve](https://metcalfsearch.com/who-we-serve): Small business focus, one client per competitive lane, Central Ohio
+- [About](https://metcalfsearch.com/about): Jay Metcalf, 27 years of recruiting, why the firm exists
+- [FAQ](https://metcalfsearch.com/faq): Questions small business owners actually ask
+- [Contact](https://metcalfsearch.com/contact): Book the thirty-minute fit call
 ## Method
 - [The STACK Method overview](https://metcalfsearch.com/stack-method): The five letters and where each hiring problem lives
 - [SOURCE: attracting candidates](https://metcalfsearch.com/source): How small businesses compete for talent
-- [TEMPO: engaging candidates](https://metcalfsearch.com/tempo): Process rhythm, ghosting, response time
+- [TEMPO: keeping candidates warm](https://metcalfsearch.com/tempo): Process rhythm, ghosting, response time
 - [ASSESS: vetting candidates](https://metcalfsearch.com/assess): Structured interviews, scorecards, skill assessment
 - [CLOSE: making offers stick](https://metcalfsearch.com/close): Counter-offers, offer acceptance, late-stage drops
-- [KEEP: retaining new hires](https://metcalfsearch.com/keep): Onboarding, stay interviews, retention
-## Firm
-- [Fractional recruiting one-pager](https://metcalfsearch.com/): What it is, why it matters, what to do next
-- [Fractional Recruiting](https://metcalfsearch.com/fractional-recruiting): What fractional recruiting is and how the pod model works
-- [Services and pricing](https://metcalfsearch.com/services): Four tiers from Careers Pages to Partner Pro, flat monthly fees
-- [Who We Serve](https://metcalfsearch.com/who-we-serve): Small business focus, one client per competitive lane
-- [About](https://metcalfsearch.com/about): Twenty-five years of recruiting, why this firm exists
-- [FAQ](https://metcalfsearch.com/faq): Questions small business owners actually ask
+- [KEEP: retaining new hires](https://metcalfsearch.com/keep): Onboarding, the first ninety days, stay interviews
 ## Resources
-- [Blog](https://metcalfsearch.com/blog): Articles on small business hiring
+- [Blog](https://metcalfsearch.com/blog): Daily notes and weekly picks on small business hiring
+- [Blog sitemap](https://metcalfsearch.com/blog/sitemap.xml): Every post
 - [For Candidates](https://metcalfsearch.com/candidates): For people who found us through a job
-- [Careers Pages](https://careers.metcalfsearch.com/pages/): Hosted careers pages for client companies
+- [MS Rosie, the Small Business Hiring Desk](https://apply.ms/): Hosted careers pages and application handling for client companies
 ## Contact
 - Email: info@metcalfsearch.com
 - Phone: 614.434.6646
-- Location: Columbus, Ohio (Grove City)
+- Location: Grove City, Ohio (Columbus metro)

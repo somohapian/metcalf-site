@@ -217,6 +217,47 @@ a{color:inherit;text-decoration:none;}
   .nf-links a{transition:none;}
 }
 </style>
+
+<style id="metcalf-hamburger-css">
+  .hamburger-btn { display: none; }
+  @media (max-width: 768px) {
+    .hamburger-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; background: none; border: none; cursor: pointer;
+      padding: 0; margin-left: auto; position: relative; z-index: 101;
+    }
+    .hamburger-btn .bar { display: block; width: 24px; height: 2px; background: #1a1a1a; position: relative; transition: background 0.2s; }
+    .hamburger-btn .bar::before, .hamburger-btn .bar::after {
+      content: ""; position: absolute; left: 0; width: 24px; height: 2px; background: #1a1a1a; transition: transform 0.2s;
+    }
+    .hamburger-btn .bar::before { top: -8px; }
+    .hamburger-btn .bar::after  { top:  8px; }
+    .hamburger-btn[aria-expanded="true"] .bar { background: transparent; }
+    .hamburger-btn[aria-expanded="true"] .bar::before { top: 0; transform: rotate(45deg); }
+    .hamburger-btn[aria-expanded="true"] .bar::after  { top: 0; transform: rotate(-45deg); }
+    .topnav .nav-cta { display: none !important; }
+  }
+  .nav-overlay {
+    position: fixed; inset: 0; background: rgba(250,250,247,0.98);
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 100; gap: 24px; padding: 80px 20px 40px;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .nav-overlay.open { display: flex; }
+  .nav-overlay a {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 26px; color: #1a1a1a; text-decoration: none; font-weight: 400;
+    padding: 6px 0;
+  }
+  .nav-overlay a:hover { color: #a83e2c; }
+  .nav-overlay a.nav-cta-mobile {
+    display: inline-block; margin-top: 18px;
+    padding: 14px 32px; border: 1px solid #1a1a1a;
+    font-family: inherit; font-size: 16px; font-weight: 500;
+    text-transform: none; border-radius: 2px;
+  }
+  .nav-overlay a.nav-cta-mobile:hover { background: #1a1a1a; color: #fafaf7; }
+</style>
 </head>
 <body>
 <nav class="topnav" id="topnav">
@@ -231,7 +272,7 @@ a{color:inherit;text-decoration:none;}
       <a href="/about">About</a>
       <a href="/blog">Blog</a>
     </div>
-    <a href="/services#contact" class="nav-cta">Start a Conversation</a>
+    <a href="/contact" class="nav-cta">Start a Conversation</a>
   </div>
 </nav>
 
@@ -244,7 +285,7 @@ a{color:inherit;text-decoration:none;}
   <div>
     <p class="nf-code">Error 404 &middot; Who?</p>
     <h1>Hugh has no idea<br>where this one went.</h1>
-    <p class="nf-lede">He has turned his head all the way around, twice. Nothing. The page you asked for either moved, got renamed, or never existed to begin with.</p>
+    <p class="nf-lede">Hugh, our owl, has turned his head all the way around, twice. Nothing. The page you asked for either moved, got renamed, or never existed to begin with.</p>
     <p class="nf-lede">Here is what is definitely still on the perch:</p>
 
     <ul class="nf-links">
@@ -252,7 +293,9 @@ a{color:inherit;text-decoration:none;}
       <li><a href="/stack-method">The STACK Method<span>Five letters, five fixes</span></a></li>
       <li><a href="/services">Services<span>What is included</span></a></li>
       <li><a href="/activate">Activate<span>Tiers and pricing</span></a></li>
-      <li><a href="/blog">Blog<span>Hugh writes here</span></a></li>
+      <li><a href="/blog">Blog<span>Weekly picks and posts</span></a></li>
+      <li><a href="/candidates">For Candidates<span>What to expect from us</span></a></li>
+      <li><a href="/faq">FAQ<span>Common questions, answered</span></a></li>
       <li><a href="/contact">Contact<span>Talk to a person</span></a></li>
     </ul>
 
@@ -269,13 +312,63 @@ a{color:inherit;text-decoration:none;}
       <p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p>
     </div>
     <div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div>
-    <div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li></ul></div>
-    <div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://careers.metcalfsearch.com/pages/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div>
+    <div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div>
   </div>
   <div class="foot-bottom">
-    <div>&copy; 2026 Metcalf Search. Columbus, Ohio.</div>
+    <div>&copy; 2026 Metcalf Search. Grove City, Ohio.</div>
     <div>info@metcalfsearch.com &middot; 614.434.6646</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  function init(){
+    var nav = document.querySelector('.topnav .topnav-inner') || document.querySelector('.topnav');
+    if (!nav) return;
+    if (document.querySelector('.hamburger-btn')) return; // already injected
+    // Build button
+    var btn = document.createElement('button');
+    btn.className = 'hamburger-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Open menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span class="bar"></span>';
+    nav.appendChild(btn);
+    // Build overlay
+    var overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.id = 'metcalf-nav-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    // Pull current nav links + CTA from the DOM so this stays in sync if Pages source changes
+    var links = document.querySelectorAll('.nav-links a');
+    var cta = document.querySelector('.nav-cta');
+    var html = '';
+    Array.prototype.forEach.call(links, function(a){
+      html += '<a href="' + a.getAttribute('href') + '">' + (a.textContent || '').trim() + '</a>';
+    });
+    if (cta) {
+      html += '<a class="nav-cta-mobile" href="' + cta.getAttribute('href') + '">' + (cta.textContent || '').trim() + '</a>';
+    }
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+    function open(){  overlay.classList.add('open');    btn.setAttribute('aria-expanded', 'true');  document.body.style.overflow = 'hidden'; }
+    function close(){ overlay.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+    btn.addEventListener('click', function(){
+      if (overlay.classList.contains('open')) close(); else open();
+    });
+    overlay.addEventListener('click', function(e){
+      // Clicking a link closes the menu before navigation
+      if (e.target.tagName === 'A') close();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </body>
 </html>
