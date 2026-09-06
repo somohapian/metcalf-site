@@ -1,3 +1,3 @@
-https://litter.catbox.moe/kguv4h.gz
-749137881d24ade6b64ee4247a8a79e0c837f546abd82798f2a7b0385075792a
-2026-09-06 full site audit: copy fixes on every page (27 years, Grove City, tier names and prices, timing, banned words), blog rebuilt as Pages Functions (index, posts, blog sitemap), SEO pass (titles, FAQ schema sync, internal links, contact CTA), sitemap, llms.txt, robots
+https://litter.catbox.moe/08plow.gz
+75bb2ada7b2102a4d1911decbf1c648f6a8c111613d6603d60dd5dd395a0d708
+2026-09-06 evening sweep: security headers (_headers, functions), blog renderer hardening (safe slugs, author escaping, link scheme checks, fetch timeout), mobile menu close fix on every page, phone overflow and doubled-gutter fixes, tappable footer email and phone, Comparison in footer, 29 dead scroll scripts removed, blog cards on brand tokens, 404 gets analytics
