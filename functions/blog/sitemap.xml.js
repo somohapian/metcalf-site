@@ -1,4 +1,4 @@
-import { API_BASE, fetchJson, renderSitemap } from '../_lib/blog.js';
+import { API_BASE, fetchJson, renderSitemap, withSecurityHeaders } from '../_lib/blog.js';
 
 const TTL = 3600;
 const PAGE = 500;
@@ -27,9 +27,9 @@ async function loadAllPosts() {
 export async function onRequestGet() {
   const posts = await loadAllPosts();
   return new Response(renderSitemap(posts), {
-    headers: {
+    headers: withSecurityHeaders({
       'content-type': 'application/xml; charset=utf-8',
       'cache-control': 'public, max-age=3600, s-maxage=3600'
-    }
+    })
   });
 }

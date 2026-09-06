@@ -66,6 +66,7 @@ a{color:inherit;text-decoration:none;}
 .link-bar h3{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:18px;}
 .link-bar ul{list-style:none;}
 .link-bar li{padding:8px 0;font-family:var(--display);font-size:18px;color:var(--ink);}
+.link-bar li a{color:var(--ink);}
 .link-bar li a:hover{color:var(--brick);}
 .foot{margin-top:100px;padding:60px 32px 40px;border-top:1px solid var(--rule);}
 .foot-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;}
@@ -142,6 +143,7 @@ a{color:inherit;text-decoration:none;}
 .faq-card .faq-answer p { margin: 0 0 0.75rem 0; }
 .faq-card .faq-answer p:last-child { margin: 0; }
 
+.prose .leaf-faq{padding-left:0;padding-right:0;}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -168,6 +170,7 @@ a{color:inherit;text-decoration:none;}
     .hamburger-btn[aria-expanded="true"] .bar::before { top: 0; transform: rotate(45deg); }
     .hamburger-btn[aria-expanded="true"] .bar::after  { top: 0; transform: rotate(-45deg); }
     .topnav .nav-cta { display: none !important; }
+    .topnav { z-index: 110; }
   }
   .nav-overlay {
     position: fixed; inset: 0; background: rgba(250,250,247,0.98);
@@ -398,7 +401,7 @@ a{color:inherit;text-decoration:none;}
 
 <footer class="foot"><div class="foot-inner"><div><div class="foot-brand">
         <img src="/logo.png" alt="Metcalf Search" class="foot-brand-logo" width="140" height="35">
-      </div><p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Grove City, Ohio.</div><div>info@metcalfsearch.com &middot; 614.434.6646</div></div></footer>
+      </div><p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Grove City, Ohio.</div><div><a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> &middot; <a href="tel:+16144346646">614.434.6646</a></div></div></footer>
 
 <script>const nav=document.getElementById('topnav');window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');},{passive:true});</script>
 
@@ -451,61 +454,7 @@ a{color:inherit;text-decoration:none;}
   else init();
 })();
 </script>
-<script>
-(function(){
-  function init(){
-    var leaves = document.querySelectorAll('.leaf[data-leaf]');
-    if (!leaves.length) return;
-    function sync(){
-      var nav = document.getElementById('topnav');
-      var navOffset = (nav ? nav.offsetHeight : 70) + 20;
-      var viewportTop = window.scrollY + navOffset;
-      leaves.forEach(function(leaf){
-        var r = leaf.getBoundingClientRect();
-        var top = window.scrollY + r.top;
-        var bottom = window.scrollY + r.bottom;
-        // Match original "you've scrolled past the top of this leaf" semantics, but
-        // ALSO remove when the leaf has fully scrolled away (top or bottom). Toggling
-        // the class retriggers the CSS color transition each direction.
-        var inView = (top - 80 < viewportTop) && (bottom > viewportTop);
-        leaf.classList.toggle('in-view', inView);
-      });
-    }
-    window.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync, { passive: true });
-    sync();
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
 
-<script>
-(function(){
-  function init(){
-    var leaves = document.querySelectorAll('.leaf[data-leaf]');
-    if (!leaves.length) return;
-    function sync(){
-      var nav = document.getElementById('topnav');
-      var navOffset = (nav ? nav.offsetHeight : 70) + 20;
-      var viewportTop = window.scrollY + navOffset;
-      leaves.forEach(function(leaf){
-        var r = leaf.getBoundingClientRect();
-        var top = window.scrollY + r.top;
-        var bottom = window.scrollY + r.bottom;
-        // Match original "you've scrolled past the top of this leaf" semantics, but
-        // ALSO remove when the leaf has fully scrolled away (top or bottom). Toggling
-        // the class retriggers the CSS color transition each direction.
-        var inView = (top - 80 < viewportTop) && (bottom > viewportTop);
-        leaf.classList.toggle('in-view', inView);
-      });
-    }
-    window.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync, { passive: true });
-    sync();
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script></body>
+
+</body>
 </html>

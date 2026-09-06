@@ -9,6 +9,45 @@
 export const API_BASE = 'https://metcalf-blog-scraper.jay-9e2.workers.dev';
 export const SITE = 'https://metcalfsearch.com';
 
+/* -------------------------------------------------------------- headers */
+
+/**
+ * Cloudflare Pages applies `_headers` to static assets only, not to Functions
+ * responses, so the blog routes have to set the same headers themselves.
+ * Keep this list in sync with `_headers` at the repo root.
+ *
+ * The CSP is Report-Only on purpose: the pages use inline scripts and inline
+ * styles throughout, so it can only be tightened after those are moved out.
+ */
+export const CSP_REPORT_ONLY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.stripe.com https://assets.calendly.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.stripe.com https://*.calendly.com",
+  "connect-src 'self' https://api.metcalfsearch.com https://formsubmit.co https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://api.stripe.com https://calendly.com",
+  "frame-src https://js.stripe.com https://hooks.stripe.com https://calendly.com",
+  'upgrade-insecure-requests'
+].join('; ');
+
+export const SECURITY_HEADERS = {
+  'x-content-type-options': 'nosniff',
+  'x-frame-options': 'DENY',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=(self "https://js.stripe.com")',
+  'strict-transport-security': 'max-age=31536000',
+  'content-security-policy-report-only': CSP_REPORT_ONLY
+};
+
+/** Merge the standard headers into a response header bag. */
+export function withSecurityHeaders(headers) {
+  return Object.assign({}, SECURITY_HEADERS, headers || {});
+}
+
 /* ------------------------------------------------------------------ text */
 
 export function escapeHtml(value) {
@@ -78,8 +117,21 @@ export function cleanBlock(value) {
 /** Absolute http(s) URLs only; anything else is dropped. */
 export function safeUrl(value) {
   const raw = decodeEntities(value).trim();
+  // No whitespace or control characters: those are the only way an attribute
+  // value could grow a second attribute once it is written into the page.
+  if (/[\u0000-\u0020\u007f]/.test(raw)) return '';
   if (!/^https?:\/\//i.test(raw)) return '';
   return raw;
+}
+
+/**
+ * The only slug shape the /blog/[slug] route will serve. Anything else
+ * (traversal, slashes, angle brackets, percent escapes) is dropped rather
+ * than linked, so the API can never mint a link we would not honour.
+ */
+export function safeSlug(value) {
+  const raw = String(value == null ? '' : value).trim();
+  return /^[a-z0-9][a-z0-9._-]*$/i.test(raw) && !raw.includes('..') ? raw : '';
 }
 
 export function hostOf(url) {
@@ -161,7 +213,7 @@ export function monthLabel(key) {
  * JSON GET with the Cache API in front of it where the runtime has one.
  * Throws on a non-2xx response so callers can fall back to an empty state.
  */
-export async function fetchJson(url, ttlSeconds = 300) {
+export async function fetchJson(url, ttlSeconds = 300, timeoutMs = 4000) {
   const request = new Request(url, { headers: { accept: 'application/json' } });
   let store = null;
   try {
@@ -175,10 +227,16 @@ export async function fetchJson(url, ttlSeconds = 300) {
       if (hit) return await hit.json();
     } catch (err) { /* cache miss behaves like no cache */ }
   }
-  const response = await fetch(request, {
-    cf: { cacheTtl: ttlSeconds, cacheEverything: true }
-  });
-  if (!response.ok) throw new Error(`upstream ${response.status} for ${url}`);
+  // A hung upstream must not hold the page open. AbortSignal.timeout exists in
+  // the Workers runtime and in Node 18+; where it does not, we simply skip it.
+  const options = { cf: { cacheTtl: ttlSeconds, cacheEverything: true } };
+  try {
+    if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+      options.signal = AbortSignal.timeout(timeoutMs);
+    }
+  } catch (err) { /* no abort support: fall through without one */ }
+  const response = await fetch(request, options);
+  if (!response.ok) throw new Error(`upstream ${response.status}`);
   const text = await response.text();
   const data = JSON.parse(text);
   if (store) {
@@ -340,23 +398,24 @@ export function authorLabel(author) {
 
 function authorColor(author) {
   const key = String(author == null ? '' : author).toLowerCase();
-  return (key === 'rosie' || key === 'hugh') ? '#6f9b7c' : '#a83e2c';
+  return (key === 'rosie' || key === 'hugh') ? 'var(--celadon-deep)' : 'var(--brick)';
 }
 
 /** Same card markup (and inline styles) the old client script produced. */
 export function renderRecentCard(post) {
   if (!post || !post.slug) return '';
-  const slug = encodeURIComponent(String(post.slug)).replace(/%2F/gi, '/');
+  const slug = safeSlug(post.slug);
+  if (!slug) return '';
   const title = escapeHtml(cleanInline(post.title || 'Untitled'));
   const date = escapeHtml(formatDate(post.published_at || post.week_of_date));
   const raw = cleanInline(post.excerpt || post.intro_paragraph || '');
   const excerpt = escapeHtml(raw);
   const label = escapeHtml(authorLabel(post.author));
   const color = authorColor(post.author);
-  return `<a class="recent-card" href="/blog/${escapeHtml(slug)}" style="display:block;padding:18px;background:#fff;border:1px solid #e5e5e5;border-radius:8px;text-decoration:none;color:#1a1a1a;transition:box-shadow 0.15s;">` +
+  return `<a class="recent-card" href="/blog/${escapeHtml(slug)}" style="display:block;padding:18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;text-decoration:none;color:var(--ink);transition:border-color 0.15s;">` +
     `<div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:${color};margin-bottom:6px;">${label}${date ? ' &middot; ' + date : ''}</div>` +
-    `<div style="font-family:Georgia,serif;font-size:17px;line-height:1.25;font-weight:600;margin-bottom:8px;">${title}</div>` +
-    (excerpt ? `<div style="font-size:13px;color:#666;line-height:1.45;">${excerpt}${raw.length >= 178 ? '&hellip;' : ''}</div>` : '') +
+    `<div style="font-family:var(--display);font-size:19px;line-height:1.25;font-weight:500;margin-bottom:8px;">${title}</div>` +
+    (excerpt ? `<div style="font-size:13px;color:var(--ink-soft);line-height:1.45;">${excerpt}${raw.length >= 178 ? '&hellip;' : ''}</div>` : '') +
     '</a>';
 }
 
@@ -369,7 +428,7 @@ export function renderRecent(posts, emptyMessage) {
 /* --------------------------------------------------------------- archive */
 
 export function renderArchive(posts, now) {
-  const list = (Array.isArray(posts) ? posts : []).filter((post) => post && post.slug);
+  const list = (Array.isArray(posts) ? posts : []).filter((post) => post && safeSlug(post.slug));
   if (!list.length) return '<div class="archive-empty">The archive is loading. Check back shortly.</div>';
   const groups = new Map();
   for (const post of list) {
@@ -392,7 +451,8 @@ export function renderArchive(posts, now) {
     });
     let out = '<ul class="archive-list">';
     for (const post of entries) {
-      const slug = encodeURIComponent(String(post.slug)).replace(/%2F/gi, '/');
+      const slug = safeSlug(post.slug);
+      if (!slug) continue;
       const title = escapeHtml(cleanInline(post.title || post.slug));
       const day = formatDayMonth(post.published_at || post.week_of_date);
       out += `<li><a href="/blog/${escapeHtml(slug)}">${title}</a>` +
@@ -443,7 +503,13 @@ function inlineMarkdown(escaped) {
   let html = escaped;
   html = html.replace(/\[([^\]\n]+)\]\(([^)\s]+)\)/g, (match, text, href) => {
     const url = decodeEntities(href);
-    const isSafe = /^https?:\/\//i.test(url) || url.startsWith('/');
+    // Asterisks and control characters would let the bold and italic passes
+    // below rewrite the inside of the href we are about to emit.
+    if (/[*\u0000-\u0020\u007f]/.test(url)) return text;
+    // A root-relative link may not be protocol relative: "//evil.com" and
+    // "/\evil.com" both leave the site while looking internal.
+    const isRelative = url.startsWith('/') && !/^\/[/\\]/.test(url);
+    const isSafe = /^https?:\/\//i.test(url) || isRelative;
     return isSafe ? `<a href="${escapeHtml(url)}">${text}</a>` : text;
   });
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
@@ -573,7 +639,7 @@ export function postDescription(post) {
 export function renderPostPage(templateHtml, post) {
   const template = String(templateHtml || '');
   const data = post || {};
-  const slug = String(data.slug || '').trim();
+  const slug = safeSlug(data.slug);
   const title = cleanInline(data.title || 'Post');
   const url = `${SITE}/blog/${slug}`;
   const published = isoDate(data.published_at || data.week_of_date);
@@ -646,7 +712,7 @@ export function renderPostPage(templateHtml, post) {
     body = '<p>This post is being written up. Check back shortly.</p>';
   }
 
-  const eyebrow = [label, eyebrowDate].filter(Boolean).join(' &middot; ');
+  const eyebrow = [label, eyebrowDate].filter(Boolean).map(escapeHtml).join(' &middot; ');
   const hero = '<section class="page-hero">\n' +
     (eyebrow ? `<div class="eyebrow">${eyebrow}</div>\n` : '') +
     `<h1>${escapeHtml(title)}</h1>\n</section>`;
@@ -669,7 +735,8 @@ export function renderSitemap(posts) {
   for (const post of (Array.isArray(posts) ? posts : [])) {
     if (!post || !post.slug || seen.has(post.slug)) continue;
     seen.add(post.slug);
-    const slug = encodeURIComponent(String(post.slug)).replace(/%2F/gi, '/');
+    const slug = safeSlug(post.slug);
+    if (!slug) continue;
     const lastmod = isoDate(post.published_at || post.week_of_date);
     lines.push(`  <url><loc>${SITE}/blog/${escapeHtml(slug)}</loc>` +
       (lastmod ? `<lastmod>${lastmod}</lastmod>` : '') +

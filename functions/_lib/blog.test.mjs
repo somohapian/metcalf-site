@@ -16,7 +16,7 @@ import {
   isRelevant, selectPicks, renderPickCard, renderRecentCard, renderArchive,
   markdownToHtml, markdownToText, renderIndexPage, renderPostPage, renderSitemap,
   escapeHtml, cleanInline, heatBars, sourceKey, sourceLabel, formatLongDate,
-  replaceRegion, truncate
+  replaceRegion, truncate, safeUrl, safeSlug, SECURITY_HEADERS, withSecurityHeaders
 } from './blog.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -251,4 +251,252 @@ test('sitemap lists the index and every post', () => {
   assert.ok(xml.includes('<lastmod>2026-09-04</lastmod>'));
   assert.equal((xml.match(/<url>/g) || []).length, posts.posts.length + 1);
   assert.ok(!xml.includes('undefined'));
+});
+
+
+/* ------------------------------------------------------------------------ */
+/* Adversarial: every field below arrives from the blog API, which is a       */
+/* scraper. Treat all of it as attacker controlled.                          */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Scan only the real tags in the output: text that was correctly escaped shows
+ * up as &lt;img ...&gt; and must not count as an injection. Anything that did
+ * get through arrives as a genuine tag, which is what this walks.
+ */
+function tagsOf(html) {
+  return html.match(/<[a-zA-Z][^>]*>/g) || [];
+}
+
+const URL_ATTR = /\b(?:href|src|action|formaction|xlink:href|srcset|poster)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi;
+
+function assertNoInjection(html, label, options) {
+  const banned = (options && options.bannedTags) || [];
+  for (const tag of tagsOf(html)) {
+    // Blank out quoted attribute values: an event handler that is still inside
+    // a pair of quotes is inert text, and that is exactly what escaping does.
+    const skeleton = tag.replace(/"[^"]*"/g, '""').replace(/'[^']*'/g, "''");
+    assert.ok(!/\son[a-z]+\s*=/i.test(skeleton), `${label}: event handler in ${tag.slice(0, 90)}`);
+    // Schemes only matter where a browser would navigate or load.
+    URL_ATTR.lastIndex = 0;
+    let attr;
+    while ((attr = URL_ATTR.exec(tag))) {
+      const value = attr[1].replace(/^["']|["']$/g, '').trim();
+      assert.ok(!/^javascript:/i.test(value), `${label}: javascript: URL in ${tag.slice(0, 90)}`);
+      assert.ok(!/^data:text\/html/i.test(value), `${label}: data: HTML URL in ${tag.slice(0, 90)}`);
+      assert.ok(!/^\/[/\\]/.test(value), `${label}: protocol-relative URL in ${tag.slice(0, 90)}`);
+    }
+    const name = /^<([a-zA-Z][a-zA-Z0-9]*)/.exec(tag)[1].toLowerCase();
+    assert.ok(!banned.includes(name), `${label}: injected <${name}>`);
+  }
+  assert.deepEqual(unbalancedTags(html), [], `${label}: tag balance`);
+}
+
+/** Fragments (cards, markdown) may never contain these at all. */
+const FRAGMENT_BANNED = ['script', 'iframe', 'object', 'embed', 'img', 'style', 'form', 'base', 'link', 'meta'];
+
+const XSS = '<script>alert(1)</script><img src=x onerror=alert(2)>';
+
+test('safeUrl rejects every scheme that is not http(s)', () => {
+  assert.equal(safeUrl('javascript:alert(1)'), '');
+  assert.equal(safeUrl('JaVaScRiPt:alert(1)'), '');
+  assert.equal(safeUrl('  javascript:alert(1)  '), '');
+  assert.equal(safeUrl('java\tscript:alert(1)'), '');
+  assert.equal(safeUrl('data:text/html,<script>alert(1)</script>'), '');
+  assert.equal(safeUrl('vbscript:msgbox(1)'), '');
+  assert.equal(safeUrl('//evil.example.com/x'), '');
+  assert.equal(safeUrl('/relative'), '');
+  assert.equal(safeUrl('&#106;avascript:alert(1)'), '');
+  assert.equal(safeUrl('&amp;#106;avascript:alert(1)'), '');
+  // whitespace inside a URL is the only way to grow a second attribute
+  assert.equal(safeUrl('https://x.com/a" onmouseover="alert(1)'), '');
+  assert.equal(safeUrl('https://x.com/a\nonload=1'), '');
+  assert.equal(safeUrl('https://x.com/ok-path?a=1&b=2#f'), 'https://x.com/ok-path?a=1&b=2#f');
+});
+
+test('safeSlug refuses traversal, slashes and markup', () => {
+  assert.equal(safeSlug('a-good-slug'), 'a-good-slug');
+  assert.equal(safeSlug('post.2026-09-06'), 'post.2026-09-06');
+  assert.equal(safeSlug('../../etc/passwd'), '');
+  assert.equal(safeSlug('..%2f..%2fadmin'), '');
+  assert.equal(safeSlug('a/../b'), '');
+  assert.equal(safeSlug('a..b'), '');
+  assert.equal(safeSlug('<script>alert(1)</script>'), '');
+  assert.equal(safeSlug('slug"onmouseover="alert(1)'), '');
+  assert.equal(safeSlug('slug with spaces'), '');
+  assert.equal(safeSlug('.hidden'), '');
+  assert.equal(safeSlug(''), '');
+  assert.equal(safeSlug(null), '');
+});
+
+test('pick cards drop hostile permalinks and escape hostile titles', () => {
+  assert.equal(renderPickCard({ permalink: 'javascript:alert(1)', display_title: 'x' }), '');
+  assert.equal(renderPickCard({ permalink: 'data:text/html,<script>x</script>', display_title: 'x' }), '');
+  assert.equal(renderPickCard({ permalink: '//evil.example.com', display_title: 'x' }), '');
+  assert.equal(renderPickCard({ permalink: 'https://x.com/a" onmouseover="alert(1)', display_title: 'x' }), '');
+
+  const card = renderPickCard({
+    permalink: 'https://www.hrdive.com/news/x/',
+    display_title: XSS + ' "quoted" \'single\'',
+    heat_level: 'hot'
+  });
+  assertNoInjection(card, 'pick card', { bannedTags: FRAGMENT_BANNED });
+  assert.ok(card.includes('&lt;script&gt;'), 'pick title not escaped');
+  assert.ok(card.includes('&quot;quoted&quot;'), 'pick title quotes not escaped');
+  // the whole card lives inside one href="..." attribute, so a quote escaping
+  // the title would also escape the anchor
+  assert.equal((card.match(/<a /g) || []).length, 1);
+
+  // an object in place of a string must not stringify into the page
+  assert.equal(renderPickCard({ permalink: { toString: () => 'javascript:1' }, display_title: 'x' }), '');
+});
+
+test('recent cards escape titles, excerpts and authors, and drop bad slugs', () => {
+  const card = renderRecentCard({
+    slug: 'safe-slug',
+    title: XSS,
+    excerpt: '"><img src=x onerror=alert(3)>',
+    author: XSS,
+    published_at: '2026-09-04T11:00:00.000Z'
+  });
+  assertNoInjection(card, 'recent card', { bannedTags: FRAGMENT_BANNED });
+  assert.ok(card.includes('href="/blog/safe-slug"'));
+
+  assert.equal(renderRecentCard({ slug: '../../admin', title: 'x' }), '');
+  assert.equal(renderRecentCard({ slug: 'a"onmouseover="alert(1)', title: 'x' }), '');
+  assert.equal(renderRecentCard({ slug: '<script>', title: 'x' }), '');
+});
+
+test('archive drops bad slugs and escapes titles', () => {
+  const html = renderArchive([
+    { slug: '../../admin', title: 'traversal', published_at: '2026-09-01' },
+    { slug: 'ok-post', title: XSS, published_at: '2026-09-01' }
+  ], new Date('2026-09-06T00:00:00Z'));
+  assertNoInjection(html, 'archive', { bannedTags: FRAGMENT_BANNED });
+  assert.ok(!html.includes('/blog/../'), 'archive linked a traversal slug');
+  assert.ok(html.includes('href="/blog/ok-post"'));
+});
+
+test('markdown escapes before it adds any markup', () => {
+  const html = markdownToHtml([
+    '# ' + XSS,
+    '',
+    XSS,
+    '',
+    '- ' + XSS,
+    '',
+    '[click](javascript:alert(1))',
+    '',
+    '[click](&#106;avascript:alert(1))',
+    '',
+    '[click](&amp;#106;avascript:alert(1))',
+    '',
+    '[click](vbscript:alert(1))',
+    '',
+    '[click](data:text/html,<script>alert(1)</script>)',
+    '',
+    '**' + XSS + '**',
+    '',
+    '*' + XSS + '*'
+  ].join('\n'));
+  assertNoInjection(html, 'markdown', { bannedTags: FRAGMENT_BANNED });
+  assert.ok(html.includes('&lt;script&gt;alert(1)&lt;/script&gt;'), 'markdown did not escape');
+});
+
+test('markdown links stay on http(s) or a genuinely internal path', () => {
+  const ok = markdownToHtml('[a](https://x.com/p) and [b](/contact)');
+  assert.ok(ok.includes('<a href="https://x.com/p">a</a>'));
+  assert.ok(ok.includes('<a href="/contact">b</a>'));
+
+  // protocol-relative and backslash tricks look internal but leave the site
+  const offsite = markdownToHtml('[a](//evil.example.com) and [b](/\\evil.example.com)');
+  assert.ok(!offsite.includes('<a '), `protocol-relative link survived: ${offsite}`);
+
+  // an href must never be rewritten by the bold or italic pass that follows it
+  const starred = markdownToHtml('[a](https://x.com/**bold**/p)');
+  assert.ok(!starred.includes('<strong>'), `bold pass reached inside an href: ${starred}`);
+  assertNoInjection(starred, 'starred link', { bannedTags: FRAGMENT_BANNED });
+
+  // a quote in the link text cannot break the anchor it sits in
+  const quoted = markdownToHtml('[say "hi" now](https://x.com/p)');
+  assert.ok(quoted.includes('&quot;hi&quot;'));
+  assertNoInjection(quoted, 'quoted link text', { bannedTags: FRAGMENT_BANNED });
+});
+
+test('post page escapes title, author, intro, body and picks', () => {
+  const html = renderPostPage(template, {
+    slug: 'hostile-post',
+    title: XSS + ' "quoted"',
+    author: XSS,
+    intro_paragraph: XSS,
+    body: '# ' + XSS + '\n\n' + XSS,
+    published_at: '2026-09-04T11:00:00.000Z',
+    picks: [{ permalink: 'javascript:alert(1)', display_title: XSS }]
+  });
+  writeFileSync(join(RENDER, 'hostile.html'), html);
+  assertNoInjection(html, 'hostile post');
+  assert.ok(!html.includes('<!--BLOG:'), 'unreplaced marker');
+  // the eyebrow is where an unescaped author used to land
+  assert.ok(!/<div class="eyebrow">[^<]*</.test(html) || !/eyebrow">[^<]*<(script|img)/i.test(html));
+  // head tags must not be broken out of by a quote in the title
+  const title = html.match(/<title>([^<]*)<\/title>/);
+  assert.ok(title, 'no <title> survived');
+  assert.ok(!title[1].includes('"'), 'raw quote inside <title>');
+  const desc = html.match(/<meta name="description" content="([^"]*)">/);
+  assert.ok(desc, 'no description meta survived');
+  // JSON-LD must not be escapable
+  assert.ok(!/<script type="application\/ld\+json">[^<]*<\/script>\s*alert/.test(html));
+  assert.ok(html.includes('\\u003c'), 'JSON-LD did not escape angle brackets');
+});
+
+test('post page canonical and JSON-LD cannot be steered by the slug', () => {
+  const html = renderPostPage(template, {
+    slug: '../../evil" onload="alert(1)',
+    title: 'Title',
+    body: 'Body.',
+    published_at: '2026-09-04T11:00:00.000Z'
+  });
+  assertNoInjection(html, 'hostile slug');
+  assert.ok(!html.includes('/blog/../'), 'traversal reached the canonical');
+  assert.ok(html.includes('<link rel="canonical" href="https://metcalfsearch.com/blog/">'));
+});
+
+test('sitemap drops hostile slugs and escapes what it keeps', () => {
+  const xml = renderSitemap([
+    { slug: '../../admin', published_at: '2026-09-01' },
+    { slug: 'a"><script>alert(1)</script>', published_at: '2026-09-01' },
+    { slug: 'good-post', published_at: '2026-09-01' }
+  ]);
+  assert.ok(!xml.includes('<script'), 'script tag in sitemap');
+  assert.ok(!xml.includes('/blog/../'), 'traversal in sitemap');
+  assert.ok(xml.includes('<loc>https://metcalfsearch.com/blog/good-post</loc>'));
+  assert.equal((xml.match(/<url>/g) || []).length, 2);
+});
+
+test('index page survives a wholly hostile API payload', () => {
+  const html = renderIndexPage(template, {
+    weekStart: XSS,
+    picks: [{ permalink: 'javascript:alert(1)', display_title: XSS }],
+    rosie: [{ slug: '../../admin', title: XSS, excerpt: XSS, author: XSS }],
+    weekly: [{ slug: 'ok', title: XSS, excerpt: XSS, author: XSS }],
+    archive: [{ slug: '<script>', title: XSS, published_at: '2026-09-01' }]
+  });
+  writeFileSync(join(RENDER, 'hostile-index.html'), html);
+  assertNoInjection(html, 'hostile index');
+});
+
+test('security headers are present and the CSP is report-only', () => {
+  assert.equal(SECURITY_HEADERS['x-content-type-options'], 'nosniff');
+  assert.equal(SECURITY_HEADERS['x-frame-options'], 'DENY');
+  assert.ok(SECURITY_HEADERS['strict-transport-security'].startsWith('max-age='));
+  assert.ok(!('content-security-policy' in SECURITY_HEADERS), 'CSP must not be enforcing yet');
+  const csp = SECURITY_HEADERS['content-security-policy-report-only'];
+  for (const needed of ["default-src 'self'", "frame-ancestors 'none'", "object-src 'none'",
+    'https://www.googletagmanager.com', 'https://js.stripe.com', 'https://assets.calendly.com',
+    'https://fonts.googleapis.com', 'https://fonts.gstatic.com', 'https://api.metcalfsearch.com']) {
+    assert.ok(csp.includes(needed), `CSP missing ${needed}`);
+  }
+  const merged = withSecurityHeaders({ 'content-type': 'text/html; charset=utf-8' });
+  assert.equal(merged['content-type'], 'text/html; charset=utf-8');
+  assert.equal(merged['x-frame-options'], 'DENY');
 });

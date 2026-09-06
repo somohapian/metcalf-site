@@ -1,4 +1,4 @@
-import { API_BASE, fetchJson, renderIndexPage, selectPicks } from '../_lib/blog.js';
+import { API_BASE, fetchJson, renderIndexPage, selectPicks, withSecurityHeaders } from '../_lib/blog.js';
 
 const TTL = 300;
 
@@ -30,7 +30,10 @@ export async function onRequestGet(context) {
   if (!template) {
     return new Response('Blog template unavailable.', {
       status: 500,
-      headers: { 'content-type': 'text/plain; charset=utf-8' }
+      headers: withSecurityHeaders({
+        'content-type': 'text/plain; charset=utf-8',
+        'cache-control': 'no-store'
+      })
     });
   }
 
@@ -50,9 +53,9 @@ export async function onRequestGet(context) {
   });
 
   return new Response(html, {
-    headers: {
+    headers: withSecurityHeaders({
       'content-type': 'text/html; charset=utf-8',
       'cache-control': 'public, max-age=300, s-maxage=300'
-    }
+    })
   });
 }
