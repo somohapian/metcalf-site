@@ -136,7 +136,7 @@ test('recent card and archive markup', () => {
   assert.ok(renderRecentCard(weekly.posts[0]).includes('Metcalf Search'));
 
   const archive = renderArchive(posts.posts);
-  assert.ok(archive.includes('<h3>September 2026</h3>'));
+  assert.ok(archive.includes('<summary>September 2026 '));
   assert.ok(archive.includes('<ul class="archive-list">'));
   assert.ok(archive.includes('href="/blog/' + posts.posts[0].slug + '"'));
   assert.deepEqual(unbalancedTags(archive), []);
@@ -180,7 +180,7 @@ test('index page renders', () => {
   assert.ok(html.includes('Week of ' + formatLongDate(picks.week_start)));
   assert.ok(html.includes('<title>Small Business Hiring News and Notes | Metcalf Search</title>'));
   assert.ok(html.includes('class="pick-card"'));
-  assert.ok(html.includes('<h3>September 2026</h3>'));
+  assert.ok(html.includes('<summary>September 2026 '));
   assert.ok(html.includes('href="/contact"'));
   assert.ok(html.includes('Grove City, Ohio'));
   assert.ok(html.includes('https://apply.ms/'));

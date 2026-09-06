@@ -368,7 +368,7 @@ export function renderRecent(posts, emptyMessage) {
 
 /* --------------------------------------------------------------- archive */
 
-export function renderArchive(posts) {
+export function renderArchive(posts, now) {
   const list = (Array.isArray(posts) ? posts : []).filter((post) => post && post.slug);
   if (!list.length) return '<div class="archive-empty">The archive is loading. Check back shortly.</div>';
   const groups = new Map();
@@ -377,23 +377,62 @@ export function renderArchive(posts) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(post);
   }
-  const keys = Array.from(groups.keys()).sort().reverse();
-  let html = '';
-  for (const key of keys) {
+  const keys = Array.from(groups.keys()).filter(Boolean).sort().reverse();
+  const today = now instanceof Date ? now : new Date();
+  const nowIndex = today.getUTCFullYear() * 12 + today.getUTCMonth();
+  const monthIndex = (key) => {
+    const [y, m] = key.split('-').map(Number);
+    return y * 12 + (m - 1);
+  };
+  const postLines = (key) => {
     const entries = groups.get(key).slice().sort((a, b) => {
       const left = isoDate(a.published_at || a.week_of_date);
       const right = isoDate(b.published_at || b.week_of_date);
       return right.localeCompare(left);
     });
-    html += `<h3>${escapeHtml(monthLabel(key))}</h3><ul class="archive-list">`;
+    let out = '<ul class="archive-list">';
     for (const post of entries) {
       const slug = encodeURIComponent(String(post.slug)).replace(/%2F/gi, '/');
       const title = escapeHtml(cleanInline(post.title || post.slug));
       const day = formatDayMonth(post.published_at || post.week_of_date);
-      html += `<li><a href="/blog/${escapeHtml(slug)}">${title}</a>` +
+      out += `<li><a href="/blog/${escapeHtml(slug)}">${title}</a>` +
         (day ? ` <span class="pick-source">${escapeHtml(day)}</span>` : '') + '</li>';
     }
-    html += '</ul>';
+    return out + '</ul>';
+  };
+  const count = (n) => `${n} ${n === 1 ? 'post' : 'posts'}`;
+  const fold = (label, n, inner, open) =>
+    `<details class="archive-fold"${open ? ' open' : ''}><summary>${escapeHtml(label)}` +
+    ` <span class="pick-source">${escapeHtml(count(n))}</span></summary>${inner}</details>`;
+
+  // The last three months stand on their own, one line each, newest open.
+  // Everything older folds into one line per year, with the months inside,
+  // so the archive never runs past a handful of lines.
+  let html = '';
+  const years = new Map();
+  let first = true;
+  for (const key of keys) {
+    const age = nowIndex - monthIndex(key);
+    const n = groups.get(key).length;
+    if (age < 3) {
+      html += fold(monthLabel(key), n, postLines(key), first);
+      first = false;
+    } else {
+      const year = key.slice(0, 4);
+      if (!years.has(year)) years.set(year, []);
+      years.get(year).push(key);
+    }
+  }
+  for (const [year, monthKeys] of years) {
+    let inner = '';
+    let total = 0;
+    for (const key of monthKeys) {
+      const n = groups.get(key).length;
+      total += n;
+      inner += fold(monthLabel(key), n, postLines(key), false);
+    }
+    const label = Number(year) === today.getUTCFullYear() ? `Earlier in ${year}` : year;
+    html += fold(label, total, inner, false);
   }
   return html;
 }
