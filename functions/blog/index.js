@@ -1,4 +1,4 @@
-import { API_BASE, fetchJson, renderIndexPage, selectPicks, withSecurityHeaders } from '../_lib/blog.js';
+import { API_BASE, fetchJson, renderIndexPage, withSecurityHeaders } from '../_lib/blog.js';
 
 const TTL = 300;
 
@@ -10,7 +10,7 @@ async function loadTemplate(context) {
       const response = await env.ASSETS.fetch(new URL(path, request.url));
       if (response.ok) {
         const html = await response.text();
-        if (html.includes('<!--BLOG:PICKS-->')) return html;
+        if (html.includes('<!--BLOG:ARCHIVE-->')) return html;
       }
     } catch (err) { /* try the next path */ }
   }
@@ -37,18 +37,10 @@ export async function onRequestGet(context) {
     });
   }
 
-  const [picksData, rosieData, weeklyData, postsData] = await Promise.all([
-    safeJson(`${API_BASE}/picks`),
-    safeJson(`${API_BASE}/posts/recent?author=rosie&days=7`),
-    safeJson(`${API_BASE}/posts/recent?author=jay&days=30`),
-    safeJson(`${API_BASE}/posts?limit=100&offset=0`)
-  ]);
+  // 2026-09-30: picks strip and recent-post rows retired with the auto blog; the page lists published posts only.
+  const postsData = await safeJson(`${API_BASE}/posts?limit=100&offset=0`);
 
   const html = renderIndexPage(template, {
-    weekStart: picksData && picksData.week_start ? picksData.week_start : '',
-    picks: selectPicks(picksData && picksData.picks ? picksData.picks : []),
-    rosie: rosieData && Array.isArray(rosieData.posts) ? rosieData.posts : [],
-    weekly: weeklyData && Array.isArray(weeklyData.posts) ? weeklyData.posts : [],
     archive: postsData && Array.isArray(postsData.posts) ? postsData.posts : []
   });
 
