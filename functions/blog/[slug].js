@@ -10,7 +10,7 @@ async function loadTemplate(context) {
       const response = await env.ASSETS.fetch(new URL(path, request.url));
       if (response.ok) {
         const html = await response.text();
-        if (html.includes('<!--BLOG:PICKS-->')) return html;
+        if (html.includes('<!--BLOG:ARCHIVE-->')) return html;
       }
     } catch (err) { /* try the next path */ }
   }
