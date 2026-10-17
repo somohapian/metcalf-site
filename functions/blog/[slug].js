@@ -1,21 +1,7 @@
-import { API_BASE, fetchJson, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
+import { API_BASE, fetchJson, loadBlogTemplate, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
 import { onRequestGet as sitemapGet } from './sitemap.xml.js';
 
 const TTL = 600;
-
-async function loadTemplate(context) {
-  const { request, env } = context;
-  for (const path of ['/blog', '/blog.html']) {
-    try {
-      const response = await env.ASSETS.fetch(new URL(path, request.url));
-      if (response.ok) {
-        const html = await response.text();
-        if (html.includes('<!--BLOG:PICKS-->')) return html;
-      }
-    } catch (err) { /* try the next path */ }
-  }
-  return null;
-}
 
 async function notFound(context) {
   const { request, env } = context;
@@ -69,7 +55,7 @@ export async function onRequestGet(context) {
   }
   if (!post || !post.title) return notFound(context);
 
-  const template = await loadTemplate(context);
+  const template = await loadBlogTemplate(context);
   if (!template) {
     return new Response('Blog template unavailable.', {
       status: 500,

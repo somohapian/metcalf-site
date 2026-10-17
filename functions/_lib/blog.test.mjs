@@ -1,16 +1,18 @@
 /**
  * node --test functions/_lib/blog.test.mjs
  *
- * Offline: reads JSON fixtures pulled from the blog Worker (BLOG_FIXTURES,
- * default /root/blog-fixtures) plus the real blog.html template, renders the
+ * Offline: uses checked-in synthetic fixtures plus the real blog.html template.
+ * Set BLOG_FIXTURES to use JSON snapshots from the Worker instead. Renders the
  * index page, a daily post and a weekly post, and checks the output.
- * Rendered pages are written to BLOG_RENDER (default /root/blog-render).
+ * Rendered pages are written to BLOG_RENDER (default: a temporary directory).
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, mkdtempSync } from 'node:fs';
 import { join, dirname } from 'node:path';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { fixtures } from './blog.fixtures.mjs';
 
 import {
   isRelevant, selectPicks, renderPickCard, renderRecentCard, renderArchive,
@@ -20,11 +22,12 @@ import {
 } from './blog.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const FIXTURES = process.env.BLOG_FIXTURES || '/root/blog-fixtures';
-const RENDER = process.env.BLOG_RENDER || '/root/blog-render';
+const FIXTURES = process.env.BLOG_FIXTURES;
+const RENDER = process.env.BLOG_RENDER || mkdtempSync(join(tmpdir(), 'metcalf-blog-render-'));
 const TEMPLATE_PATH = join(HERE, '..', '..', 'blog.html');
 
-const fixture = (name) => JSON.parse(readFileSync(join(FIXTURES, name), 'utf8'));
+const fixture = (name) => FIXTURES
+  ? JSON.parse(readFileSync(join(FIXTURES, name), 'utf8')) : fixtures[name];
 const template = readFileSync(TEMPLATE_PATH, 'utf8');
 
 const picks = fixture('picks.json');
@@ -167,7 +170,7 @@ test('replaceRegion swaps markers and their fallbacks', () => {
   assert.equal(replaceRegion('<div></div>', 'PICKS', 'y'), '<div></div>');
 });
 
-test('index page renders', () => {
+test('index page renders the archive without reviving retired picks and recent rows', () => {
   const html = renderIndexPage(template, {
     weekStart: picks.week_start,
     picks: selectPicks(picks.picks),
@@ -177,17 +180,16 @@ test('index page renders', () => {
   });
   writeFileSync(join(RENDER, 'index.html'), html);
   assertClean(html, 'index');
-  assert.ok(html.includes('Week of ' + formatLongDate(picks.week_start)));
   assert.ok(html.includes('<title>Small Business Hiring News and Notes | Metcalf Search</title>'));
-  assert.ok(html.includes('class="pick-card"'));
   assert.ok(html.includes('<summary>September 2026 '));
   assert.ok(html.includes('href="/contact"'));
   assert.ok(html.includes('Grove City, Ohio'));
   assert.ok(html.includes('https://apply.ms/'));
   const cards = html.match(/class="pick-card"/g) || [];
-  assert.ok(cards.length >= 3, `only ${cards.length} pick cards`);
+  assert.equal(cards.length, 0, 'retired picks returned to the index');
+  assert.ok(!html.includes('class="recent-card"'), 'retired recent rows returned to the index');
   const links = html.match(/href="\/blog\/[a-z0-9-]+"/g) || [];
-  assert.ok(links.length > 20, `only ${links.length} post links`);
+  assert.equal(links.length, posts.posts.length, 'archive must link every supplied post');
   assert.ok(!html.includes('metcalf-blog-scraper'), 'client-side fetch left behind');
 });
 

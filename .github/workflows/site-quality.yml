@@ -1,0 +1,63 @@
+name: Site quality
+
+# Runs on source changes. Recurring monitoring is managed separately.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check source and regression tests
+        run: |
+          python scripts/site_quality.py
+          python -m unittest discover -s scripts -p 'test_quality_checks.py'
+          node --test functions/_lib/*.test.mjs
+  live:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: source
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Wait for this release's shared analytics configuration
+        shell: bash
+        run: |
+          for attempt in {1..20}; do
+            ready=true
+            for origin in https://metcalfsearch.com https://metcalf-site.pages.dev; do
+              if ! curl -fsS --max-time 20 "$origin/?cb=$GITHUB_SHA" -o /tmp/site-home.html; then
+                ready=false
+              elif ! grep -Fq 'allow_google_signals:false,allow_ad_personalization_signals:false' /tmp/site-home.html; then
+                ready=false
+              fi
+            done
+            if "$ready"; then exit 0; fi
+            sleep 20
+          done
+          echo 'Published release marker was not verified.' >&2
+          exit 1
+      - name: Verify live pages on both origins
+        run: python scripts/live_site_smoke.py --json live-smoke.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-site-quality
+          path: live-smoke.json
+          if-no-files-found: ignore

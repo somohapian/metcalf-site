@@ -562,6 +562,21 @@ export function markdownToText(markdown) {
 
 /* ------------------------------------------------------- template pieces */
 
+/** Both routes use the current blog.html; retired sections are not required. */
+export async function loadBlogTemplate({ request, env }) {
+  // Prefer the extensionless Pages asset, with the source filename as fallback.
+  for (const path of ['/blog', '/blog.html']) {
+    try {
+      const response = await env.ASSETS.fetch(new URL(path, request.url));
+      if (response.ok) {
+        const html = await response.text();
+        if (html.includes('<!--BLOG:ARCHIVE-->')) return html;
+      }
+    } catch (err) { /* try the next path */ }
+  }
+  return null;
+}
+
 export function replaceRegion(html, name, content) {
   const open = `<!--BLOG:${name}-->`;
   const close = `<!--/BLOG:${name}-->`;

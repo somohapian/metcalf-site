@@ -25,7 +25,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://metcalfsearch.com/"},{"@type":"ListItem","position":2,"name":"Frequently Asked Questions","item":"https://metcalfsearch.com/faq"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is Fractional Recruiting different from a contingency agency?","acceptedAnswer":{"@type":"Answer","text":"A contingency agency charges a fee, typically twenty to thirty percent of first-year salary, when a hire is made. Fractional Recruiting charges a flat monthly fee regardless of how many hires are made in that month. The contingency model rewards speed and high salaries (more fee per hire, more fees per year). The fractional model rewards fit and retention, because the recruiter is paid the same whether the hire takes six weeks or twelve. The two models also do different work: contingency firms hand off candidates; fractional firms embed in the process."}},{"@type":"Question","name":"What if we're not actively hiring right now?","acceptedAnswer":{"@type":"Answer","text":"That is often the best time to start. A real recruiting function builds the pipeline before the role opens, which is half the reason fractional hiring is faster than contingency hiring when a role does open. Partnerships include sourcing, careers page work, and bench-building during periods between active roles. The Recruiting Partner tier exists specifically for this stage."}},{"@type":"Question","name":"How long does it take to fill a role?","acceptedAnswer":{"@type":"Answer","text":"Time to fill varies meaningfully by role type. Most roles fill in thirty to forty-five days from kickoff; specialized roles run forty-five to sixty. We can move as fast as any contingency agency on any individual search, with the difference being that we are also building the sourcing systems that make the next search faster."}},{"@type":"Question","name":"What if you bring us a bad candidate?","acceptedAnswer":{"@type":"Answer","text":"The screening process is built to keep that from happening, but no recruiting process is perfect. The flat-fee model means we have every incentive to course-correct rather than push a marginal candidate, because no per-hire fee is on the line. Bad candidates get re-screened out and the search continues without a new invoice."}},{"@type":"Question","name":"Do you work outside Columbus?","acceptedAnswer":{"@type":"Answer","text":"The deepest network is in central Ohio. We have served clients in Portland and Seattle through earlier iterations and can run remote-friendly searches anywhere in the United States. Local roles in central Ohio are the fastest and the most efficient. Outside the region, ask anyway and we will tell you what to expect."}},{"@type":"Question","name":"Do we still need an HR person?","acceptedAnswer":{"@type":"Answer","text":"Yes. Fractional Recruiting sits next to HR, not on top of it. The recruiting work covers sourcing, screening, interview coordination, offer construction, and retention support. It does not cover payroll, benefits brokerage, employment law, performance management, or HR generalist work. If you do not have HR coverage yet, a fractional HR partner is worth a conversation alongside this one."}},{"@type":"Question","name":"What's included in the monthly fee?","acceptedAnswer":{"@type":"Answer","text":"All five letters of the STACK Method across every open role in your scope: Source, Tempo, Assess, Close, and Keep. Plus onsite hours on the higher tiers, careers page hosting and syndication on Recruiting Partner Plus and above, and per-role budget for ad spend and assessment tools on the higher tiers. See Services for the longer version."}},{"@type":"Question","name":"Is there a contract length?","acceptedAnswer":{"@type":"Answer","text":"Partnerships run month to month with thirty days notice. The work is built to earn the next month, not to lock in a long contract. Most clients stay because the model works, not because they are bound to."}},{"@type":"Question","name":"Will I work with Jay or get handed off to someone junior?","acceptedAnswer":{"@type":"Answer","text":"You work with Jay, backed by the Metcalf Search team. We are structured around the partner doing the work, not selling and handing off. Sourcing support and administrative coordination are layered in where appropriate, but the recruiter on your partnership is the person you met on the first call."}},{"@type":"Question","name":"What kinds of roles do you handle?","acceptedAnswer":{"@type":"Answer","text":"Most partnerships cover a mix of operational, sales, and leadership roles. Common titles include plant manager, project manager, operations manager, controller, account manager, sales director, branch manager, and skilled trade leads. Metcalf Search does not do high-volume hourly staffing or technical software engineering searches."}},{"@type":"Question","name":"How do I know if this is a fit for my business?","acceptedAnswer":{"@type":"Answer","text":"The shortest version: ten to two hundred employees, ongoing hiring needs, owner-operated or recently-founder-exited, in a sector like skilled trades, light manufacturing, professional services, or B2B distribution. The longer version is on Who We Serve. The fastest answer is a thirty-minute fit call."}},{"@type":"Question","name":"How do I book that call?","acceptedAnswer":{"@type":"Answer","text":"Use the form on the contact page, or email info@metcalfsearch.com. Current tiers and pricing are on the activation page."}}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0R74SX6WZX');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
 <style>
 :root{--paper:#fafaf7;--paper-warm:#f4f2eb;--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--celadon:#a3c1ad;--celadon-deep:#6f9b7c;--celadon-mist:#e6ede8;--brick:#a83e2c;--rule:#d8dcd6;--display:'Fraunces','Times New Roman',serif;--body:'Geist',system-ui,sans-serif;--nav-h:70px;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -70,6 +70,10 @@ a{color:inherit;text-decoration:none;}
 .foot-col a:hover{color:var(--brick);}
 .foot-bottom{max-width:1100px;margin:60px auto 0;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);}
 @media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:32px;}.foot-bottom{flex-direction:column;gap:12px;text-align:center;}}
+.nav-overlay{z-index:120;overflow-y:auto;}
+.nav-overlay.open{z-index:120;justify-content:flex-start;}
+.nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
+:focus-visible{outline:3px solid var(--celadon-deep);outline-offset:4px;}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -201,46 +205,72 @@ a{color:inherit;text-decoration:none;}
 (function(){
   function init(){
     var nav = document.querySelector('.topnav .topnav-inner') || document.querySelector('.topnav');
-    if (!nav) return;
-    if (document.querySelector('.hamburger-btn')) return; // already injected
-    // Build button
+    if (!nav || document.querySelector('.hamburger-btn')) return;
     var btn = document.createElement('button');
     btn.className = 'hamburger-btn';
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Open menu');
     btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'metcalf-nav-overlay');
     btn.innerHTML = '<span class="bar"></span>';
     nav.appendChild(btn);
-    // Build overlay
     var overlay = document.createElement('div');
     overlay.className = 'nav-overlay';
     overlay.id = 'metcalf-nav-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    // Pull current nav links + CTA from the DOM so this stays in sync if Pages source changes
+    overlay.setAttribute('aria-label', 'Site navigation');
+    var closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'nav-close';
+    closeButton.textContent = 'Close menu';
+    overlay.appendChild(closeButton);
     var links = document.querySelectorAll('.nav-links a');
+    Array.prototype.forEach.call(links, function(a){ overlay.appendChild(a.cloneNode(true)); });
     var cta = document.querySelector('.nav-cta');
-    var html = '';
-    Array.prototype.forEach.call(links, function(a){
-      html += '<a href="' + a.getAttribute('href') + '">' + (a.textContent || '').trim() + '</a>';
-    });
     if (cta) {
-      html += '<a class="nav-cta-mobile" href="' + cta.getAttribute('href') + '">' + (cta.textContent || '').trim() + '</a>';
+      var mobileCta = cta.cloneNode(true);
+      mobileCta.className = 'nav-cta-mobile';
+      overlay.appendChild(mobileCta);
     }
-    overlay.innerHTML = html;
     document.body.appendChild(overlay);
-    function open(){  overlay.classList.add('open');    btn.setAttribute('aria-expanded', 'true');  document.body.style.overflow = 'hidden'; }
-    function close(){ overlay.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
-    btn.addEventListener('click', function(){
-      if (overlay.classList.contains('open')) close(); else open();
-    });
-    overlay.addEventListener('click', function(e){
-      // Clicking a link closes the menu before navigation
-      if (e.target.tagName === 'A') close();
-    });
+    var previousFocus, previousOverflow, background = [];
+    function open(){
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Close menu');
+      background = Array.prototype.filter.call(document.body.children, function(el){
+        return el !== overlay && !el.inert;
+      });
+      background.forEach(function(el){ el.inert = true; });
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
+    }
+    function close(){
+      if (!overlay.classList.contains('open')) return;
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Open menu');
+      background.forEach(function(el){ el.inert = false; });
+      background = [];
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus && previousFocus.isConnected) previousFocus.focus();
+    }
+    btn.addEventListener('click', open);
+    closeButton.addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if (e.target.closest('a')) close(); });
     document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var items = overlay.querySelectorAll('a[href], button');
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
+    window.addEventListener('resize', function(){ if (window.innerWidth > 768) close(); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

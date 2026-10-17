@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-10-17T17:51:12.749340+00:00",
+  "planned": 124,
+  "checked": 0,
+  "response_failures": 0,
+  "blocked_origins": {
+    "https://metcalfsearch.com": "curl: (6) Could not resolve host: metcalfsearch.com",
+    "https://metcalf-site.pages.dev": "curl: (6) Could not resolve host: metcalf-site.pages.dev"
+  },
+  "results": []
+}

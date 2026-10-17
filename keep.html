@@ -24,7 +24,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Keep","description":"Keep is the fifth letter of the STACK Method. It addresses the first 90 days, onboarding handoff, and the conditions under which a hire stays.","datePublished":"2026-05-17","author":{"@type":"Person","name":"Jay Metcalf","url":"https://metcalfsearch.com/about"},"publisher":{"@type":"Organization","name":"Metcalf Search","url":"https://metcalfsearch.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://metcalfsearch.com/keep"},"dateModified":"2026-09-06"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why do good employees quit and how do I keep them?","acceptedAnswer":{"@type":"Answer","text":"Across most SMB exits, the top reasons are not pay. They are manager quality, lack of growth, feeling undervalued, and a sense the company is not going anywhere. Those reasons work faster on a first-year hire than on a five-year employee, because a new hire has less invested and no memory of better years to hold onto. Pay matters when it is well below market, but for most quitting decisions, money is the surface explanation for an underlying problem with the manager, the work, or the growth path. Retention runs on three things, in this order: a manager the employee respects, work that grows them, and fair pay relative to what the market is currently offering them. Small businesses regularly lose to Big Corporate, Inc. on the third one and still win on retention when they nail the first two. Build managers who can coach, give people scope to grow into, and benchmark comp against the actual market once a year, not once every four years."}},{"@type":"Question","name":"What is a stay interview and should I be doing them?","acceptedAnswer":{"@type":"Answer","text":"A stay interview is the opposite of an exit interview. With a new hire, run one at ninety days and again at one year, well before anyone has a foot out the door, and ask why they chose you, what is keeping them here now, and what another offer would have to do to pull them away. Most small business owners never ask because they assume they already know the answers. They almost never do, and someone eight months in will tell you things a candidate never would. It is the cheapest and most accurate retention data you will ever get, and the conversation itself signals that the person is valued, which is half the retention work right there."}},{"@type":"Question","name":"Why do new hires quit in the first 90 days?","acceptedAnswer":{"@type":"Answer","text":"Almost always, what gets called a \"bad hire\" was a bad onboarding. The candidate the company hired and the candidate who showed up on day one are the same person. What changed is the environment they entered. SHRM research shows roughly 20 percent of all turnover happens in the first 45 days, and most of it is preventable."}},{"@type":"Question","name":"What does a good onboarding process include for a small business?","acceptedAnswer":{"@type":"Answer","text":"A structured first 30, 60, and 90 days with named goals for each window, a calendar of intros and ramp meetings before day one, a single owner of the new hire's success, and weekly check-ins through day 90. Most small businesses do day one, day two, and then nothing. The fix is not complicated; it is just on the calendar."}},{"@type":"Question","name":"How often should I do one-on-ones with a new hire?","acceptedAnswer":{"@type":"Answer","text":"Weekly for the first ninety days, 30 to 45 minutes, owned by the new hire's agenda rather than yours, and weekly after that if you can hold the cadence. The point is not status updates; those happen in other forums. The point is to hear what is in their way, what they expected about the job that turned out not to be true, and what they want to grow into next. Skipping these because \"we are too small for that\" leaves the cheapest retention tool a small business has sitting unused."}},{"@type":"Question","name":"How do I spot an employee about to quit?","acceptedAnswer":{"@type":"Answer","text":"They go quiet in meetings they used to lead. They stop asking for new projects. They pull back from peer relationships. They stop pushing back on you. By the time someone is actively interviewing elsewhere, the pulling-away has usually been visible for a month or two. The weekly one-on-one is what catches it early enough to fix."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://metcalfsearch.com/"},{"@type":"ListItem","position":2,"name":"Keep","item":"https://metcalfsearch.com/keep"}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0R74SX6WZX');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
 <style>
 :root{--paper:#fafaf7;--paper-warm:#f4f2eb;--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--celadon:#a3c1ad;--celadon-deep:#6f9b7c;--celadon-mist:#e6ede8;--brick:#a83e2c;--rule:#d8dcd6;--display:'Fraunces','Times New Roman',serif;--body:'Geist',system-ui,sans-serif;--nav-h:70px;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -143,6 +143,10 @@ a{color:inherit;text-decoration:none;}
 .faq-card .faq-answer p:last-child { margin: 0; }
 
 .prose .leaf-faq{padding-left:0;padding-right:0;}
+.nav-overlay{z-index:120;overflow-y:auto;}
+.nav-overlay.open{z-index:120;justify-content:flex-start;}
+.nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
+:focus-visible{outline:3px solid var(--celadon-deep);outline-offset:4px;}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -373,46 +377,72 @@ a{color:inherit;text-decoration:none;}
 (function(){
   function init(){
     var nav = document.querySelector('.topnav .topnav-inner') || document.querySelector('.topnav');
-    if (!nav) return;
-    if (document.querySelector('.hamburger-btn')) return; // already injected
-    // Build button
+    if (!nav || document.querySelector('.hamburger-btn')) return;
     var btn = document.createElement('button');
     btn.className = 'hamburger-btn';
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Open menu');
     btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'metcalf-nav-overlay');
     btn.innerHTML = '<span class="bar"></span>';
     nav.appendChild(btn);
-    // Build overlay
     var overlay = document.createElement('div');
     overlay.className = 'nav-overlay';
     overlay.id = 'metcalf-nav-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    // Pull current nav links + CTA from the DOM so this stays in sync if Pages source changes
+    overlay.setAttribute('aria-label', 'Site navigation');
+    var closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'nav-close';
+    closeButton.textContent = 'Close menu';
+    overlay.appendChild(closeButton);
     var links = document.querySelectorAll('.nav-links a');
+    Array.prototype.forEach.call(links, function(a){ overlay.appendChild(a.cloneNode(true)); });
     var cta = document.querySelector('.nav-cta');
-    var html = '';
-    Array.prototype.forEach.call(links, function(a){
-      html += '<a href="' + a.getAttribute('href') + '">' + (a.textContent || '').trim() + '</a>';
-    });
     if (cta) {
-      html += '<a class="nav-cta-mobile" href="' + cta.getAttribute('href') + '">' + (cta.textContent || '').trim() + '</a>';
+      var mobileCta = cta.cloneNode(true);
+      mobileCta.className = 'nav-cta-mobile';
+      overlay.appendChild(mobileCta);
     }
-    overlay.innerHTML = html;
     document.body.appendChild(overlay);
-    function open(){  overlay.classList.add('open');    btn.setAttribute('aria-expanded', 'true');  document.body.style.overflow = 'hidden'; }
-    function close(){ overlay.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
-    btn.addEventListener('click', function(){
-      if (overlay.classList.contains('open')) close(); else open();
-    });
-    overlay.addEventListener('click', function(e){
-      // Clicking a link closes the menu before navigation
-      if (e.target.tagName === 'A') close();
-    });
+    var previousFocus, previousOverflow, background = [];
+    function open(){
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Close menu');
+      background = Array.prototype.filter.call(document.body.children, function(el){
+        return el !== overlay && !el.inert;
+      });
+      background.forEach(function(el){ el.inert = true; });
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
+    }
+    function close(){
+      if (!overlay.classList.contains('open')) return;
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Open menu');
+      background.forEach(function(el){ el.inert = false; });
+      background = [];
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus && previousFocus.isConnected) previousFocus.focus();
+    }
+    btn.addEventListener('click', open);
+    closeButton.addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if (e.target.closest('a')) close(); });
     document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var items = overlay.querySelectorAll('a[href], button');
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
+    window.addEventListener('resize', function(){ if (window.innerWidth > 768) close(); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

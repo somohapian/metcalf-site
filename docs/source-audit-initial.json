@@ -1,0 +1,168 @@
+{
+  "pages": 22,
+  "errors": 0,
+  "warnings": 23,
+  "issues": [
+    {
+      "severity": "WARN",
+      "file": "404.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "about.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "activate.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "assess.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "blog.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "candidates.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "close.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "comparison.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "contact.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "faq.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "fractional-recruiting.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "fractional-recruiting.html",
+      "line": 0,
+      "check": "class-style",
+      "message": "No explicit class selector found (may inherit styling): comp-row-label"
+    },
+    {
+      "severity": "WARN",
+      "file": "index.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "keep.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "privacy.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "services.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "source.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "stack-method.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "stack.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "tempo.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "terms.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "who-we-serve.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    },
+    {
+      "severity": "WARN",
+      "file": "onboarding/index.html",
+      "line": 0,
+      "check": "mobile-focus",
+      "message": "Modal mobile menu needs focus entry, containment and return; verify in browser."
+    }
+  ]
+}
