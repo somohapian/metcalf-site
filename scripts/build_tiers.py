@@ -114,6 +114,7 @@ TIER_CSS = """<style id="metcalf-tier-page">
 .checkout-submit:disabled:hover{background:var(--ink);}
 .checkout-error{margin:12px 0 0;font-family:var(--body);font-size:14px;line-height:1.5;color:var(--brick);}
 .checkout-error[hidden]{display:none;}
+.checkout-form + .checkout-fallback{margin-top:20px;}
 .checkout-terms{margin:14px 0 0;text-align:center;font-family:var(--body);font-size:13px;line-height:1.5;color:var(--ink-faint);}
 /* The client strip as a quiet proof band right under the checkout card. */
 .client-strip.client-strip--hero{background:none;border:0;padding:44px 0 0;margin:0 -32px;}
@@ -144,7 +145,7 @@ TIER_CSS = """<style id="metcalf-tier-page">
 .terms-fold summary::after{margin-top:5px;}
 .terms-fold[open] summary::after{margin-top:9px;}
 .terms-body{padding:0 0 20px;font-family:var(--body);font-size:15px;line-height:1.65;color:var(--ink-soft);}
-@media(max-width:720px){.hero-cta{display:block;margin-top:32px;}.hero-cta .btn-solid{display:block;margin-bottom:20px;text-align:center;}.checkout{padding:32px 12px;}.checkout-card{padding:36px 12px 28px;border-radius:10px;}.client-strip.client-strip--hero{padding-top:32px;margin:0 -16px;}.cta-band{padding:56px 24px 60px;}.cta-band .btn-solid{display:block;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
+@media(max-width:720px){.hero-cta{display:block;margin-top:32px;}.hero-cta .btn-solid{display:block;margin-bottom:20px;text-align:center;}.checkout{padding:32px 12px;}.checkout-card{padding:36px 12px 28px;border-radius:10px;}.checkout-submit{padding:14px 16px;}.client-strip.client-strip--hero{padding-top:32px;margin:0 -16px;}.cta-band{padding:56px 24px 60px;}.cta-band .btn-solid{display:block;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
 </style>"""
 
 STRIP_CSS = """<style id="metcalf-client-strip">
@@ -198,14 +199,24 @@ CHECKOUT_SCRIPT = """<script>
   var KEY='__KEY__';
   var EMAIL=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/;
   var started=false,failed=false,ready=false,busy=false,actions=null,lastEmail='';
-  var label=submitEl.textContent;
+  var amount=null,initialLabel=submitEl.innerHTML;
   // GA4: view_item once per page view; begin_checkout once per page view, on the first
   // click of an Activate button or the first focus inside the checkout form.
   function track(name){if(typeof gtag==='function'){gtag('event',name,{currency:'USD',value:price,items:[{item_name:item,price:price}]});}}
   var begun=false;
   function begin(){if(begun)return;begun=true;try{track('begin_checkout');}catch(e){}}
   function showError(msg){errorEl.textContent=msg;errorEl.hidden=!msg;}
-  function setBusy(on){busy=on;submitEl.disabled=on;submitEl.textContent=on?'Activating...':label;}
+  // Button label: tier name, then the amount and "a month" kept on one line.
+  function renderLabel(){
+    if(busy)return;
+    if(!amount){submitEl.innerHTML=initialLabel;return;}
+    var span=document.createElement('span');
+    span.className='nowrap';
+    span.textContent=amount+' a month';
+    submitEl.textContent=baseLabel+', ';
+    submitEl.appendChild(span);
+  }
+  function setBusy(on){busy=on;submitEl.disabled=on;if(on){submitEl.textContent='Activating...';}else{renderLabel();}}
   function fail(err){
     try{console.error('Checkout did not load:',err);}catch(e){}
     if(ready)return;
@@ -220,8 +231,8 @@ CHECKOUT_SCRIPT = """<script>
   function showTotal(session){
     try{
       var t=session.total.total;
-      label=baseLabel+', '+money(t.minorUnitsAmount,session.currency,session.minorUnitsAmountDivisor||100)+' a month';
-      if(!busy)submitEl.textContent=label;
+      amount=money(t.minorUnitsAmount,session.currency,session.minorUnitsAmountDivisor||100);
+      renderLabel();
     }catch(e){}
   }
   function loadStripe(){
@@ -600,7 +611,7 @@ def page(t):
 <label class="checkout-label" for="checkout-email">Email</label>
 <input class="checkout-input" id="checkout-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
 <div id="stripe-checkout" class="checkout-mount"></div>
-<button type="submit" class="btn-solid checkout-submit" id="checkout-submit" data-label="Activate {t['name']}">Activate {t['name']}, {t['price']} a month</button>
+<button type="submit" class="btn-solid checkout-submit" id="checkout-submit" data-label="Activate {t['name']}">Activate {t['name']}, <span class="nowrap">{t['price']} a month</span></button>
 <p class="checkout-error" id="checkout-error" role="alert" hidden></p>
 <p class="checkout-terms">Month to month. Cancel with thirty days notice.</p>
 </form>
