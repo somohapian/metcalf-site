@@ -35,6 +35,23 @@
       typeof c.file === 'string' && /^[a-z0-9][a-z0-9._-]*\.(?:png|webp|svg)$/i.test(c.file);
   }
 
+  // Logos that share a `group` never show in the same set (a brokerage logo
+  // and a team logo that already carries that brokerage). The first one the
+  // shuffle lands on wins; the rest are dropped for this load.
+  function oneLogoPerGroup(list) {
+    var seen = {};
+    var out = [];
+    for (var i = 0; i < list.length; i++) {
+      var g = list[i].group;
+      if (typeof g === 'string' && g !== '') {
+        if (seen[g]) continue;
+        seen[g] = true;
+      }
+      out.push(list[i]);
+    }
+    return out;
+  }
+
   // Loads logos in list order until `need` of them have loaded, replacing a
   // failure with the next one on the list. Calls done(loaded) once, in order.
   function preload(list, need, done) {
@@ -133,7 +150,8 @@
     var show = parseInt(el.getAttribute('data-show'), 10);
     if (!(show > 0)) show = DEFAULT_SHOW;
     show = Math.min(show, clients.length);
-    var order = shuffle(clients);
+    var order = oneLogoPerGroup(shuffle(clients));
+    show = Math.min(show, order.length);
     whenNear(el, function () {
       preload(order, show, function (logos) {
         try {
