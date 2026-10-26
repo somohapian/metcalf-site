@@ -1,7 +1,7 @@
 /** Checkout function tests. Run with: node --test functions/_lib/*.test.mjs */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PRICES, onRequestPost, onRequestOptions, onRequest } from '../api/checkout.js';
+import { PRICES, STRIPE_VERSION, onRequestPost, onRequestOptions, onRequest } from '../api/checkout.js';
 import { onRequestGet as getStatus, onRequest as statusOther } from '../api/checkout-status.js';
 
 const SITE = 'https://metcalf-site.pages.dev';
@@ -30,7 +30,7 @@ test('every tier key is mapped and the placeholders are easy to spot', () => {
   }
 });
 
-test('each tier creates an embedded subscription session and returns only the client secret', async (t) => {
+test('each tier creates a custom checkout (ui_mode elements) subscription session and returns only the client secret', async (t) => {
   withPrices(t, TEST_PRICES);
   const calls = [];
   t.mock.method(globalThis, 'fetch', async (url, init) => {
@@ -49,9 +49,12 @@ test('each tier creates an embedded subscription session and returns only the cl
     assert.equal(init.method, 'POST');
     assert.equal(init.headers.Authorization, 'Bearer sk_test_example');
     assert.equal(init.headers['Content-Type'], 'application/x-www-form-urlencoded');
+    assert.equal(init.headers['Stripe-Version'], '2026-09-30.endive');
+    assert.equal(STRIPE_VERSION, '2026-09-30.endive');
     const form = new URLSearchParams(String(init.body));
     assert.equal(form.get('mode'), 'subscription');
-    assert.equal(form.get('ui_mode'), 'embedded');
+    assert.equal(form.get('ui_mode'), 'elements');
+    assert.equal(form.get('success_url'), null);
     assert.equal(form.get('line_items[0][price]'), TEST_PRICES[tier]);
     assert.equal(form.get('line_items[0][quantity]'), '1');
     assert.equal(form.get('return_url'), 'https://metcalfsearch.com/onboarding/?session_id={CHECKOUT_SESSION_ID}');

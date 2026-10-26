@@ -13,8 +13,8 @@ terms, footer. Prices come from MONTHLY alone.
 
 The pages are public: indexable, listed in sitemap.xml, linked from the
 homepage tier cards, /activate and /services. GA4: view_item once per page
-view, begin_checkout when a visitor clicks either Activate button (once per
-page view), purchase on /onboarding/ once Stripe reports the session paid.
+view, begin_checkout on the first click of an Activate button or focus in the
+checkout form (once per page view), purchase on /onboarding/ once Stripe reports the session paid.
 
 Usage: python3 build_tiers.py /root/metcalf-site
 """
@@ -101,7 +101,20 @@ TIER_CSS = """<style id="metcalf-tier-page">
 .price-line{max-width:620px;margin:24px auto 0;font-family:var(--display);font-optical-sizing:auto;font-weight:400;font-size:clamp(19px,2vw,22px);line-height:1.5;letter-spacing:-0.005em;color:var(--ink);text-wrap:balance;}
 .price-line strong{font-weight:600;white-space:nowrap;}
 @media(min-width:721px){.price-terms{white-space:nowrap;}}
-.checkout-mount{max-width:1000px;margin:0 auto;}
+.checkout-form{max-width:480px;margin:0 auto;}
+.checkout-form[hidden]{display:none;}
+.checkout-label{display:block;margin:0 0 6px;font-family:var(--body);font-size:13px;font-weight:500;line-height:1.4;color:var(--ink-soft);}
+.checkout-input{display:block;width:100%;box-sizing:border-box;margin:0 0 16px;padding:12px 14px;font-family:var(--body);font-size:15px;line-height:1.4;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;box-shadow:none;outline:none;-webkit-appearance:none;appearance:none;transition:border-color 0.15s ease;}
+.checkout-input::placeholder{color:var(--ink-faint);}
+.checkout-input:focus{border-color:var(--celadon-deep);}
+.checkout-input[aria-invalid="true"]{border-color:var(--brick);}
+.checkout-mount{min-height:180px;}
+.checkout-submit{display:block;width:100%;margin:24px 0 0;border:0;cursor:pointer;text-align:center;line-height:1.4;}
+.checkout-submit:disabled{cursor:default;opacity:0.6;}
+.checkout-submit:disabled:hover{background:var(--ink);}
+.checkout-error{margin:12px 0 0;font-family:var(--body);font-size:14px;line-height:1.5;color:var(--brick);}
+.checkout-error[hidden]{display:none;}
+.checkout-terms{margin:14px 0 0;text-align:center;font-family:var(--body);font-size:13px;line-height:1.5;color:var(--ink-faint);}
 /* The client strip as a quiet proof band right under the checkout card. */
 .client-strip.client-strip--hero{background:none;border:0;padding:44px 0 0;margin:0 -32px;}
 .client-strip--hero .client-strip__label{margin-bottom:18px;}
@@ -168,23 +181,54 @@ STRIP_SCRIPTS = ('<script src="/assets/clients/clients.js" defer></script>\n'
 
 CHECKOUT_SCRIPT = """<script>
 (function(){
+  // Custom checkout: our own form (email, Stripe's Payment Element, our button) on a
+  // Checkout Session created with ui_mode "elements" by /api/checkout. Stripe.js is the
+  // endive release, matching the Stripe-Version the function pins.
   var section=document.getElementById('checkout');
-  var mountEl=document.getElementById('stripe-checkout');
-  if(!section||!mountEl)return;
+  var form=document.getElementById('checkout-form');
+  if(!section||!form)return;
   var fallback=document.getElementById('checkout-fallback');
+  var emailEl=document.getElementById('checkout-email');
+  var submitEl=document.getElementById('checkout-submit');
+  var errorEl=document.getElementById('checkout-error');
   var tier=section.getAttribute('data-tier');
   var item=section.getAttribute('data-item');
   var price=Number(section.getAttribute('data-price'));
+  var baseLabel=submitEl.getAttribute('data-label');
   var KEY='__KEY__';
-  var started=false;
-  // GA4: view_item once per page view; begin_checkout only when a visitor clicks an Activate button, once per page view.
+  var EMAIL=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/;
+  var started=false,failed=false,ready=false,busy=false,actions=null,lastEmail='';
+  var label=submitEl.textContent;
+  // GA4: view_item once per page view; begin_checkout once per page view, on the first
+  // click of an Activate button or the first focus inside the checkout form.
   function track(name){if(typeof gtag==='function'){gtag('event',name,{currency:'USD',value:price,items:[{item_name:item,price:price}]});}}
-  function fail(err){try{console.error('Embedded checkout did not load:',err);}catch(e){}}
+  var begun=false;
+  function begin(){if(begun)return;begun=true;try{track('begin_checkout');}catch(e){}}
+  function showError(msg){errorEl.textContent=msg;errorEl.hidden=!msg;}
+  function setBusy(on){busy=on;submitEl.disabled=on;submitEl.textContent=on?'Activating...':label;}
+  function fail(err){
+    try{console.error('Checkout did not load:',err);}catch(e){}
+    if(ready)return;
+    failed=true;form.hidden=true;if(fallback)fallback.hidden=false;
+  }
+  // Stripe requires the page to show the session total it reads from the session.
+  function money(t,cur,div){
+    var n=t/div;
+    try{return new Intl.NumberFormat('en-US',{style:'currency',currency:cur.toUpperCase(),minimumFractionDigits:n%1?2:0,maximumFractionDigits:2}).format(n);}
+    catch(e){return '$'+n;}
+  }
+  function showTotal(session){
+    try{
+      var t=session.total.total;
+      label=baseLabel+', '+money(t.minorUnitsAmount,session.currency,session.minorUnitsAmountDivisor||100)+' a month';
+      if(!busy)submitEl.textContent=label;
+    }catch(e){}
+  }
   function loadStripe(){
     return new Promise(function(resolve,reject){
       if(window.Stripe){resolve(window.Stripe);return;}
       var s=document.createElement('script');
-      s.src='https://js.stripe.com/v3/';
+      s.src='https://js.stripe.com/endive/stripe.js';
       s.async=true;
       s.onload=function(){if(window.Stripe)resolve(window.Stripe);else reject(new Error('Stripe.js loaded without Stripe'));};
       s.onerror=function(){reject(new Error('Stripe.js failed to load'));};
@@ -196,30 +240,100 @@ CHECKOUT_SCRIPT = """<script>
       .then(function(res){if(!res.ok)throw new Error('checkout API answered '+res.status);return res.json();})
       .then(function(data){if(!data||typeof data.clientSecret!=='string')throw new Error('checkout API sent no client secret');return data.clientSecret;});
   }
+  var APPEARANCE={
+    theme:'flat',
+    variables:{
+      colorPrimary:'#1f2421',colorBackground:'#fafaf7',colorText:'#1f2421',colorTextSecondary:'#4a534f',
+      colorTextPlaceholder:'#8a918d',colorDanger:'#a83e2c',colorIcon:'#4a534f',
+      fontFamily:'Geist, system-ui, sans-serif',fontSizeBase:'15px',fontWeightNormal:'400',fontWeightMedium:'500',
+      borderRadius:'4px',spacingUnit:'4px',gridRowSpacing:'16px',gridColumnSpacing:'12px',focusBoxShadow:'none',focusOutline:'none'
+    },
+    rules:{
+      '.Input':{border:'1px solid #d8dcd6',boxShadow:'none',padding:'12px 14px',backgroundColor:'#fafaf7',lineHeight:'1.4'},
+      '.Input:focus':{border:'1px solid #6f9b7c',boxShadow:'none'},
+      '.Input--invalid':{border:'1px solid #a83e2c',boxShadow:'none',color:'#1f2421'},
+      '.Label':{fontFamily:'Geist, system-ui, sans-serif',fontSize:'13px',fontWeight:'500',color:'#4a534f',marginBottom:'6px'},
+      '.Error':{fontSize:'13px',color:'#a83e2c'},
+      '.Tab':{border:'1px solid #d8dcd6',boxShadow:'none',backgroundColor:'#ffffff'},
+      '.Tab:hover':{color:'#1f2421'},
+      '.Tab--selected':{border:'1px solid #6f9b7c',boxShadow:'none',backgroundColor:'#fafaf7'},
+      '.Tab--selected:focus':{boxShadow:'none'},
+      '.AccordionItem':{border:'1px solid #d8dcd6',boxShadow:'none',backgroundColor:'#ffffff'},
+      '.Block':{border:'1px solid #d8dcd6',boxShadow:'none',backgroundColor:'#fafaf7'},
+      '.PickerItem':{border:'1px solid #d8dcd6',boxShadow:'none'},
+      '.PickerItem--selected':{border:'1px solid #6f9b7c',boxShadow:'none'},
+      '.CheckboxInput':{border:'1px solid #d8dcd6',boxShadow:'none'},
+      '.CheckboxInput--checked':{backgroundColor:'#1f2421',borderColor:'#1f2421'}
+    }
+  };
   function start(){
     if(started)return;
     started=true;
+    form.hidden=false;
     try{
-      Promise.all([loadStripe(),fetchSecret()]).then(function(r){
-        var secret=r[1];
-        return r[0](KEY).initEmbeddedCheckout({fetchClientSecret:function(){return Promise.resolve(secret);}});
-      }).then(function(checkout){
-        checkout.mount('#stripe-checkout');
-        if(fallback)fallback.hidden=true;
+      loadStripe().then(function(Stripe){
+        var checkout=Stripe(KEY).initCheckoutElementsSdk({
+          clientSecret:fetchSecret(),
+          elementsOptions:{
+            appearance:APPEARANCE,
+            fonts:[{cssSrc:'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap'}]
+          }
+        });
+        checkout.on('change',showTotal);
+        var payment=checkout.createPaymentElement({layout:{type:'accordion',defaultCollapsed:false,radios:'if_multiple',spacedAccordionItems:true},fields:{billingDetails:{email:'never'}}});
+        payment.on('ready',function(){if(failed)return;ready=true;if(fallback)fallback.hidden=true;});
+        payment.on('focus',begin);
+        payment.on('loaderror',function(ev){fail(ev&&ev.error?ev.error:new Error('Payment Element load error'));});
+        payment.mount('#stripe-checkout');
+        return checkout.loadActions().then(function(result){
+          if(!result||result.type!=='success')throw (result&&result.error)||new Error('Checkout actions did not load');
+          actions=result.actions;
+          try{showTotal(actions.getSession());}catch(e){}
+        });
       }).catch(fail);
     }catch(err){fail(err);}
   }
-  try{track('view_item');}catch(e){}
-  var activated=false;
-  var buttons=document.querySelectorAll('a.btn-solid[href="#checkout"]');
-  for(var i=0;i<buttons.length;i++){
-    buttons[i].addEventListener('click',function(){
-      if(activated)return;
-      activated=true;
-      try{track('begin_checkout');}catch(e){}
-    });
+  function emailValue(){return (emailEl.value||'').trim();}
+  function checkEmail(){
+    var v=emailValue();
+    if(!EMAIL.test(v)){emailEl.setAttribute('aria-invalid','true');return false;}
+    emailEl.removeAttribute('aria-invalid');return true;
   }
-  // The checkout sits right under the capsule, so it mounts as soon as the page loads.
+  form.addEventListener('focusin',begin);
+  emailEl.addEventListener('input',function(){if(emailEl.getAttribute('aria-invalid'))checkEmail();});
+  emailEl.addEventListener('blur',function(){
+    var v=emailValue();
+    if(!v||!actions||v===lastEmail)return;
+    if(!checkEmail()){showError('Enter a valid email address.');return;}
+    showError('');
+    lastEmail=v;
+    Promise.resolve(actions.updateEmail(v)).then(function(r){
+      if(r&&r.type==='error'){lastEmail='';emailEl.setAttribute('aria-invalid','true');showError(r.error&&r.error.message?r.error.message:'Enter a valid email address.');}
+    }).catch(function(){lastEmail='';});
+  });
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    begin();
+    if(busy)return;
+    showError('');
+    if(!checkEmail()){showError('Enter a valid email address.');emailEl.focus();return;}
+    if(!actions){showError('The checkout is still loading. Try again in a moment.');return;}
+    setBusy(true);
+    var v=emailValue();
+    Promise.resolve(actions.confirm({email:v})).then(function(r){
+      // On success Stripe redirects to the return URL; only an error comes back here.
+      if(r&&r.type==='error'){showError(r.error&&r.error.message?r.error.message:'The payment did not go through. Check the details and try again.');}
+      setBusy(false);
+    }).catch(function(err){
+      try{console.error('Checkout confirm failed:',err);}catch(e){}
+      showError('Something went wrong on our side. Email info@metcalfsearch.com or call 614.434.6646 and we will activate it by hand.');
+      setBusy(false);
+    });
+  });
+  try{track('view_item');}catch(e){}
+  var buttons=document.querySelectorAll('a.btn-solid[href="#checkout"]');
+  for(var i=0;i<buttons.length;i++){buttons[i].addEventListener('click',begin);}
+  // The checkout sits right under the capsule, so it loads as soon as the page is ready.
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 })();
 </script>""".replace("__KEY__", KEY)
@@ -482,7 +596,14 @@ def page(t):
 <p class="section-sub">Your tier. Your checkout. Right here.</p>
 <p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
 </div>
-<div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
+<form class="checkout-form" id="checkout-form" novalidate hidden>
+<label class="checkout-label" for="checkout-email">Email</label>
+<input class="checkout-input" id="checkout-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
+<div id="stripe-checkout" class="checkout-mount"></div>
+<button type="submit" class="btn-solid checkout-submit" id="checkout-submit" data-label="Activate {t['name']}">Activate {t['name']}, {t['price']} a month</button>
+<p class="checkout-error" id="checkout-error" role="alert" hidden></p>
+<p class="checkout-terms">Month to month. Cancel with thirty days notice.</p>
+</form>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
 <p class="checkout-alt">Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
 </div>

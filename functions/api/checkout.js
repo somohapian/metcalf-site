@@ -1,9 +1,18 @@
 /**
  * POST /api/checkout
  *
- * Creates an embedded Stripe Checkout Session (subscription) for one
- * Recruiting Partner tier and returns its client secret to the tier page,
- * which mounts Stripe's embedded checkout with it.
+ * Creates a Stripe Checkout Session (subscription) for one Recruiting
+ * Partner tier in Stripe's custom checkout mode and returns its client secret
+ * to the tier page, which renders our own form around the Payment Element
+ * (Stripe.js initCheckoutElementsSdk).
+ *
+ * Custom checkout: Stripe renamed ui_mode "custom" to "elements" in API
+ * version 2026-03-25.dahlia, and "custom" is refused from then on. The
+ * request pins STRIPE_VERSION so the session does not depend on the
+ * account's default API version, and the tier pages load the matching
+ * Stripe.js release (https://js.stripe.com/endive/stripe.js). Stripe asks
+ * that the server API version and the Stripe.js release stay on one train:
+ * change both together.
  *
  *   Request:  {"tier": "partner" | "plus" | "pro"}
  *   Response: {"clientSecret": "..."}
@@ -25,6 +34,7 @@ export const PRICES = {
 };
 
 const STRIPE_SESSIONS = 'https://api.stripe.com/v1/checkout/sessions';
+export const STRIPE_VERSION = '2026-09-30.endive';
 const RETURN_URL = 'https://metcalfsearch.com/onboarding/?session_id={CHECKOUT_SESSION_ID}';
 const ALLOW = 'POST, OPTIONS';
 
@@ -65,7 +75,7 @@ export async function onRequestPost({ request, env }) {
 
   const form = new URLSearchParams({
     mode: 'subscription',
-    ui_mode: 'embedded',
+    ui_mode: 'elements',
     'line_items[0][price]': price,
     'line_items[0][quantity]': '1',
     return_url: RETURN_URL,
@@ -81,7 +91,8 @@ export async function onRequestPost({ request, env }) {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + secretKey,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Stripe-Version': STRIPE_VERSION
       },
       body: form
     });

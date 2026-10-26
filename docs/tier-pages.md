@@ -10,8 +10,13 @@ button, green capsule, checkout card (#checkout), logo strip, who it is for, wha
 after you click, result and math, repeat CTA, three questions, billing terms.
 
 ## Checkout
-Embedded Stripe Checkout (buyer never leaves). `functions/api/checkout.js` creates the session
-from the PRICES map (one Stripe price id per tier); `functions/api/checkout-status.js` confirms a
+Stripe custom checkout (buyer never leaves): our own form in the white card (email field, Stripe's
+Payment Element styled with the Appearance API, our Activate button). `functions/api/checkout.js`
+creates the session with `ui_mode: "elements"` (Stripe's name for custom checkout since
+2026-03-25.dahlia; "custom" is refused) from the PRICES map (one Stripe price id per tier), pinned
+to `Stripe-Version: 2026-09-30.endive`; the page loads the matching `js.stripe.com/endive/stripe.js`
+and calls `initCheckoutElementsSdk`. Change the API version and the Stripe.js release together.
+The button label is read from the session total (Stripe requires the page to show it); `functions/api/checkout-status.js` confirms a
 session for the return page `/onboarding/?session_id=...` (GA4 purchase). The secret key is the
 Cloudflare Pages variable `STRIPE_SECRET_KEY` (a restricted Stripe key: checkout sessions write,
 customers write, prices and products read). The publishable key lives in the generator.
