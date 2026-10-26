@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recruiting Partner Pro, $10,675 a Month | Metcalf Search</title>
-<meta name="description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,675 a month. No per-hire fees. Activate here.">
+<title>Recruiting Partner Pro, $10,950 a Month | Metcalf Search</title>
+<meta name="description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,950 a month. No per-hire fees. Activate here.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://metcalfsearch.com/recruiting-partner-pro">
-<meta property="og:title" content="Recruiting Partner Pro, $10,675 a Month | Metcalf Search">
-<meta property="og:description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,675 a month. No per-hire fees. Activate here.">
+<meta property="og:title" content="Recruiting Partner Pro, $10,950 a Month | Metcalf Search">
+<meta property="og:description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,950 a month. No per-hire fees. Activate here.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://metcalfsearch.com/recruiting-partner-pro">
 <meta property="og:site_name" content="Metcalf Search">
 <meta property="og:image" content="https://metcalfsearch.com/og-default.png">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Recruiting Partner Pro, $10,675 a Month | Metcalf Search">
-<meta name="twitter:description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,675 a month. No per-hire fees. Activate here.">
+<meta name="twitter:title" content="Recruiting Partner Pro, $10,950 a Month | Metcalf Search">
+<meta name="twitter:description" content="Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat $10,950 a month. No per-hire fees. Activate here.">
 <meta name="twitter:image" content="https://metcalfsearch.com/og-default.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -183,7 +183,13 @@ a{color:inherit;text-decoration:none;}
 /* Tier pages: layout shared by recruiting-partner, recruiting-partner-plus and recruiting-partner-pro. */
 .page-hero h1{text-wrap:balance;}
 .page-hero h1 .accent{padding-right:0.1em;}
-.eyebrow-part{white-space:nowrap;}
+.eyebrow-part,.nowrap{white-space:nowrap;}
+/* Hero buttons: .hero-cta, .btn-solid and .btn-textlink as on index.html, minus the entrance animation. */
+.hero-cta{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:38px;}
+.btn-solid{display:inline-block;font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:0.02em;border-radius:2px;padding:14px 26px;background:var(--ink);color:var(--paper);transition:background 0.25s ease;}
+.btn-solid:hover{background:var(--brick);}
+.btn-textlink{font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:0.02em;color:var(--brick);border-bottom:1px solid var(--brick);padding-bottom:2px;transition:opacity 0.2s ease;}
+.btn-textlink:hover{opacity:0.7;}
 .prose h2 .accent{font-style:italic;font-weight:400;}
 .prose .buys{list-style:none;padding:0;margin-top:28px;border-top:1px solid var(--rule);}
 .prose .buys li{position:relative;margin:0;padding:20px 0 20px 36px;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.6;color:var(--ink-soft);}
@@ -202,15 +208,26 @@ a{color:inherit;text-decoration:none;}
 .mathbox h3 .accent{font-style:italic;}
 .prose .mathbox p{margin:0;font-size:16px;line-height:1.75;color:var(--ink-soft);}
 .mathbox strong{font-weight:600;color:var(--ink);white-space:nowrap;}
-.checkout{max-width:1100px;margin:96px auto 0;padding:0 32px;scroll-margin-top:calc(var(--nav-h) + 24px);}
+/* Checkout card: the buy sits directly under the capsule. The section is the #checkout scroll target. */
+.capsule{margin-bottom:40px;}
+.checkout{max-width:1100px;margin:0 auto;padding:16px 32px 0;scroll-margin-top:var(--nav-h);}
+.checkout-card{background:var(--paper-warm);border:1px solid var(--rule);border-radius:2px;padding:56px 48px 44px;}
 .section-head{text-align:center;max-width:720px;margin:0 auto 40px;}
 .section-eyebrow{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--celadon-deep);margin-bottom:14px;}
 .section-h2{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:"opsz" 96;font-weight:400;font-size:clamp(30px,3.8vw,44px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink);}
 .section-h2 .accent{font-style:italic;font-weight:400;}
 .section-sub{font-family:var(--body);font-size:17px;line-height:1.6;color:var(--ink-soft);margin-top:14px;}
-.price-line{display:inline-block;margin-top:24px;padding:12px 20px;background:var(--celadon-mist);border:1px solid var(--celadon);border-radius:2px;font-family:var(--body);font-size:15px;line-height:1.55;color:var(--ink);}
-.price-line strong{font-weight:600;}
+.price-line{max-width:620px;margin:24px auto 0;font-family:var(--display);font-optical-sizing:auto;font-weight:400;font-size:clamp(19px,2vw,22px);line-height:1.5;letter-spacing:-0.005em;color:var(--ink);text-wrap:balance;}
+.price-line strong{font-weight:600;white-space:nowrap;}
+@media(min-width:721px){.price-terms{white-space:nowrap;}}
 .checkout-mount{max-width:1000px;margin:0 auto;}
+/* The client strip as a quiet proof band right under the checkout card. */
+.checkout+.client-strip{margin-top:48px;padding:28px 0;}
+.checkout+.client-strip .client-strip__label{margin-bottom:18px;}
+/* Repeat call to action after the math box. */
+.cta-band{margin:0;padding:72px 32px 76px;background:var(--celadon-mist);border-top:1px solid var(--celadon);border-bottom:1px solid var(--celadon);text-align:center;}
+.cta-band .section-h2{margin-bottom:28px;}
+.cta-band-note{margin-top:18px;font-family:var(--body);font-size:15px;line-height:1.6;color:var(--ink-soft);}
 .checkout-fallback{max-width:600px;margin:0 auto;text-align:center;font-family:var(--body);font-size:15px;line-height:1.6;color:var(--ink-soft);}
 .checkout-fallback[hidden]{display:none;}
 .checkout-alt{max-width:600px;margin:20px auto 0;text-align:center;font-family:var(--body);font-size:15px;line-height:1.6;color:var(--ink-soft);}
@@ -232,7 +249,7 @@ a{color:inherit;text-decoration:none;}
 .terms-fold summary::after{margin-top:5px;}
 .terms-fold[open] summary::after{margin-top:9px;}
 .terms-body{padding:0 0 20px;font-family:var(--body);font-size:15px;line-height:1.65;color:var(--ink-soft);}
-@media(max-width:720px){.checkout{margin-top:72px;padding:0 20px;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
+@media(max-width:720px){.hero-cta{display:block;margin-top:32px;}.hero-cta .btn-solid{display:block;margin-bottom:20px;text-align:center;}.checkout{padding:8px 16px 0;}.checkout-card{padding:40px 18px 32px;}.checkout+.client-strip{margin-top:40px;}.cta-band{padding:56px 24px 60px;}.cta-band .btn-solid{display:block;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
 </style>
 <style id="metcalf-client-strip">
 /* Client logo strip. Filled by /assets/clients/ticker.js from /assets/clients/clients.js. */
@@ -265,12 +282,31 @@ a{color:inherit;text-decoration:none;}
       </a><div class="nav-links"><a href="/stack-method">STACK Method</a><a href="/services">Services</a><a href="/who-we-serve">Who We Serve</a><a href="/about">About</a><a href="/blog">Blog</a></div><a href="/contact" class="nav-cta">Start a Conversation</a></div></nav>
 
 <section class="page-hero">
-<div class="eyebrow"><span class="eyebrow-part">RECRUITING PARTNER PRO</span> &middot; <span class="eyebrow-part">$10,675 A MONTH</span></div>
+<div class="eyebrow"><span class="eyebrow-part">RECRUITING PARTNER PRO</span> &middot; <span class="eyebrow-part">$10,950 A MONTH</span></div>
 <h1>A dedicated recruiter, onsite <span class="accent">three</span> days a week.</h1>
 <p class="sub">Every open role, no cap, run by a Metcalf Search recruiter embedded with your team three full days a week. The output of a full-time recruiting hire, on a month-to-month subscription.</p>
+<div class="hero-cta">
+<a href="#checkout" class="btn-solid">Activate Recruiting Partner Pro</a>
+<a href="/contact" class="btn-textlink">Questions first? <span class="nowrap">Book the thirty-minute fit call.</span></a>
+</div>
 </section>
 
-<div class="capsule"><strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week, every open role in the company, for a flat $10,675 a month. No per-hire fees. Month to month.</div>
+<div class="capsule"><strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week, every open role in the company, for a flat $10,950 a month. No per-hire fees. Month to month.</div>
+
+<section class="checkout" id="checkout" data-tier="pro" data-item="Recruiting Partner Pro" data-price="10950" aria-labelledby="checkout-heading">
+<div class="checkout-card">
+<div class="section-head">
+<div class="section-eyebrow">ACTIVATE</div>
+<h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
+<p class="section-sub">Your tier. Your checkout. Right here.</p>
+<p class="price-line"><strong>$10,950 a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
+</div>
+<div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
+<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
+<p class="checkout-alt">Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+</div>
+</section>
+<div class="client-strip" data-client-ticker data-show="7"></div>
 
 <article class="prose">
 <h2>Who this is <span class="accent">for</span>.</h2>
@@ -300,22 +336,14 @@ a{color:inherit;text-decoration:none;}
 <p class="result-line">Every open seat has a recruiter on it. Managers get a person, not a ticket. The function is still there when the hiring wave passes.</p>
 <aside class="mathbox" aria-labelledby="math-heading">
 <h3 id="math-heading">The <span class="accent">math</span>.</h3>
-<p>Twelve months of Recruiting Partner Pro is <strong>$128,100</strong>. Eight contingency hires at a $65,000 salary and a 25 percent fee cost <strong>$130,000</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus the ninety days before they know your company. Pro starts within 48 hours and leaves when you say so. The fee never moves with the offer. There is no bonus for a bigger salary and every reason to fill fast and right.</p>
+<p>Twelve months of Recruiting Partner Pro is <strong>$131,400</strong>. Eight contingency hires at a $65,000 salary and a 25 percent fee cost <strong>$130,000</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus the ninety days before they know your company. Pro starts within 48 hours and leaves when you say so. The fee never moves with the offer. There is no bonus for a bigger salary and every reason to fill fast and right.</p>
 </aside>
 </article>
 
-<div class="client-strip" data-client-ticker data-show="7"></div>
-
-<section class="checkout" id="checkout" data-tier="pro" data-item="Recruiting Partner Pro" data-price="10675">
-<div class="section-head">
-<div class="section-eyebrow">ACTIVATE</div>
-<h2 class="section-h2">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
-<p class="section-sub">Your tier. Your checkout. Right here.</p>
-<p class="price-line"><strong>$10,675 a month.</strong> Month to month. No per-hire fees. Move up or down a tier at any monthly cycle.</p>
-</div>
-<div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
-<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
-<p class="checkout-alt">Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+<section class="cta-band" aria-labelledby="cta-band-heading">
+<h2 class="section-h2" id="cta-band-heading">Ready when you <span class="accent">are</span>.</h2>
+<a href="#checkout" class="btn-solid">Activate Recruiting Partner Pro</a>
+<p class="cta-band-note">Kickoff within 48 hours. First slate within five business days.</p>
 </section>
 
 <section class="faq-section" aria-labelledby="faq-heading">
@@ -336,7 +364,7 @@ a{color:inherit;text-decoration:none;}
 </div>
 <details class="terms-fold">
 <summary>Billing terms.</summary>
-<p class="terms-body">Recruiting Partner Pro is $10,675 a month, billed monthly in advance, month to month. Move up or down a tier at any monthly cycle; rates are grandfathered. Cancel with thirty days notice by emailing <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The partnership agreement, signed at kickoff, governs the partnership.</p>
+<p class="terms-body">Recruiting Partner Pro is $10,950 a month, billed monthly in advance, month to month. Move up or down a tier at any monthly cycle; rates are grandfathered. Cancel with thirty days notice by emailing <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The partnership agreement, signed at kickoff, governs the partnership.</p>
 </details>
 </section>
 
@@ -387,12 +415,8 @@ a{color:inherit;text-decoration:none;}
       }).catch(fail);
     }catch(err){fail(err);}
   }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      for(var i=0;i<entries.length;i++){if(entries[i].isIntersecting){io.disconnect();start();return;}}
-    },{rootMargin:'600px 0px'});
-    io.observe(section);
-  }else{start();}
+  // The checkout sits right under the capsule, so it mounts as soon as the page loads.
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 })();
 </script>
 
