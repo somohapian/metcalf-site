@@ -287,7 +287,7 @@ a{color:inherit;text-decoration:none;}
     font-family: inherit; font-size: 16px; font-weight: 500;
     text-transform: none; border-radius: 2px;
   }
-  .nav-overlay a.nav-cta-mobile:hover { background: #1a1a1a; color: #fafaf7; }
+  .nav-overlay a.nav-cta-mobile:hover { background: #1a1a1a; color: #fafaf7; } .nav-drop-wrap{position:relative;display:inline-flex;align-items:center;} .nav-top::after{content:"";display:inline-block;width:5px;height:5px;margin:0 1px 3px 8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:0.55;} .nav-drop{position:absolute;top:calc(100% + 14px);left:50%;z-index:70;min-width:300px;padding:8px 0;background:var(--paper);border:1px solid var(--rule);border-radius:2px;box-shadow:0 12px 32px rgba(31,36,33,0.08);font-family:var(--body);text-align:left;opacity:0;visibility:hidden;transform:translate(-50%,4px);transition:opacity 0.18s ease,transform 0.18s ease,visibility 0s linear 0.18s;} .nav-drop::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px;} .nav-drop-wrap:hover .nav-drop,.nav-drop-wrap:focus-within .nav-drop{opacity:1;visibility:visible;transform:translate(-50%,0);transition-delay:0s;} .nav-links .nav-sub{display:block;padding:9px 20px;font-size:14px;font-weight:500;letter-spacing:0.01em;line-height:1.5;color:var(--ink);white-space:nowrap;} .nav-sub-price{font-weight:400;color:var(--ink-soft);} .nav-links .nav-sub:hover,.nav-links .nav-sub:focus-visible{background:var(--paper-warm);color:var(--brick);outline:none;} .nav-links .nav-sub-all{margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);color:var(--brick);} @media (max-width: 768px){.nav-drop{display:none;}} @media (prefers-reduced-motion: reduce){.nav-drop{transition:none;}} .nav-overlay .nav-top::after{display:none;}
 </style>
 <style id="metcalf-faq-card-behavior">
   /* Convert /fractional-recruiting's .faq-list layout to the same card grid
@@ -354,7 +354,7 @@ a{color:inherit;text-decoration:none;}
       </a>
     <div class="nav-links">
       <a href="/stack-method">STACK Method</a>
-      <a href="/services">Services</a>
+      <div class="nav-drop-wrap"><a href="/activate" class="nav-top">Pricing</a><div class="nav-drop"><a class="nav-sub" href="/recruiting-partner">Recruiting Partner<span class="nav-sub-price">, $2,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-plus">Recruiting Partner Plus<span class="nav-sub-price">, $5,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-pro">Recruiting Partner Pro<span class="nav-sub-price">, $10,950 a month</span></a><a class="nav-sub nav-sub-all" href="/activate">Compare all tiers</a></div></div>
       <a href="/who-we-serve">Who We Serve</a>
       <a href="/about">About</a>
       <a href="/blog">Blog</a>
@@ -680,7 +680,7 @@ a{color:inherit;text-decoration:none;}
       <p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p>
     </div>
     <div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div>
-    <div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/recruiting-partner">Recruiting Partner</a></li><li><a href="/recruiting-partner-plus">Recruiting Partner Plus</a></li><li><a href="/recruiting-partner-pro">Recruiting Partner Pro</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
     <div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div>
   </div>
   <div class="foot-bottom">
@@ -718,7 +718,7 @@ window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('sc
     closeButton.className = 'nav-close';
     closeButton.textContent = 'Close menu';
     overlay.appendChild(closeButton);
-    var links = document.querySelectorAll('.nav-links a');
+    var links = document.querySelectorAll('.nav-links a:not(.nav-sub)');
     Array.prototype.forEach.call(links, function(a){ overlay.appendChild(a.cloneNode(true)); });
     var cta = document.querySelector('.nav-cta');
     if (cta) {
