@@ -255,7 +255,7 @@ def billing(name, price):
     return (f"{name} is {price} a month, billed monthly in advance, month to month. Move up or down a tier "
             "at any monthly cycle; rates are grandfathered. Cancel with ten days notice by emailing "
             '<a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The '
-            '<a href="/partnership-agreement">partnership agreement</a> governs the partnership; activating accepts it.')
+            '<a href="/terms#partnership-agreement">partnership agreement</a> governs the partnership; activating accepts it.')
 
 
 TIERS = [
@@ -525,7 +525,7 @@ def page(t):
 </div>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
-<p class="checkout-alt">Activating accepts the <a href="/partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+<p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
 </div>
 </section>
 {FOOTER}
