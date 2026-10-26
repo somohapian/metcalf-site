@@ -91,8 +91,8 @@ TIER_CSS = """<style id="metcalf-tier-page">
 .mathbox strong{font-weight:600;color:var(--ink);white-space:nowrap;}
 /* Checkout card: the buy sits directly under the capsule. The section is the #checkout scroll target. */
 .capsule{margin-bottom:40px;}
-.checkout{max-width:1100px;margin:0 auto;padding:16px 32px 0;scroll-margin-top:var(--nav-h);}
-.checkout-card{background:var(--paper-warm);border:1px solid var(--rule);border-radius:2px;padding:56px 48px 44px;}
+.checkout{margin:24px 0 0;padding:64px 32px;background:var(--paper-warm);scroll-margin-top:var(--nav-h);}
+.checkout-card{max-width:1040px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(31,36,33,0.06),0 12px 40px rgba(31,36,33,0.08);padding:52px 48px 40px;}
 .section-head{text-align:center;max-width:720px;margin:0 auto 40px;}
 .section-eyebrow{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--celadon-deep);margin-bottom:14px;}
 .section-h2{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:"opsz" 96;font-weight:400;font-size:clamp(30px,3.8vw,44px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink);}
@@ -103,8 +103,9 @@ TIER_CSS = """<style id="metcalf-tier-page">
 @media(min-width:721px){.price-terms{white-space:nowrap;}}
 .checkout-mount{max-width:1000px;margin:0 auto;}
 /* The client strip as a quiet proof band right under the checkout card. */
-.checkout+.client-strip{margin-top:48px;padding:28px 0;}
-.checkout+.client-strip .client-strip__label{margin-bottom:18px;}
+.client-strip.client-strip--hero{background:none;border:0;padding:44px 0 0;margin:0 -32px;}
+.client-strip--hero .client-strip__label{margin-bottom:18px;}
+.client-strip--hero img{opacity:0.7;}
 /* Repeat call to action after the math box. */
 .cta-band{margin:0;padding:72px 32px 76px;background:var(--celadon-mist);border-top:1px solid var(--celadon);border-bottom:1px solid var(--celadon);text-align:center;}
 .cta-band .section-h2{margin-bottom:28px;}
@@ -130,7 +131,7 @@ TIER_CSS = """<style id="metcalf-tier-page">
 .terms-fold summary::after{margin-top:5px;}
 .terms-fold[open] summary::after{margin-top:9px;}
 .terms-body{padding:0 0 20px;font-family:var(--body);font-size:15px;line-height:1.65;color:var(--ink-soft);}
-@media(max-width:720px){.hero-cta{display:block;margin-top:32px;}.hero-cta .btn-solid{display:block;margin-bottom:20px;text-align:center;}.checkout{padding:8px 16px 0;}.checkout-card{padding:40px 18px 32px;}.checkout+.client-strip{margin-top:40px;}.cta-band{padding:56px 24px 60px;}.cta-band .btn-solid{display:block;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
+@media(max-width:720px){.hero-cta{display:block;margin-top:32px;}.hero-cta .btn-solid{display:block;margin-bottom:20px;text-align:center;}.checkout{padding:32px 12px;}.checkout-card{padding:36px 12px 28px;border-radius:10px;}.client-strip.client-strip--hero{padding-top:32px;margin:0 -16px;}.cta-band{padding:56px 24px 60px;}.cta-band .btn-solid{display:block;}.faq-section{margin-top:72px;}.mathbox{padding:20px;}.prose .buys strong{font-size:18px;}.faq-item summary{font-size:18px;}}
 </style>"""
 
 STRIP_CSS = """<style id="metcalf-client-strip">
@@ -159,6 +160,7 @@ STRIP_CSS = """<style id="metcalf-client-strip">
 </style>"""
 
 STRIP_DIV = '<div class="client-strip" data-client-ticker data-show="7"></div>'
+HERO_STRIP_DIV = '<div class="client-strip client-strip--hero" data-client-ticker data-show="7"></div>'
 STRIP_SCRIPTS = ('<script src="/assets/clients/clients.js" defer></script>\n'
                  '<script src="/assets/clients/ticker.js" defer></script>')
 
@@ -467,6 +469,7 @@ def page(t):
 <a href="#checkout" class="btn-solid">Activate {t['name']}</a>
 <a href="/contact" class="btn-textlink">{FIT_CALL}</a>
 </div>
+{HERO_STRIP_DIV}
 </section>
 
 <div class="capsule">{t['capsule']}</div>
@@ -484,7 +487,6 @@ def page(t):
 <p class="checkout-alt">Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
 </div>
 </section>
-{STRIP_DIV}
 
 <article class="prose">
 <h2>Who this is <span class="accent">for</span>.</h2>
