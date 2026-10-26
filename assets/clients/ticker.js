@@ -13,7 +13,7 @@
   'use strict';
 
   var BASE = '/assets/clients/';
-  var LABEL = 'Some of the companies we have hired for.';
+  var LABEL = 'Some companies we have hired for recently.';
   var DEFAULT_SHOW = 7;
   var MIN_LOGOS = 3;
   var SECONDS_PER_LOGO = 3.2;
