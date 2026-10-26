@@ -475,20 +475,6 @@ def page(t):
 
 <div class="capsule">{t['capsule']}</div>
 
-<section class="checkout" id="checkout" data-tier="{t['key']}" data-item="{t['name']}" data-price="{t['value']}" aria-labelledby="checkout-heading">
-<div class="checkout-card">
-<div class="section-head">
-<div class="section-eyebrow">ACTIVATE</div>
-<h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
-<p class="section-sub">Your tier. Your checkout. Right here.</p>
-<p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
-</div>
-<div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
-<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
-<p class="checkout-alt">Activating accepts the <a href="/partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
-</div>
-</section>
-
 <article class="prose">
 <h2>Who this is <span class="accent">for</span>.</h2>
 <p>{t['who']}</p>
@@ -528,6 +514,20 @@ def page(t):
 </details>
 </section>
 
+
+<section class="checkout" id="checkout" data-tier="{t['key']}" data-item="{t['name']}" data-price="{t['value']}" aria-labelledby="checkout-heading">
+<div class="checkout-card">
+<div class="section-head">
+<div class="section-eyebrow">ACTIVATE</div>
+<h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
+<p class="section-sub">Your tier. Your checkout. Right here.</p>
+<p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
+</div>
+<div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
+<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
+<p class="checkout-alt">Activating accepts the <a href="/partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+</div>
+</section>
 {FOOTER}
 
 {NAV_SCRIPT}
