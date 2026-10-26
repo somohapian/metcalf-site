@@ -271,7 +271,7 @@ TIERS = [
         "capsule": f"<strong>Recruiting Partner</strong> is the base Metcalf Search tier: one role open at a time, sourced, screened and closed by us, for a flat {money(P)} a month. No per-hire fees. Month to month.",
         "who": "Owners with one seat open now and a few more coming this year. Companies of roughly ten to two hundred people, in any industry, where hiring lands on the owner or on one overloaded HR person. If you usually have two or three roles open at once, " + PLUS_LINK + " fits better.",
         "buys": [
-            ("A senior recruiter on your role.", "Jay is your single point of contact, backed by the Metcalf Search team."),
+            ("A senior recruiter is your single point of contact.", "One person owns your role start to finish, backed by the Metcalf Search team."),
             ("The full STACK Method on the search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan."),
             ("Ad spend, included.", "The job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
@@ -309,7 +309,7 @@ TIERS = [
         "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, one onsite hour each week with your hiring managers, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
         "who": "Owners and HR managers with hiring that does not stop: two or three seats open most months, several managers to coordinate, and nobody with the hours to run it properly. Companies of roughly ten to two hundred people, in any industry.",
         "buys": [
-            ("A senior recruiter on two to three roles at once.", "Jay is your single point of contact, backed by the Metcalf Search team."),
+            ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("One onsite hour every week.", "Hiring manager time, interview debriefs and the decisions that stall over email. The same hour every week, so it actually happens."),
             ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan, per role."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
@@ -353,7 +353,7 @@ TIERS = [
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
-            ("Jay runs the partnership.", "The embedded recruiter runs the days. Jay runs the plan."),
+            ("A senior recruiter is your single point of contact.", "The embedded recruiter runs the days. Your senior recruiter runs the plan, backed by the Metcalf Search team."),
         ],
         "timeline": [
             STEP_TODAY,
@@ -366,7 +366,7 @@ TIERS = [
         "math": (f"Twelve months of Recruiting Partner Pro is <strong>{money(12 * PRO)}</strong>. Ten {CONTINGENCY} <strong>{money(10 * PER_HIRE)}</strong>. "
                  f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus the ninety days before they know your company. Pro starts within 48 hours and leaves when you say so. {MATH_CLOSE}"),
         "faq": [
-            ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. Jay runs the partnership and the plan."),
+            ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. A senior recruiter is your single point of contact and runs the plan, backed by the Metcalf Search team."),
             (PER_HIRE_Q, PER_HIRE_A),
             ("What if hiring slows down?", "Move down to " + PLUS_LINK + " or " + PARTNER_LINK + " at any monthly cycle. Your rate is grandfathered, and the careers page, pipeline and process stay in your Rosie desk."),
         ],
