@@ -253,7 +253,7 @@ PARTNER_LINK = '<a href="/recruiting-partner">Recruiting Partner</a>'
 
 def billing(name, price):
     return (f"{name} is {price} a month, billed monthly in advance, month to month. Move up or down a tier "
-            "at any monthly cycle; rates are grandfathered. Cancel with thirty days notice by emailing "
+            "at any monthly cycle; rates are grandfathered. Cancel with ten days notice by emailing "
             '<a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The partnership agreement, '
             "signed at kickoff, governs the partnership.")
 
@@ -278,6 +278,7 @@ TIERS = [
             ("Ad spend, included.", "The job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
             ("A short list, not a pile.", "You see the three or four people worth an hour, with our write-up on each."),
+            ("A kickoff visit, then onsite as needed.", "We come out to start the partnership and again whenever being in the room moves the hire forward."),
             ("The interviews, the offer and the first ninety days.", "We schedule and prep the interviews, build the offer, and run the thirty, sixty and ninety day check-ins with the hire and the manager."),
             ("One active role at a time.", "When it fills, the next one starts. No per-hire fee when it does."),
         ],
@@ -304,15 +305,15 @@ TIERS = [
         "price": money(PLUS),
         "value": PLUS,
         "title": f"Recruiting Partner Plus, {money(PLUS)} a Month | Metcalf Search",
-        "description": f"Recruiting Partner Plus: two to three roles at once, a weekly huddle and a quarterly onsite day, for a flat {money(PLUS)} a month. No per-hire fees.",
+        "description": f"Recruiting Partner Plus: two to three roles at once and up to 8 onsite hours a month, for a flat {money(PLUS)} a month. No per-hire fees.",
         "eyebrow": f"RECRUITING PARTNER PLUS &middot; {money(PLUS)} A MONTH",
         "h1": 'Two or three roles at once. Recruiting, <span class="accent">done</span> for you.',
-        "sub": "Up to three roles running at the same time, a weekly hiring huddle, an onsite day every quarter and ad spend included. You interview short lists. We handle the rest.",
-        "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, a weekly hiring huddle and an onsite day every quarter, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
+        "sub": "Up to three roles running at the same time, up to 8 hours onsite every month and ad spend included. You interview short lists. We handle the rest.",
+        "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, a weekly hiring huddle and up to 8 hours onsite a month, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
         "who": "Owners and HR managers with hiring that does not stop: two or three seats open most months, several managers to coordinate, and nobody with the hours to run it properly. Companies of roughly ten to two hundred people, in any industry.",
         "buys": [
             ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
-            ("A weekly hiring huddle, plus an onsite day every quarter.", "A standing video huddle with your hiring managers every week for debriefs and the decisions that stall over email. Once a quarter we come onsite for a full day: a strategy day with your leaders or an interview day to move finalists fast."),
+            ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
             ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan, per role."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
@@ -332,7 +333,7 @@ TIERS = [
         "faq": [
             ("What counts as a concurrent role?", "Any seat we are actively sourcing for. Recruiting Partner Plus runs up to three at once; when one fills, the next opens. More than three open most months is " + PRO_LINK + " territory."),
             (PER_HIRE_Q, PER_HIRE_A),
-            ("What does the onsite day cover?", "One full day onsite each quarter, used as a strategy day with your leadership or an interview day to move final candidates. Between visits, a weekly video huddle keeps decisions moving."),
+            ("What do the onsite hours cover?", "Up to 8 hours onsite each month, scheduled with you: interview days, debriefs, offer strategy and time with your hiring managers. Unused hours do not roll over. Between visits, a weekly video huddle keeps decisions moving."),
         ],
     },
     {
