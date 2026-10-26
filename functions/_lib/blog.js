@@ -25,12 +25,12 @@ export const CSP_REPORT_ONLY = [
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.stripe.com https://assets.calendly.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.stripe.com https://checkout.stripe.com https://assets.calendly.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.stripe.com https://*.calendly.com",
-  "connect-src 'self' https://api.metcalfsearch.com https://formsubmit.co https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://api.stripe.com https://calendly.com",
-  "frame-src https://js.stripe.com https://hooks.stripe.com https://calendly.com",
+  "connect-src 'self' https://api.metcalfsearch.com https://formsubmit.co https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://api.stripe.com https://checkout.stripe.com https://calendly.com",
+  "frame-src https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com https://calendly.com",
   'upgrade-insecure-requests'
 ].join('; ');
 
@@ -38,7 +38,7 @@ export const SECURITY_HEADERS = {
   'x-content-type-options': 'nosniff',
   'x-frame-options': 'DENY',
   'referrer-policy': 'strict-origin-when-cross-origin',
-  'permissions-policy': 'camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=(self "https://js.stripe.com")',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=(self "https://js.stripe.com" "https://checkout.stripe.com")',
   'strict-transport-security': 'max-age=31536000',
   'content-security-policy-report-only': CSP_REPORT_ONLY
 };

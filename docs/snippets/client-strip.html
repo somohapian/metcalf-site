@@ -1,0 +1,42 @@
+<!--
+  Client logo strip, ready to paste into index.html (the same strip the tier
+  pages carry). Three pieces:
+  1. The style block goes in the head. On index.html, paste it just before
+     the single "</style>" + newline + "</head>" at the end of the head.
+  2. The placeholder div goes where the strip should sit. On index.html,
+     paste it just before <section class="op" id="what"> (right after the hero).
+  3. The two script tags go just before </body>.
+  The logo list is /assets/clients/clients.js. The strip shows data-show logos
+  (default 7) in random order and stays hidden if fewer than three load.
+  Every class the script injects has a rule in the style block, so the QA
+  gate's class check stays clean.
+-->
+<style id="metcalf-client-strip">
+/* Client logo strip. Filled by /assets/clients/ticker.js from /assets/clients/clients.js. */
+.client-strip{margin:0;padding:48px 0 52px;background:var(--paper-warm);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.client-strip:empty{padding:0;border:0;}
+.client-strip[hidden]{display:none;}
+.client-strip__label{margin:0 0 28px;padding:0 24px;text-align:center;text-wrap:balance;font-family:var(--body);font-size:12px;font-weight:600;line-height:1.5;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);}
+.client-strip__viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);}
+.client-strip__track{display:flex;align-items:center;gap:56px;width:max-content;padding-right:56px;animation:client-strip-scroll var(--strip-duration,22.4s) linear infinite;}
+.client-strip img{display:block;flex:none;width:auto;max-width:none;opacity:0.82;}
+.client-strip__viewport:hover .client-strip__track,.client-strip__viewport:focus-within .client-strip__track{animation-play-state:paused;}
+@keyframes client-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:639px){
+  .client-strip__viewport{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);}
+  .client-strip__viewport::-webkit-scrollbar{display:none;}
+  .client-strip__track{animation:none;padding:0 24px;}
+  .client-strip img{scroll-snap-align:start;}
+  .client-strip img[aria-hidden="true"]{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .client-strip__viewport{overflow:visible;-webkit-mask-image:none;mask-image:none;}
+  .client-strip__track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:28px;padding:0 24px;}
+  .client-strip img[aria-hidden="true"]{display:none;}
+}
+</style>
+
+<div class="client-strip" data-client-ticker data-show="7"></div>
+
+<script src="/assets/clients/clients.js" defer></script>
+<script src="/assets/clients/ticker.js" defer></script>
