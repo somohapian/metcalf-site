@@ -208,8 +208,8 @@ a{color:inherit;text-decoration:none;}
 
 <section class="welcome-hero">
 <div class="eyebrow">YOU'RE IN</div>
-<h1>Welcome to <span class="accent">Metcalf Search</span>.</h1>
-<p class="sub">Your fractional recruiting partnership is live. We are thrilled to have you. Now let's get to work.</p>
+<h1>You're in. Kickoff is <span class="accent">next</span>.</h1>
+<p class="sub">Book the ninety-minute kickoff below. The partnership materials are on their way to your inbox.</p>
 </section>
 
 <section class="section">
@@ -272,6 +272,29 @@ if(location.hash){
     if(target)setTimeout(function(){target.scrollIntoView({behavior:'smooth'});},50);
   });
 }
+</script>
+<script>
+(function(){
+  // GA4 purchase: Stripe returns the buyer here with ?session_id=cs_... Fires once per
+  // checkout session (sessionStorage guard) after the session reads paid. Fails silently.
+  try{
+    var id=new URLSearchParams(location.search).get('session_id')||'';
+    if(id.length>255||!/^cs_[A-Za-z0-9_]+$/.test(id))return;
+    var TIERS={partner:['Recruiting Partner',2950],plus:['Recruiting Partner Plus',5950],pro:['Recruiting Partner Pro',10950]};
+    var key='ms_purchase_'+id;
+    try{if(sessionStorage.getItem(key))return;}catch(e){}
+    fetch('/api/checkout-status?session_id='+encodeURIComponent(id),{headers:{Accept:'application/json'}})
+      .then(function(res){return res.ok?res.json():null;})
+      .then(function(s){
+        if(!s||!(s.paymentStatus==='paid'||s.status==='complete'))return;
+        var t=Object.prototype.hasOwnProperty.call(TIERS,s.tier)?TIERS[s.tier]:null;
+        if(!t||typeof gtag!=='function')return;
+        try{if(sessionStorage.getItem(key))return;sessionStorage.setItem(key,'1');}catch(e){}
+        gtag('event','purchase',{transaction_id:id,currency:'USD',value:t[1],items:[{item_name:t[0],price:t[1]}]});
+      })
+      .catch(function(){});
+  }catch(e){}
+})();
 </script>
 
 <script>

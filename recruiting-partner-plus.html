@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recruiting Partner Plus, $5,950 a Month | Metcalf Search</title>
 <meta name="description" content="Recruiting Partner Plus: two to three roles at once, an onsite hour every week and ad spend included, for a flat $5,950 a month. No per-hire fees. Activate here.">
-<meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://metcalfsearch.com/recruiting-partner-plus">
 <meta property="og:title" content="Recruiting Partner Plus, $5,950 a Month | Metcalf Search">
 <meta property="og:description" content="Recruiting Partner Plus: two to three roles at once, an onsite hour every week and ad spend included, for a flat $5,950 a month. No per-hire fees. Activate here.">
@@ -384,6 +383,8 @@ a{color:inherit;text-decoration:none;}
   var price=Number(section.getAttribute('data-price'));
   var KEY='pk_live_51QXRhxAoR3j4s929w8XwWnB5SbgUlJUiUwgxIs0jaX1qqvs51ZisxvWcY2CzcijtzAY25SRdmUJsK1NLRcFOQWnW001YnWf7Hg';
   var started=false;
+  // GA4: view_item once per page view; begin_checkout only when a visitor clicks an Activate button, once per page view.
+  function track(name){if(typeof gtag==='function'){gtag('event',name,{currency:'USD',value:price,items:[{item_name:item,price:price}]});}}
   function fail(err){try{console.error('Embedded checkout did not load:',err);}catch(e){}}
   function loadStripe(){
     return new Promise(function(resolve,reject){
@@ -411,9 +412,18 @@ a{color:inherit;text-decoration:none;}
       }).then(function(checkout){
         checkout.mount('#stripe-checkout');
         if(fallback)fallback.hidden=true;
-        if(typeof gtag==='function'){gtag('event','begin_checkout',{currency:'USD',value:price,items:[{item_name:item,price:price}]});}
       }).catch(fail);
     }catch(err){fail(err);}
+  }
+  try{track('view_item');}catch(e){}
+  var activated=false;
+  var buttons=document.querySelectorAll('a.btn-solid[href="#checkout"]');
+  for(var i=0;i<buttons.length;i++){
+    buttons[i].addEventListener('click',function(){
+      if(activated)return;
+      activated=true;
+      try{track('begin_checkout');}catch(e){}
+    });
   }
   // The checkout sits right under the capsule, so it mounts as soon as the page loads.
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}

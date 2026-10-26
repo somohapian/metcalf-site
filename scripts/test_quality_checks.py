@@ -36,7 +36,7 @@ class QualityGateTests(unittest.TestCase):
         self.assertEqual([i for i in issues if i.severity == "ERR"], [])
 
     def test_detects_broken_targets_labels_and_style(self):
-        source = VALID.replace("</body>", '<a href="/missing">Broken</a><a href="#absent">Hash</a><input name="unlabelled"><p>Bad engagement — TODO</p><div id="example"></div></body>')
+        source = VALID.replace("</body>", '<a href="/missing">Broken</a><a href="#absent">Hash</a><input name="unlabelled"><p>Bad engagement \u2014 TODO</p><div id="example"></div></body>')
         checks = {i.check for i in self.run_gate(source)}
         self.assertTrue({"internal-target", "hash-target", "form-label", "house-style", "duplicate-id"} <= checks)
 
@@ -49,7 +49,7 @@ class QualityGateTests(unittest.TestCase):
         schema = {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "description": "See services for current pricing."}}
         with_schema = lambda value: VALID.replace("</head>", '<script type="application/ld+json">' + json.dumps(value) + '</script></head>')
         self.assertNotIn("schema-offer", {i.check for i in self.run_gate(with_schema(schema))})
-        schema["priceSpecification"]["price"] = 2875
+        schema["priceSpecification"]["price"] = 2950
         self.assertIn("schema-offer", {i.check for i in self.run_gate(with_schema(schema))})
 
     def test_all_visible_faq_shapes_and_drift(self):

@@ -13,14 +13,15 @@
  * CORS headers are sent.
  */
 
-// Stripe price id for each tier. Replace each placeholder with that tier's
-// monthly recurring price id from the Stripe dashboard (it starts with
-// "price_"). Until a real id is in place, the tier answers 503 and its page
-// shows the email-or-call line instead of the checkout.
+// Stripe price id for each tier: the monthly recurring price on that tier's
+// product in the Stripe dashboard (it starts with "price_"). When the list
+// price changes, create a new price in Stripe (never edit an old one, existing
+// subscribers keep theirs) and put the new id here. A tier without a real id
+// answers 503 and its page shows the email-or-call line instead of the checkout.
 export const PRICES = {
-  partner: 'PRICE_ID_PARTNER', // Recruiting Partner, $2,875 a month
-  plus: 'PRICE_ID_PLUS', // Recruiting Partner Plus, $5,575 a month
-  pro: 'PRICE_ID_PRO' // Recruiting Partner Pro, $10,675 a month
+  partner: 'price_1UUc76AoR3j4s929DNwkRUuw', // Recruiting Partner, $2,950 a month (Oct 2026)
+  plus: 'price_1UUc8EAoR3j4s9294mudwGZd', // Recruiting Partner Plus, $5,950 a month (Oct 2026)
+  pro: 'price_1UUc91AoR3j4s929cRLOBsDw' // Recruiting Partner Pro, $10,950 a month (Oct 2026)
 };
 
 const STRIPE_SESSIONS = 'https://api.stripe.com/v1/checkout/sessions';

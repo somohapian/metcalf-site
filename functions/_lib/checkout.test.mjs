@@ -136,7 +136,7 @@ test('checkout-status returns only status, paymentStatus, tier and email', async
     calls.push({ url, init });
     return Response.json({
       id: 'cs_live_a1B2_c3', object: 'checkout.session', status: 'complete', payment_status: 'paid',
-      client_secret: 'cs_live_a1B2_c3_secret_zzz', customer: 'cus_123', amount_total: 287500,
+      client_secret: 'cs_live_a1B2_c3_secret_zzz', customer: 'cus_123', amount_total: 295000,
       metadata: { tier: 'partner' }, customer_details: { email: 'owner@example.com', phone: '+16145550100' }
     });
   });
