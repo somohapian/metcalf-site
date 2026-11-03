@@ -84,13 +84,35 @@ test('a non-template asset fails explicitly instead of rendering the wrong page'
   }
 });
 
-test('missing and invalid posts still return 404 with security headers', async (t) => {
+test('retired, missing and invalid posts return 410 Gone with the 404 page body', async (t) => {
   const upstream = t.mock.method(globalThis, 'fetch', async () => new Response('{}', { status: 404 }));
-  for (const slug of ['missing-post', '..%2fadmin', '%']) {
+  for (const slug of ['waymo-halts-robotaxi-service-over-flood-detection', '..%2fadmin', '%']) {
     const response = await getPost(context(slug));
-    assert.equal(response.status, 404);
+    assert.equal(response.status, 410, slug);
     assert.equal(response.headers.get('cache-control'), 'no-store');
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+    assert.equal(response.headers.get('x-robots-tag'), 'noindex');
+    const html = await response.text();
+    assert.equal(html, notFound);
+    assert.match(html, /<meta name="robots" content="noindex/);
   }
   assert.equal(upstream.mock.callCount(), 1, 'invalid slugs must not reach the API');
+});
+
+test('an upstream outage stays a 404, never 410', async (t) => {
+  t.mock.method(globalThis, 'fetch', async () => new Response('down', { status: 503 }));
+  const response = await getPost(context('some-live-post'));
+  assert.equal(response.status, 404);
+  assert.equal(response.headers.get('x-robots-tag'), 'noindex');
+});
+
+test('/legacy-explainer returns 410 Gone with the 404 page body', async () => {
+  const { onRequest } = await import('../legacy-explainer.js');
+  const response = await onRequest({
+    request: new Request('https://metcalf-site.pages.dev/legacy-explainer'),
+    env: { ASSETS: { fetch: async () => new Response(notFound) } }
+  });
+  assert.equal(response.status, 410);
+  assert.equal(response.headers.get('x-robots-tag'), 'noindex');
+  assert.equal(await response.text(), notFound);
 });

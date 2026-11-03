@@ -6,7 +6,7 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});
+if(/^(www\.)?metcalfsearch\.com$/.test(location.hostname))gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
