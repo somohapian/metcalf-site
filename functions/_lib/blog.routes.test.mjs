@@ -4,14 +4,17 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { onRequestGet as getPost } from '../blog/[slug].js';
 import { onRequestGet as getIndex } from '../blog/index.js';
-import { API_BASE } from './blog.js';
+import { API_BASE, RETIRED_SLUGS } from './blog.js';
+import { onRequestGet as getSitemap } from '../blog/sitemap.xml.js';
 
 const template = readFileSync(new URL('../../blog.html', import.meta.url), 'utf8');
 const notFound = readFileSync(new URL('../../404.html', import.meta.url), 'utf8');
-const publishedSlugs = [
+const retiredSlugs = [
   'ep-794-can-automation-make-hiring-more-human',
   'cloudflare-s-matthew-prince-says-ai-has-made-a-category-of-workers-obsolete',
-  'growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality',
+  'growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality'
+];
+const publishedSlugs = [
   'the-us-is-betting-on-ai-to-catch-insider-trading-in-prediction-markets',
   'executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver'
 ];
@@ -33,7 +36,7 @@ function context(slug, assetFetch = async (url) => new Response(
   };
 }
 
-test('all five published article routes accept the current archive-only template', async (t) => {
+test('the published article routes accept the current archive-only template', async (t) => {
   assert.ok(template.includes('<!--BLOG:ARCHIVE-->'));
   assert.ok(!template.includes('<!--BLOG:PICKS-->'), 'retired picks must not be required');
   const upstream = t.mock.method(globalThis, 'fetch', async (request) => {
@@ -115,4 +118,32 @@ test('/legacy-explainer returns 410 Gone with the 404 page body', async () => {
   assert.equal(response.status, 410);
   assert.equal(response.headers.get('x-robots-tag'), 'noindex');
   assert.equal(await response.text(), notFound);
+});
+
+test('hand-retired posts return 410 without calling the API', async (t) => {
+  assert.deepEqual([...RETIRED_SLUGS].sort(), [...retiredSlugs].sort());
+  const upstream = t.mock.method(globalThis, 'fetch', async (request) =>
+    Response.json(postFor(new URL(request.url).pathname.split('/').pop())));
+  for (const slug of retiredSlugs) {
+    const response = await getPost(context(slug));
+    assert.equal(response.status, 410, slug);
+    assert.equal(response.headers.get('x-robots-tag'), 'noindex');
+    assert.equal(await response.text(), notFound);
+  }
+  assert.equal(upstream.mock.callCount(), 0);
+});
+
+test('hand-retired posts are left out of the /blog index and the blog sitemap', async (t) => {
+  const all = [...retiredSlugs, ...publishedSlugs].map(postFor);
+  t.mock.method(globalThis, 'fetch', async () => Response.json({ posts: all, total: all.length }));
+  const indexHtml = await (await getIndex(context(''))).text();
+  const sitemap = await (await getSitemap()).text();
+  for (const slug of retiredSlugs) {
+    assert.ok(!indexHtml.includes(`/blog/${slug}`), `index lists ${slug}`);
+    assert.ok(!sitemap.includes(`/blog/${slug}`), `sitemap lists ${slug}`);
+  }
+  for (const slug of publishedSlugs) {
+    assert.ok(indexHtml.includes(`/blog/${slug}`), `index drops ${slug}`);
+    assert.ok(sitemap.includes(`/blog/${slug}<`), `sitemap drops ${slug}`);
+  }
 });

@@ -1,4 +1,4 @@
-import { API_BASE, fetchJson, loadBlogTemplate, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
+import { API_BASE, fetchJson, isRetired, loadBlogTemplate, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
 import { onRequestGet as sitemapGet } from './sitemap.xml.js';
 
 const TTL = 600;
@@ -48,6 +48,7 @@ export async function onRequestGet(context) {
   // Static routes normally win, but keep the sitemap working either way.
   if (slug === 'sitemap.xml') return sitemapGet(context);
   if (slug.length > 160 || safeSlug(slug) !== slug) return gone(context);
+  if (isRetired(slug)) return gone(context);
 
   let post = null;
   try {

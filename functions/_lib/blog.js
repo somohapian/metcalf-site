@@ -134,6 +134,21 @@ export function safeSlug(value) {
   return /^[a-z0-9][a-z0-9._-]*$/i.test(raw) && !raw.includes('..') ? raw : '';
 }
 
+/**
+ * Posts retired by hand (thin link shares). They answer 410 Gone and are
+ * left out of the /blog archive and /blog/sitemap.xml even while the API
+ * still lists them. Approved by Jay 2026-11-03.
+ */
+export const RETIRED_SLUGS = new Set([
+  'ep-794-can-automation-make-hiring-more-human',
+  'cloudflare-s-matthew-prince-says-ai-has-made-a-category-of-workers-obsolete',
+  'growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality'
+]);
+
+export function isRetired(slug) {
+  return RETIRED_SLUGS.has(String(slug == null ? '' : slug).trim().toLowerCase());
+}
+
 export function hostOf(url) {
   const clean = safeUrl(url);
   if (!clean) return '';
@@ -428,7 +443,7 @@ export function renderRecent(posts, emptyMessage) {
 /* --------------------------------------------------------------- archive */
 
 export function renderArchive(posts, now) {
-  const list = (Array.isArray(posts) ? posts : []).filter((post) => post && safeSlug(post.slug));
+  const list = (Array.isArray(posts) ? posts : []).filter((post) => post && safeSlug(post.slug) && !isRetired(post.slug));
   if (!list.length) return '<div class="archive-empty">The archive is loading. Check back shortly.</div>';
   const groups = new Map();
   for (const post of list) {
@@ -751,7 +766,7 @@ export function renderSitemap(posts) {
     if (!post || !post.slug || seen.has(post.slug)) continue;
     seen.add(post.slug);
     const slug = safeSlug(post.slug);
-    if (!slug) continue;
+    if (!slug || isRetired(slug)) continue;
     const lastmod = isoDate(post.published_at || post.week_of_date);
     lines.push(`  <url><loc>${SITE}/blog/${escapeHtml(slug)}</loc>` +
       (lastmod ? `<lastmod>${lastmod}</lastmod>` : '') +
