@@ -274,10 +274,10 @@ TIERS = [
         "buys": [
             ("A senior recruiter is your single point of contact.", "One person owns your role start to finish, backed by the Metcalf Search team."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days."),
-            ("Ad spend, included.", "The job runs where candidates actually look, on our budget, not yours."),
+            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
             ("A focused shortlist.", "You see a focused shortlist, with a write-up explaining each person’s relevant experience."),
-            ("A kickoff visit, then onsite as needed.", "We come out to start the partnership and again whenever being in the room moves the hire forward."),
+            ("Occasional onsite support, when recommended and agreed.", "Most work happens remotely. We may recommend an onsite onboarding session or interview day when it would help the search. Visits are agreed together; this plan does not include scheduled monthly onsite hours."),
             ("The interviews, the offer and the first ninety days.", "We schedule and prep the interviews, build the offer, and run the thirty, sixty and ninety day check-ins with the hire and the manager."),
             ("One active role at a time.", "When it fills, the next one starts. No per-hire fee when it does."),
         ],
@@ -307,14 +307,14 @@ TIERS = [
         "description": f"Recruiting Partner Plus: two to three roles at once and up to 8 onsite hours a month, for a flat {money(PLUS)} a month. No per-hire fees.",
         "eyebrow": f"RECRUITING PARTNER PLUS &middot; {money(PLUS)} A MONTH",
         "h1": 'Two or three roles at once. Recruiting, <span class="accent">done</span> for you.',
-        "sub": "Up to three roles running at the same time, up to 8 hours onsite every month and ad spend included. You interview short lists. We handle the rest.",
+        "sub": "Up to three roles running at the same time, up to 8 hours onsite every month and some job advertising included. You interview short lists. We handle the rest.",
         "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, a weekly hiring huddle and up to 8 hours onsite a month, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
         "who": "Owners and HR managers with hiring that does not stop: two or three seats open most months, several managers to coordinate, and nobody with the hours to run it properly. Companies of roughly ten to two hundred people, in any industry.",
         "buys": [
             ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
+            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
             ("Move down when hiring slows, back up when it picks up.", "Tiers change at any monthly cycle and your rate is grandfathered."),
@@ -342,29 +342,29 @@ TIERS = [
         "price": money(PRO),
         "value": PRO,
         "title": f"Recruiting Partner Pro, {money(PRO)} a Month | Metcalf Search",
-        "description": f"Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat {money(PRO)} a month. No per-hire fees. Choose your plan.",
+        "description": f"Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role in your agreed scope, for a flat {money(PRO)} a month. No per-hire fees.",
         "eyebrow": f"RECRUITING PARTNER PRO &middot; {money(PRO)} A MONTH",
         "h1": 'A dedicated recruiter, onsite <span class="accent">three</span> days a week.',
-        "sub": "Every open role, no cap, run by a Metcalf Search recruiter embedded with your team three full days a week. Ongoing recruiting support on a month-to-month subscription.",
-        "capsule": f"<strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week, every open role in the company, for a flat {money(PRO)} a month. No per-hire fees. Month to month.",
+        "sub": "Every open role in your agreed scope, run by a Metcalf Search recruiter embedded with your team three full days a week. Ongoing recruiting support on a month-to-month subscription.",
+        "capsule": f"<strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week, every open role in your agreed scope, for a flat {money(PRO)} a month. No per-hire fees. Month to month.",
         "who": "Companies hiring constantly: a plant adding a shift, a branch opening, growth that needs ten or twenty hires this year and a recruiting function that does not exist yet. The alternative is hiring a recruiter, with the salary, tools, ramp and management that come with it.",
         "buys": [
-            ("A dedicated recruiter onsite three full days a week.", "Embedded with your managers, on a set schedule, running every open role."),
-            ("No cap on roles.", "Whatever is open gets worked."),
+            ("A dedicated recruiter onsite three full days a week.", "Embedded with your managers, on a set schedule, running every open role in your agreed scope."),
+            ("All roles in your agreed scope.", "We agree on the roles covered at kickoff and plan the work with you."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
+            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
             ("A senior recruiter is your single point of contact.", "The embedded recruiter runs the days. Your senior recruiter runs the plan, backed by the Metcalf Search team."),
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A one-hour intake across every open role, and the onsite schedule set. Sourcing starts the same day."),
+            ("Within 48 hours", "Kickoff. A one-hour intake across every open role in your agreed scope, and the onsite schedule set. Sourcing starts the same day."),
             ("Five business days", "The first slates of vetted candidates are in front of you."),
             ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
-        "result": "Your managers have a recruiter working on every open role and someone they can go to with questions. When the hiring rush settles down, that recruiter continues to support the team.",
+        "result": "Your managers have a recruiter working on every open role in your agreed scope and someone they can go to with questions. When the hiring rush settles down, that recruiter continues to support the team.",
         "math": (f"Twelve months of Recruiting Partner Pro is <strong>{money(12 * PRO)}</strong>. Ten {CONTINGENCY} <strong>{money(10 * PER_HIRE)}</strong>. "
                  f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus time to learn your company. Pro starts within 48 hours and runs month to month. Cancel with ten days’ notice. {MATH_CLOSE}"),
         "faq": [
@@ -569,3 +569,4 @@ if __name__ == "__main__":
     snip.parent.mkdir(parents=True, exist_ok=True)
     snip.write_text(SNIPPET, encoding="utf-8")
     print("wrote", snip, snip.stat().st_size, "bytes")
+
