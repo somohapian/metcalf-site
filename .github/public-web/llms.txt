@@ -1,0 +1,36 @@
+# MS Rosie by Metcalf Search
+
+## What is this site?
+
+apply.ms is the public home of MS Rosie, hiring software for small businesses from Metcalf Search. It also hosts companies' careers pages and public job listings.
+
+MS Rosie keeps applicants, resumes, notes and next steps together. MS Rosie Starter is free with one user and one active role. The paid MS Rosie plan adds up to five users, unlimited active roles, a careers page designed for the company, interview scorecards and candidate write-ups. The plans page has current pricing and details.
+
+The root introduces the software and its plans. Help explains how it works, and the public samples show an interview scorecard, a candidate write-up and an offer letter. Samples are illustrative documents, not real applicants or open jobs.
+
+## Product, help and samples
+
+- MS Rosie: https://apply.ms/
+- Plans: https://apply.ms/#plan
+- Help: https://apply.ms/help/
+- Recruiting experience behind MS Rosie: https://apply.ms/help/experience/
+- Sample interview scorecard: https://apply.ms/help/samples/scorecard/
+- Sample candidate write-up: https://apply.ms/help/samples/candidate-writeup/
+- Sample offer letter: https://apply.ms/help/samples/offer-letter/
+- Release notes: https://apply.ms/blog/
+- Public roadmap: https://apply.ms/roadmap/
+
+## About Metcalf Search
+
+Metcalf Search is Jay Metcalf's fractional recruiting firm, based in Columbus, Ohio. It provides recruiting support for small and mid-sized businesses on a flat monthly fee instead of per-hire commissions. MS Rosie software and fractional recruiting are separate offers.
+
+- Metcalf Search: https://metcalfsearch.com/
+- Fractional recruiting: https://metcalfsearch.com/fractional-recruiting
+- For job seekers: https://metcalfsearch.com/candidates
+- About the firm: https://metcalfsearch.com/about
+
+## Careers pages and job listings
+
+Each published company careers page describes that company's opportunities. The root is the MS Rosie product page, not a combined job board. Account pages and applicant records are private and are not public recruiting content.
+
+- Public page and job listing sitemap: https://apply.ms/sitemap.xml

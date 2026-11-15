@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-15",
+  "worker": "apply-public-metadata",
+  "worker_version_prefix": "d8287a86",
+  "routes": [
+    "https://apply.ms/sitemap.xml*",
+    "https://apply.ms/llms.txt*"
+  ],
+  "workers_dev": false,
+  "preview_urls": false,
+  "header_rule_id": "6ddb2fd8e48a4591980a1548d1876deb",
+  "header_expression": "(http.host eq \"apply.ms\" and (http.request.uri.path in {\"/\" \"/index.html\" \"/help\" \"/blog\" \"/roadmap\" \"/sitemap.xml\" \"/llms.txt\"} or starts_with(http.request.uri.path, \"/help/\") or starts_with(http.request.uri.path, \"/blog/\") or starts_with(http.request.uri.path, \"/roadmap/\")))",
+  "set_headers": {
+    "content-security-policy": "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+    "strict-transport-security": "max-age=86400",
+    "x-frame-options": "DENY"
+  },
+  "preview_redirect": {
+    "rule_id": "9dd9551594534aa987d4ab320f752166",
+    "list_id": "d250cc9238a948f4b7cd7bf042b7eadf",
+    "list_name": "metcalf_legacy_preview",
+    "source": "metcalf-search.pages.dev/",
+    "target": "https://metcalfsearch.com/",
+    "status": 301,
+    "preserve_query_string": true,
+    "subpath_matching": true,
+    "preserve_path_suffix": true,
+    "include_subdomains": false
+  },
+  "rollback": "Remove only two metadata routes and disable only identified header/redirect rules. Existing Pages deployments remain available. HSTS can remain cached by browsers up to one day."
+}
