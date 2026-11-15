@@ -238,41 +238,66 @@ a{color:inherit;text-decoration:none;}
 <style>
 .keep-intro,.keep-sheet,.keep-related{max-width:1000px}
 .keep-intro{padding-bottom:36px}
-.keep-sheet{padding-top:32px;border-top:1px solid var(--rule)}
-.keep-sheet h2{margin-top:0}
-.keep-sheet h3{font-family:var(--display);font-size:24px;font-weight:400;margin:28px 0 8px;line-height:1.3}
-.keep-sheet .fields{display:flex;gap:28px;margin:24px 0}
+.keep-sheet{padding:0 32px;border-top:1px solid var(--rule)}
+.keep-sheet .worksheet-page{padding:36px 0 28px}
+.keep-sheet .worksheet-page+.worksheet-page{border-top:1px solid var(--rule)}
+.keep-sheet .sheet-label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 10px}
+.keep-sheet h2{margin:0 0 12px}
+.keep-sheet h3{font-family:var(--display);font-size:24px;font-weight:400;margin:26px 0 8px;line-height:1.3}
+.keep-sheet .fields{display:flex;gap:28px;margin:20px 0}
 .keep-sheet .fields>div{flex:1;min-width:0;font-size:14px}
-.keep-sheet .fields span{display:block;height:32px;border-bottom:1px solid var(--ink-faint)}
-.keep-sheet .prompt{margin-bottom:8px}.keep-sheet .sheet-lede{font-size:18px}.keep-sheet .lines-2{min-height:40px}
-.keep-sheet .write{height:64px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,var(--rule) 31px,var(--rule) 32px);margin:8px 0 20px}
+.keep-sheet .fields span{display:block;height:28px;border-bottom:1px solid var(--ink-faint)}
+.keep-sheet .prompt{margin-bottom:8px}
+.keep-sheet .method{font-size:16px;margin:8px 0 14px}
+.keep-sheet .questions{padding:14px 18px;border-left:3px solid var(--celadon-deep);background:var(--paper-warm)}
+.keep-sheet .questions p{margin:3px 0;font-weight:500}
+.keep-sheet .write{height:72px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 23px,var(--rule) 23px,var(--rule) 24px);margin:8px 0 18px}
+.keep-sheet .write.short{height:48px}
 .keep-sheet table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:15px;margin:20px 0}
 .keep-sheet caption{text-align:left;margin-bottom:10px;color:var(--ink-soft)}
-.keep-sheet th,.keep-sheet td{border:1px solid var(--rule);padding:12px;text-align:left;overflow-wrap:anywhere}
+.keep-sheet th,.keep-sheet td{border:1px solid var(--rule);padding:10px;text-align:left;overflow-wrap:anywhere}
 .keep-sheet th{font-weight:500;background:var(--paper-warm)}
-.keep-sheet td{height:52px}
-.keep-sheet .small,.keep-sheet .print-source{font-size:14px}
+.keep-sheet td{height:64px}
+.keep-sheet .small,.keep-sheet .print-source{font-size:14px;line-height:1.5}
+.keep-sheet .print-source{margin-top:24px;padding-top:10px;border-top:1px solid var(--rule)}
+.keep-sheet .manager-check{padding:12px 16px;background:var(--paper-warm)}
+.keep-sheet .action-record{padding:10px 14px;border:1px solid var(--rule);margin:12px 0;break-inside:avoid}
+.keep-sheet .action-record p{margin:7px 0;line-height:1.6;overflow-wrap:anywhere}
 .keep-print{display:inline-block;font:500 16px var(--body);padding:14px 22px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:2px;cursor:pointer;margin:12px 0}
 .keep-print:hover{background:var(--ink-soft)}
+.keep-download{display:inline-block;margin:8px 0;font-weight:500}
 .keep-related{padding-bottom:60px}
-@media(max-width:600px){.keep-sheet .fields{display:block}.keep-sheet .fields>div+div{margin-top:16px}.keep-sheet th,.keep-sheet td{padding:8px;font-size:13px}}
+@media(max-width:600px){.keep-sheet .fields{display:block}.keep-sheet .fields>div+div{margin-top:16px}.keep-sheet th,.keep-sheet td{padding:6px;font-size:12px}.keep-sheet .worksheet-page{padding-top:28px}}
 @media print{
- @page{size:letter;margin:.5in}
+ @page{size:letter;margin:.55in .6in}
  body>*:not(main),main>*:not(.keep-sheet){display:none!important}
  html,body{background:#fff!important;color:#1f2421!important}
- .keep-sheet{--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--paper:#fff;--paper-warm:#f4f2eb;--rule:#b8beb8;max-width:none;padding:0;margin:0;border:0;font:10pt/1.35 Arial,sans-serif;color:#1f2421!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
- .keep-sheet h2{font-size:22pt;line-height:1.15;margin:0 0 12px}
- .keep-sheet h3{font-size:13pt;margin:14px 0 4px;break-after:avoid}
- .keep-sheet p{font:10pt/1.35 Arial,sans-serif!important;color:#1f2421!important;margin:4px 0}
+ main{padding:0!important;margin:0!important}
+ .keep-sheet{--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--paper:#fff;--paper-warm:#f4f2eb;--rule:#b8beb8;--accent:#587160;max-width:none;width:auto;padding:0;margin:0;border:0;font:10.5pt/1.32 Arial,sans-serif;color:#1f2421!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .keep-sheet .worksheet-page{padding:0;margin:0;border:0}
+ .keep-sheet .worksheet-page+.worksheet-page{break-before:page;page-break-before:always;border:0}
+ .keep-sheet h2{font:22pt/1.12 Georgia,serif;margin:0 0 9px}
+ .keep-sheet h3{font:13pt/1.2 Georgia,serif;margin:15px 0 5px;break-after:avoid}
+ .keep-sheet p{font:10.5pt/1.32 Arial,sans-serif!important;color:#1f2421!important;margin:5px 0}
+ .keep-sheet .sheet-label{font:9pt/1.2 Arial,sans-serif!important;letter-spacing:.07em;margin:0 0 7px}
+ .keep-sheet .method{margin:6px 0 9px}
+ .keep-sheet .questions{padding:8px 12px;margin:9px 0}
  .keep-sheet .fields{display:flex;gap:24px;margin:12px 0}
  .keep-sheet .fields>div{font-size:10pt;margin:0!important}
- .keep-sheet .fields span{height:22px}
- .keep-sheet .write{height:40px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 19px,#bbc4bd 19px,#bbc4bd 20px);margin:4px 0 10px}
- .keep-sheet table{font-size:9pt;margin:10px 0;break-inside:avoid}
- .keep-sheet th,.keep-sheet td{padding:7px;font-size:9pt}
- .keep-sheet td{height:30px}
- .keep-sheet .print-source{margin-top:14px;font-size:9pt!important}
+ .keep-sheet .fields span{height:20px}
+ .keep-sheet .write{height:54px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 17px,#bbc4bd 17px,#bbc4bd 18px);margin:5px 0 10px}
+ .keep-sheet .write.short{height:36px}
+ .keep-sheet table{font-size:10pt;margin:10px 0;break-inside:avoid}
+ .keep-sheet caption{font-size:10pt;margin-bottom:5px}
+ .keep-sheet th,.keep-sheet td{padding:7px;font-size:10pt;line-height:1.25}
+ .keep-sheet td{height:46px}
+ .keep-sheet .manager-check{padding:8px 10px;margin-top:9px}
+ .keep-sheet .action-record{padding:7px 9px;margin:8px 0}
+ .keep-sheet .action-record p{margin:5px 0;line-height:1.4!important}
+ .keep-sheet .small{font-size:9.5pt!important;line-height:1.3!important}
+ .keep-sheet .print-source{margin-top:14px;padding-top:7px;font-size:9pt!important}
  .keep-sheet a{color:inherit!important;border:0}
+ .keep-sheet .prompt-block{break-inside:avoid}
 }
 </style>
 </head>
@@ -282,22 +307,34 @@ a{color:inherit;text-decoration:none;}
         <img src="/logo.png" alt="Metcalf Search" class="brand-logo" width="160" height="40">
       </a><div class="nav-links"><a href="/stack-method">Hiring Guides</a><div class="nav-drop-wrap"><a href="/activate" class="nav-top">Pricing</a><div class="nav-drop"><a class="nav-sub" href="/recruiting-partner">Recruiting Partner<span class="nav-sub-price">, $2,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-plus">Recruiting Partner Plus<span class="nav-sub-price">, $5,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-pro">Recruiting Partner Pro<span class="nav-sub-price">, $10,950 a month</span></a><a class="nav-sub nav-sub-all" href="/activate">Compare all tiers</a><a class="nav-sub nav-self-serve" href="https://apply.ms/">Self-serve options</a></div></div><a href="/who-we-serve">Who We Serve</a><a href="/about">About</a><a href="/blog">Blog</a></div><a href="/contact" class="nav-cta">Start a Conversation</a></div></nav>
 <main id="main-content" tabindex="-1">
-<section class="page-hero"><div class="eyebrow">Keep · Conversation guide</div><h1>Work through an employee concern together.</h1><p class="sub">Understand what happened, what may be getting in the way, and what each person can do about it.</p></section>
+<section class="page-hero"><div class="eyebrow">Keep · Conversation guide</div><h1>Work through a concern together.</h1><p class="sub">A practical conversation about the work, the working arrangement, and what each person can do next.</p></section>
 <section class="prose keep-intro"><h2>Understand the concern before deciding what to do</h2>
-<p>Start with the expected work and a specific example of what happened. Separate what you observed from what someone reported or what you think it might mean.</p>
-<p>Hear the employee’s account and the manager’s perspective. Check whether expectations were clear and whether priorities, tools, training, resources, or manager support need attention.</p>
-<p>Agree on what will change, who owns each action, when you will review it, and what improvement you will look for. An action can be finished while the concern remains open. Review the effect before calling it resolved.</p>
-<p>Use the worksheet below to prepare and take notes together. No Rosie account is needed.</p>
-<button class="keep-print" id="print-worksheet" type="button">Print this worksheet</button><p>Only this worksheet prints. You can also choose Save as PDF in your print options.</p></section>
-<section class="prose keep-sheet" aria-labelledby="concern-title"><h2  id="concern-title">Understand a concern. Check the change.</h2>
-<div class="fields"><div>Employee / role<span></span></div><div>Manager / date<span></span></div></div>
-<h3>What was expected, and what happened?</h3><p class="prompt">Record specific observations. Label secondhand reports and assumptions separately.</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>What does each person say?</h3><p class="prompt">Hear the employee and manager. What still needs to be checked?</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>What could be getting in the way?</h3><p class="prompt">Check clarity, priorities, tools, training, resources and manager support.</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>What will change, and how will we review it?</h3><table><caption>Actions and evidence of improvement</caption><thead><tr><th>Action / owner</th><th>Review date</th><th>What improvement will we look for?</th></tr></thead><tbody><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></tbody></table>
-<h3>At the review</h3><p class="prompt">What actually changed? What remains unresolved? Agree on any further action.</p><div class="write lines-2" aria-label="Space for notes"></div>
-<p class="small">An action can be complete while the concern remains open. Record the effect before closing it.</p>
-<p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-concern</p></section>
+<p>A concern may involve the work, workload, support, communication, or the working arrangement. Either person can raise it. Start with a specific situation and what you know about its effect.</p>
+<p>Stay connected by hearing the other person’s account. Make work better by checking the expectations and conditions that matter before choosing a response. Follow through with accepted actions, needed support, and a date to review what changed.</p>
+<p>Use page one to prepare from your own perspective. Use page two during the conversation and at the review. An action can be finished while the concern remains open. Review the effect before calling it resolved.</p>
+<p>No account is needed. Nothing is sent or shared automatically. Keep your copy and decide what to discuss or share. This worksheet does not save a shared history or arrange follow-up for you.</p>
+<p><a class="keep-download" href="/keep-concern.pdf" download>Download the two-page worksheet (PDF)</a></p><button class="keep-print" id="print-worksheet" type="button">Print this worksheet</button><p>The download gives you two pages ready to print or keep. The print button prints only the worksheet below.</p></section>
+<section class="prose keep-sheet" aria-labelledby="concern-title">
+<div class="worksheet-page"><p class="sheet-label">Keep · Specific concern · Page 1 of 2 · Prepare</p>
+<h2 id="concern-title">Prepare to discuss a concern.</h2>
+<p class="method">Stay connected. Make work better. Follow through.</p>
+<div class="questions"><p>Is the work going well?</p><p>Is the job working well for the person doing it?</p></div>
+<p class="small">Prepare from your own perspective. Leave unknowns open. You can skip anything you would rather discuss live.</p>
+<div class="fields"><div>My perspective: □ Employee □ Manager<span></span></div><div>Role / date<span></span></div></div><p class="small">Use this for a concern about the work or the experience of doing it, including workload, support, communication, or a working arrangement.</p><div class="prompt-block"><h3>Stay connected: describe the concern</h3><p class="prompt">What did you observe, experience or hear reported? Include an example and when it happened.</p><div class="write short" aria-label="Space for notes"></div></div><p class="small">Where does this account of what happened come from?<br>□ Firsthand □ Reported by someone else □ Both □ Source uncertain</p><p class="small">Optional: Why does this work matter, or what impact should be discussed? Record known effects. Do not guess.</p><div class="write short" aria-label="Space for notes"></div><div class="prompt-block"><h3>What did you understand or expect?</h3><p class="prompt">If a work result is relevant: What specific work result was expected, and by when?<br>For a working arrangement, describe what you understood or what had been discussed. Leave unknowns open.</p><div class="write short" aria-label="Space for notes"></div></div><div class="prompt-block"><h3>Make work better</h3><p class="prompt">What would be useful to check together?<br>What success means · Inputs or tools · Time or priorities · Practice or feedback · Who can make a decision · Communication · Not sure yet</p><div class="write short" aria-label="Space for notes"></div></div><div class="manager-check"><p class="small"><strong>Manager preparation:</strong> Have you checked the actual work, how expectations were understood, available time and support, and what changed? What has the employee demonstrated before? What instruction, practice, and feedback were actually provided? Have you discussed this concern directly with them?</p><p class="small">“Not checked yet” is useful information. Check what applies to this concern.</p></div>
+<p class="small">Your account prepares the conversation. It does not establish a cause or agreement. The first useful action may be to look at an example together.</p><p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-concern · Page 1 of 2</p></div><div class="worksheet-page"><p class="sheet-label">Keep · Specific concern · Page 2 of 2 · Talk and follow through</p>
+<h2>Understand the concern. Check the change.</h2>
+<p class="method">Stay connected. Make work better. Follow through.</p>
+<div class="fields"><div>People in this conversation<span></span></div><div>Role / conversation date<span></span></div></div>
+<div class="prompt-block"><h3>Hear the other perspective</h3><p class="prompt">What did the other person add? Record what each person says, what you agree on, and any differences or unknowns that remain.</p><div class="write" aria-label="Space for notes"></div></div>
+<h3>Agree on what happens next</h3>
+<p class="prompt">What can each person do? What help is needed? Record an action only when its owner accepts it. Give work to the person who can do it or provide the needed support.</p>
+<p class="small">No new action is needed when preserving what works is enough. Use another copy if more actions are needed.</p>
+<div class="action-record"><p>Proposed action / result: __________________________________________</p><p>Accepting owner: ____________________ Due date: __________________</p><p>Support or dependency: __________________________________________</p><p>Expected improvement: ___________________________________________</p><p>Review date: __________________________________________________</p></div>
+<div class="action-record"><p>Proposed action / result: __________________________________________</p><p>Accepting owner: ____________________ Due date: __________________</p><p>Support or dependency: __________________________________________</p><p>Expected improvement: ___________________________________________</p><p>Review date: __________________________________________________</p></div>
+<p class="small">At the review, look at a relevant work example and ask how the change affected each person’s experience.</p>
+<div class="prompt-block"><h3>At the review: separate action from outcome</h3><p class="prompt">What was completed, partly done, blocked, or changed? What actually changed for the work and the person? Record both perspectives. What remains open, and when will you return to it?</p><div class="write" aria-label="Space for notes"></div></div>
+<p class="small">An action can be complete while the concern remains. Keep differing accounts visible. Agree what to continue, change, or close after reviewing the effect.</p>
+<p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-concern · Page 2 of 2</p></div></section>
 <section class="prose keep-related"><p><a href="/keep">Read the employee retention guide</a> · <a href="/keep-check-in">Prepare for a regular check-in</a></p><p>Want help putting this into practice? <a href="/contact">Start a conversation with our team</a>.</p><p>By <a href="/jay-metcalf">Jay Metcalf</a> · Published November 15, 2026</p></section>
 </main>
 <footer class="foot"><div class="foot-inner"><div><div class="foot-brand">

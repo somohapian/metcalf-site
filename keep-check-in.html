@@ -238,41 +238,66 @@ a{color:inherit;text-decoration:none;}
 <style>
 .keep-intro,.keep-sheet,.keep-related{max-width:1000px}
 .keep-intro{padding-bottom:36px}
-.keep-sheet{padding-top:32px;border-top:1px solid var(--rule)}
-.keep-sheet h2{margin-top:0}
-.keep-sheet h3{font-family:var(--display);font-size:24px;font-weight:400;margin:28px 0 8px;line-height:1.3}
-.keep-sheet .fields{display:flex;gap:28px;margin:24px 0}
+.keep-sheet{padding:0 32px;border-top:1px solid var(--rule)}
+.keep-sheet .worksheet-page{padding:36px 0 28px}
+.keep-sheet .worksheet-page+.worksheet-page{border-top:1px solid var(--rule)}
+.keep-sheet .sheet-label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 10px}
+.keep-sheet h2{margin:0 0 12px}
+.keep-sheet h3{font-family:var(--display);font-size:24px;font-weight:400;margin:26px 0 8px;line-height:1.3}
+.keep-sheet .fields{display:flex;gap:28px;margin:20px 0}
 .keep-sheet .fields>div{flex:1;min-width:0;font-size:14px}
-.keep-sheet .fields span{display:block;height:32px;border-bottom:1px solid var(--ink-faint)}
-.keep-sheet .prompt{margin-bottom:8px}.keep-sheet .sheet-lede{font-size:18px}.keep-sheet .lines-2{min-height:40px}
-.keep-sheet .write{height:64px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,var(--rule) 31px,var(--rule) 32px);margin:8px 0 20px}
+.keep-sheet .fields span{display:block;height:28px;border-bottom:1px solid var(--ink-faint)}
+.keep-sheet .prompt{margin-bottom:8px}
+.keep-sheet .method{font-size:16px;margin:8px 0 14px}
+.keep-sheet .questions{padding:14px 18px;border-left:3px solid var(--celadon-deep);background:var(--paper-warm)}
+.keep-sheet .questions p{margin:3px 0;font-weight:500}
+.keep-sheet .write{height:72px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 23px,var(--rule) 23px,var(--rule) 24px);margin:8px 0 18px}
+.keep-sheet .write.short{height:48px}
 .keep-sheet table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:15px;margin:20px 0}
 .keep-sheet caption{text-align:left;margin-bottom:10px;color:var(--ink-soft)}
-.keep-sheet th,.keep-sheet td{border:1px solid var(--rule);padding:12px;text-align:left;overflow-wrap:anywhere}
+.keep-sheet th,.keep-sheet td{border:1px solid var(--rule);padding:10px;text-align:left;overflow-wrap:anywhere}
 .keep-sheet th{font-weight:500;background:var(--paper-warm)}
-.keep-sheet td{height:52px}
-.keep-sheet .small,.keep-sheet .print-source{font-size:14px}
+.keep-sheet td{height:64px}
+.keep-sheet .small,.keep-sheet .print-source{font-size:14px;line-height:1.5}
+.keep-sheet .print-source{margin-top:24px;padding-top:10px;border-top:1px solid var(--rule)}
+.keep-sheet .manager-check{padding:12px 16px;background:var(--paper-warm)}
+.keep-sheet .action-record{padding:10px 14px;border:1px solid var(--rule);margin:12px 0;break-inside:avoid}
+.keep-sheet .action-record p{margin:7px 0;line-height:1.6;overflow-wrap:anywhere}
 .keep-print{display:inline-block;font:500 16px var(--body);padding:14px 22px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:2px;cursor:pointer;margin:12px 0}
 .keep-print:hover{background:var(--ink-soft)}
+.keep-download{display:inline-block;margin:8px 0;font-weight:500}
 .keep-related{padding-bottom:60px}
-@media(max-width:600px){.keep-sheet .fields{display:block}.keep-sheet .fields>div+div{margin-top:16px}.keep-sheet th,.keep-sheet td{padding:8px;font-size:13px}}
+@media(max-width:600px){.keep-sheet .fields{display:block}.keep-sheet .fields>div+div{margin-top:16px}.keep-sheet th,.keep-sheet td{padding:6px;font-size:12px}.keep-sheet .worksheet-page{padding-top:28px}}
 @media print{
- @page{size:letter;margin:.5in}
+ @page{size:letter;margin:.55in .6in}
  body>*:not(main),main>*:not(.keep-sheet){display:none!important}
  html,body{background:#fff!important;color:#1f2421!important}
- .keep-sheet{--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--paper:#fff;--paper-warm:#f4f2eb;--rule:#b8beb8;max-width:none;padding:0;margin:0;border:0;font:10pt/1.35 Arial,sans-serif;color:#1f2421!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
- .keep-sheet h2{font-size:22pt;line-height:1.15;margin:0 0 12px}
- .keep-sheet h3{font-size:13pt;margin:14px 0 4px;break-after:avoid}
- .keep-sheet p{font:10pt/1.35 Arial,sans-serif!important;color:#1f2421!important;margin:4px 0}
+ main{padding:0!important;margin:0!important}
+ .keep-sheet{--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--paper:#fff;--paper-warm:#f4f2eb;--rule:#b8beb8;--accent:#587160;max-width:none;width:auto;padding:0;margin:0;border:0;font:10.5pt/1.32 Arial,sans-serif;color:#1f2421!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .keep-sheet .worksheet-page{padding:0;margin:0;border:0}
+ .keep-sheet .worksheet-page+.worksheet-page{break-before:page;page-break-before:always;border:0}
+ .keep-sheet h2{font:22pt/1.12 Georgia,serif;margin:0 0 9px}
+ .keep-sheet h3{font:13pt/1.2 Georgia,serif;margin:15px 0 5px;break-after:avoid}
+ .keep-sheet p{font:10.5pt/1.32 Arial,sans-serif!important;color:#1f2421!important;margin:5px 0}
+ .keep-sheet .sheet-label{font:9pt/1.2 Arial,sans-serif!important;letter-spacing:.07em;margin:0 0 7px}
+ .keep-sheet .method{margin:6px 0 9px}
+ .keep-sheet .questions{padding:8px 12px;margin:9px 0}
  .keep-sheet .fields{display:flex;gap:24px;margin:12px 0}
  .keep-sheet .fields>div{font-size:10pt;margin:0!important}
- .keep-sheet .fields span{height:22px}
- .keep-sheet .write{height:40px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 19px,#bbc4bd 19px,#bbc4bd 20px);margin:4px 0 10px}
- .keep-sheet table{font-size:9pt;margin:10px 0;break-inside:avoid}
- .keep-sheet th,.keep-sheet td{padding:7px;font-size:9pt}
- .keep-sheet td{height:30px}
- .keep-sheet .print-source{margin-top:14px;font-size:9pt!important}
+ .keep-sheet .fields span{height:20px}
+ .keep-sheet .write{height:54px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 17px,#bbc4bd 17px,#bbc4bd 18px);margin:5px 0 10px}
+ .keep-sheet .write.short{height:36px}
+ .keep-sheet table{font-size:10pt;margin:10px 0;break-inside:avoid}
+ .keep-sheet caption{font-size:10pt;margin-bottom:5px}
+ .keep-sheet th,.keep-sheet td{padding:7px;font-size:10pt;line-height:1.25}
+ .keep-sheet td{height:46px}
+ .keep-sheet .manager-check{padding:8px 10px;margin-top:9px}
+ .keep-sheet .action-record{padding:7px 9px;margin:8px 0}
+ .keep-sheet .action-record p{margin:5px 0;line-height:1.4!important}
+ .keep-sheet .small{font-size:9.5pt!important;line-height:1.3!important}
+ .keep-sheet .print-source{margin-top:14px;padding-top:7px;font-size:9pt!important}
  .keep-sheet a{color:inherit!important;border:0}
+ .keep-sheet .prompt-block{break-inside:avoid}
 }
 </style>
 </head>
@@ -284,20 +309,31 @@ a{color:inherit;text-decoration:none;}
 <main id="main-content" tabindex="-1">
 <section class="page-hero"><div class="eyebrow">Keep · Conversation guide</div><h1>Make your next employee check-in useful.</h1><p class="sub">A regular conversation about the work, the experience of doing it, and what would help next.</p></section>
 <section class="prose keep-intro"><h2>Start while things are going well</h2>
-<p>A check-in is useful for a new hire or someone who has been with you for years. Keep two questions in view: is the work going well, and is this still a job the person wants to keep?</p>
-<p>Recognize good work, ask what would make the job better, and return to anything you agreed last time. Hear the employee’s perspective and share the manager’s. If things are going well, say so. You do not need to invent a problem.</p>
-<p>Agree on practical next steps when they are needed. Give each promise an owner and a review date, then check whether it helped. If something needs a closer look, use the <a href="/keep-concern">guide for a specific concern</a>.</p>
-<p>Use the worksheet below to prepare and take notes together. No Rosie account is needed.</p>
-<button class="keep-print" id="print-worksheet" type="button">Print this worksheet</button><p>Only this worksheet prints. You can also choose Save as PDF in your print options.</p></section>
-<section class="prose keep-sheet" aria-labelledby="check-in-title"><h2  id="check-in-title">A regular check-in</h2>
-<p class="sheet-lede">Use for a new hire or an established employee. Hear both perspectives.</p>
-<div class="fields"><div>Employee / role<span></span></div><div>Manager / date<span></span></div></div>
-<h3>What is going well?</h3><p class="prompt">Name a contribution worth recognizing. Ask how the person feels about the work.</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>What would make the job better?</h3><p class="prompt">Consider priorities, tools, support, learning and responsibilities. Record both perspectives.</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>What remains open from last time?</h3><p class="prompt">What changed after the last action? What still needs attention?</p><div class="write lines-2" aria-label="Space for notes"></div>
-<h3>Agree on the next step</h3><table><caption>Commitments to review together</caption><thead><tr><th>Action or promise</th><th>Owner</th><th>Review date</th></tr></thead><tbody><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></tbody></table>
-<p class="prompt">Next conversation: ____________________</p><p class="small">Need a deeper conversation? Use the <a href="/keep-concern">concern and follow-through worksheet</a>. Keep notes factual and share them only with people who need them.</p>
-<p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-check-in</p></section>
+<p>Keep is useful for a new hire or someone who has been with you for years. Ask two questions: is the work going well, and is the job working well for the person doing it?</p>
+<p>Stay connected. Recognize good work and ask what makes the role worthwhile. Make work better by discussing useful support, learning, or changes to the working arrangement. Follow through by returning to what each person agreed to do and asking whether it helped.</p>
+<p>Use page one to prepare from your own perspective. Use page two to hear the other person and record any accepted actions. If things are going well, preserve what works. If something needs a closer look, use the <a href="/keep-concern">worksheet for a specific concern</a>.</p>
+<p>No account is needed. Nothing is sent or shared automatically. Keep your copy and decide what to discuss or share. Bring it to the next conversation if you want to return to earlier notes.</p>
+<p><a class="keep-download" href="/keep-check-in.pdf" download>Download the two-page worksheet (PDF)</a></p><button class="keep-print" id="print-worksheet" type="button">Print this worksheet</button><p>The download gives you two pages ready to print or keep. The print button prints only the worksheet below.</p></section>
+<section class="prose keep-sheet" aria-labelledby="check-in-title">
+<div class="worksheet-page"><p class="sheet-label">Keep · Regular check-in · Page 1 of 2 · Prepare</p>
+<h2 id="check-in-title">Prepare for a useful check-in.</h2>
+<p class="method">Stay connected. Make work better. Follow through.</p>
+<div class="questions"><p>Is the work going well?</p><p>Is the job working well for the person doing it?</p></div>
+<p class="small">Prepare from your own perspective. Leave unknowns open. You can skip anything you would rather discuss live.</p>
+<div class="fields"><div>My perspective: □ Employee □ Manager<span></span></div><div>Role / date<span></span></div></div><div class="prompt-block"><h3>Stay connected: how are things going?</h3><p class="prompt"><strong>Employee:</strong> How is your current work going? How is the job working for you?<br><strong>Manager:</strong> Based on what you have seen, how is the work going? Where could your support be most useful?</p><div class="write" aria-label="Space for notes"></div></div><div class="prompt-block"><h3>What is working and worth keeping?</h3><p class="prompt">What work is worth recognizing, and what did it make possible? What makes this role worthwhile and should be preserved?</p><div class="write" aria-label="Space for notes"></div></div><div class="prompt-block"><h3>Make work better</h3><p class="prompt">What is worth discussing or preserving? Pick up to two, most important first.<br>Workload or priorities · Tools or information · Skills or practice · Communication or teamwork · Recognition · Growth · Schedule or working arrangements · Pay or benefits · Something else · Nothing specific today</p><div class="write" aria-label="Space for notes"></div></div><p class="small">For growth: What would worthwhile progress look like? Learning something new or continuing to do the current role well are both useful answers.</p><div class="prompt-block"><h3>Follow through: what remains open?</h3><p class="prompt">If you have earlier notes, bring them. What happened with your commitments? Did the action help, and what still needs attention?</p><div class="write short" aria-label="Space for notes"></div></div><p class="small">Nothing specific today is a complete answer. Recognize what is working without inventing a problem. Use page two for the conversation and any next steps.</p><p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-check-in · Page 1 of 2</p></div><div class="worksheet-page"><p class="sheet-label">Keep · Regular check-in · Page 2 of 2 · Talk and follow through</p>
+<h2>Talk it through. Agree what comes next.</h2>
+<p class="method">Stay connected. Make work better. Follow through.</p>
+<div class="fields"><div>People in this conversation<span></span></div><div>Role / conversation date<span></span></div></div>
+<div class="prompt-block"><h3>Hear the other perspective</h3><p class="prompt">What did the other person add? Record what each person says, what you agree on, and any differences or unknowns that remain.</p><div class="write" aria-label="Space for notes"></div></div>
+<h3>Agree on what happens next</h3>
+<p class="prompt">What can each person do? What help is needed? Record an action only when its owner accepts it. Give work to the person who can do it or provide the needed support.</p>
+<p class="small">No new action is needed when preserving what works is enough. Use another copy if more actions are needed.</p>
+<div class="action-record"><p>Proposed action / result: __________________________________________</p><p>Accepting owner: ____________________ Due date: __________________</p><p>Support or dependency: __________________________________________</p><p>Expected improvement: ___________________________________________</p><p>Review date: __________________________________________________</p></div>
+<div class="action-record"><p>Proposed action / result: __________________________________________</p><p>Accepting owner: ____________________ Due date: __________________</p><p>Support or dependency: __________________________________________</p><p>Expected improvement: ___________________________________________</p><p>Review date: __________________________________________________</p></div>
+<p class="small">At the review, look at a relevant work example and ask how the change affected each person’s experience.</p>
+<div class="prompt-block"><h3>At the review: separate action from outcome</h3><p class="prompt">What was completed, partly done, blocked, or changed? What actually changed for the work and the person? Record both perspectives. What remains open, and when will you return to it?</p><div class="write" aria-label="Space for notes"></div></div>
+<p class="small">An action can be complete while the concern remains. Keep differing accounts visible. Agree what to continue, change, or close after reviewing the effect.</p>
+<p class="print-source">Keep · Metcalf Search · metcalfsearch.com/keep-check-in · Page 2 of 2</p></div></section>
 <section class="prose keep-related"><p><a href="/keep">Read the employee retention guide</a> · <a href="/keep-concern">Work through a specific concern</a></p><p>Want help putting this into practice? <a href="/contact">Start a conversation with our team</a>.</p><p>By <a href="/jay-metcalf">Jay Metcalf</a> · Published November 15, 2026</p></section>
 </main>
 <footer class="foot"><div class="foot-inner"><div><div class="foot-brand">
