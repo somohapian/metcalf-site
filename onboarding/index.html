@@ -53,8 +53,6 @@ a{color:inherit;text-decoration:none;}
 .todo-action:hover{background:var(--brick);}
 .todo-action.placeholder{background:transparent;color:var(--ink-faint);border:1px dashed var(--rule);cursor:not-allowed;}
 @media(max-width:860px){.todo-grid{grid-template-columns:1fr;}.todo-card{padding:32px 24px;}}
-.scheduler-wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
-.scheduler-frame{width:100%;border:1px solid var(--rule);border-radius:4px;background:var(--paper);}
 .timeline{max-width:780px;margin:0 auto;padding:0 32px;}
 .timeline-row{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:28px 0;border-top:1px solid var(--rule);}
 .timeline-row:last-child{border-bottom:1px solid var(--rule);}
@@ -77,7 +75,6 @@ a{color:inherit;text-decoration:none;}
 .foot-col a:hover{color:var(--brick);}
 .foot-bottom{max-width:1100px;margin:60px auto 0;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12px;color:#536158;letter-spacing:0.02em;}
 @media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:32px;}.foot-bottom{flex-direction:column;gap:12px;text-align:center;}}
-@media (max-width: 400px){ .scheduler-wrap{padding-left:12px;padding-right:12px;} }
 .nav-overlay{z-index:120;overflow-y:auto;}
 .nav-overlay.open{z-index:120;justify-content:flex-start;}
 .nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
@@ -156,17 +153,15 @@ a{color:inherit;text-decoration:none;}
   }
   .nav-overlay a.nav-cta-mobile:hover { background: #1a1a1a; color: #fafaf7; } .nav-drop-wrap{position:relative;display:inline-flex;align-items:center;} .nav-top::after{content:"";display:inline-block;width:5px;height:5px;margin:0 1px 3px 8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:0.55;} .nav-drop{position:absolute;top:calc(100% + 14px);left:50%;z-index:70;min-width:300px;padding:8px 0;background:var(--paper);border:1px solid var(--rule);border-radius:2px;box-shadow:0 12px 32px rgba(31,36,33,0.08);font-family:var(--body);text-align:left;opacity:0;visibility:hidden;transform:translate(-50%,4px);transition:opacity 0.18s ease,transform 0.18s ease,visibility 0s linear 0.18s;} .nav-drop::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px;} .nav-drop-wrap:hover .nav-drop,.nav-drop-wrap:focus-within .nav-drop{opacity:1;visibility:visible;transform:translate(-50%,0);transition-delay:0s;} .nav-links .nav-sub{display:block;padding:9px 20px;font-size:14px;font-weight:500;letter-spacing:0.01em;line-height:1.5;color:var(--ink);white-space:nowrap;} .nav-sub-price{font-weight:400;color:var(--ink-soft);} .nav-links .nav-sub:hover,.nav-links .nav-sub:focus-visible{background:var(--paper-warm);color:var(--brick);outline:none;} .nav-links .nav-sub-all{margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);color:var(--brick);} @media (max-width: 768px){.nav-drop{display:none;}} @media (prefers-reduced-motion: reduce){.nav-drop{transition:none;}} .nav-overlay .nav-top::after{display:none;}
 </style>
-<style id="metcalf-onboarding-scheduler">
-  .scheduler-frame { border: none !important; background: transparent !important; }
-  .calendly-inline-widget { height: 1100px !important; }
-  /* Mobile: Calendly content actually wraps shorter than desktop in stacked layout.
-     Tighten so there's no whitespace dead-zone before "First 30 days". */
-  @media (max-width: 860px) { .calendly-inline-widget { height: 1050px !important; } }
-  @media (max-width: 600px) { .calendly-inline-widget { height: 1000px !important; } }
-  /* Tighten the scheduler section's top/bottom padding on mobile too. */
-  @media (max-width: 600px) {
-    #kickoff-scheduler { padding-top: 32px !important; padding-bottom: 24px !important; }
-  }
+<style id="metcalf-onboarding-kickoff">
+  .kickoff-card { max-width:720px; margin:0 auto; padding:32px; border:1px solid var(--rule); border-radius:4px; background:var(--paper-warm); }
+  .kickoff-card h2 { margin:0 0 16px; font-family:var(--display); font-size:clamp(26px,4vw,36px); font-weight:400; line-height:1.2; }
+  .kickoff-card p { margin:0 0 20px; color:var(--ink-soft); line-height:1.7; }
+  .kickoff-card p:last-child { margin:20px 0 0; }
+  .kickoff-email { display:inline-flex; justify-content:center; max-width:100%; padding:12px 20px; border:1px solid var(--ink); border-radius:2px; color:var(--paper); background:var(--ink); text-align:center; text-decoration:none; font-weight:600; line-height:1.5; }
+  .kickoff-email:hover { background:var(--ink-soft); }
+  .kickoff-email:focus-visible { outline:2px solid var(--celadon-deep); outline-offset:4px; }
+  @media(max-width:400px) { #kickoff-scheduler .kickoff-card { margin:0 24px; padding:24px; } }
 </style>
 <style id="metcalf-faq-card-behavior">
   /* Convert /fractional-recruiting's .faq-list layout to the same card grid
@@ -212,7 +207,7 @@ a{color:inherit;text-decoration:none;}
 <section class="welcome-hero">
 <div class="eyebrow">YOU'RE IN</div>
 <h1>You're in. Kickoff is <span class="accent">next</span>.</h1>
-<p class="sub">Book the ninety-minute kickoff below. The partnership materials are on their way to your inbox.</p>
+<p class="sub">Arrange your ninety-minute kickoff below. The partnership materials are on their way to your inbox.</p>
 </section>
 
 <section class="section">
@@ -222,14 +217,11 @@ a{color:inherit;text-decoration:none;}
 
 <section class="section" id="kickoff-scheduler">
 
-<div class="scheduler-wrap">
-<div class="calendly-inline-widget scheduler-frame" data-url="https://calendly.com/jaywmetcalf/kickoff-on-boarding?hide_gdpr_banner=1" style="min-width:320px;height:1100px;"></div>
-<noscript>
-<div class="section-head">
-<p class="timeline-what">To book the kickoff call without JavaScript, email info@metcalfsearch.com or call 614.434.6646.</p>
-</div>
-</noscript>
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<div class="kickoff-card">
+<h2>Arrange your kickoff</h2>
+<p>Email Jay with a few times that work for your team. We'll confirm your kickoff and send the calendar invitation.</p>
+<a class="kickoff-email" href="mailto:info@metcalfsearch.com?subject=Schedule%20our%20kickoff">Email Jay to arrange kickoff</a>
+<p>Prefer to call? <a href="tel:+16144346646">614.434.6646</a></p>
 </div>
 </section>
 
