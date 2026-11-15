@@ -443,8 +443,24 @@ export function renderRecent(posts, emptyMessage) {
 /* --------------------------------------------------------------- archive */
 
 export function renderArchive(posts, now) {
-  const list = (Array.isArray(posts) ? posts : []).filter((post) => post && safeSlug(post.slug) && !isRetired(post.slug));
-  if (!list.length) return '<div class="archive-empty">The archive is loading. Check back shortly.</div>';
+  const published = (Array.isArray(posts) ? posts : [])
+    .filter((post) => post && safeSlug(post.slug) && !isRetired(post.slug))
+    .slice().sort((a, b) =>
+      isoDate(b.published_at || b.week_of_date).localeCompare(isoDate(a.published_at || a.week_of_date)));
+  if (!published.length) return '';
+  // Always keep the newest six visible, regardless of the age of the articles.
+  const latest = '<ul class="blog-post-list">' + published.slice(0, 6).map((post) => {
+    const slug = safeSlug(post.slug);
+    const title = escapeHtml(cleanInline(post.title || post.slug));
+    const date = isoDate(post.published_at || post.week_of_date);
+    const dateLabel = formatDate(post.published_at || post.week_of_date);
+    const excerpt = truncate(cleanInline(post.excerpt || post.intro_paragraph || ''), 220);
+    return '<li>' + (date ? `<time datetime="${date}">${escapeHtml(dateLabel)}</time>` : '') +
+      `<h3><a href="/blog/${escapeHtml(slug)}">${title}</a></h3>` +
+      (excerpt ? `<p>${escapeHtml(excerpt)}</p>` : '') + '</li>';
+  }).join('') + '</ul>';
+  const list = published.slice(6);
+  if (!list.length) return latest;
   const groups = new Map();
   for (const post of list) {
     const key = monthKey(post.published_at || post.week_of_date) || '';
@@ -509,7 +525,7 @@ export function renderArchive(posts, now) {
     const label = Number(year) === today.getUTCFullYear() ? `Earlier in ${year}` : year;
     html += fold(label, total, inner, false);
   }
-  return html;
+  return latest + '<h3 class="blog-older-heading">Older articles</h3>' + html;
 }
 
 /* -------------------------------------------------------------- markdown */
@@ -652,7 +668,8 @@ export function renderIndexPage(templateHtml, data) {
     renderRecent(info.rosie || [], 'No daily notes in the last seven days.'));
   html = replaceRegion(html, 'RECENT_WEEKLY',
     renderRecent(info.weekly || [], 'No weekly roundups in the last thirty days.'));
-  html = replaceRegion(html, 'ARCHIVE', renderArchive(info.archive || []));
+  const archive = renderArchive(info.archive || []);
+  html = replaceRegion(html, 'ARCHIVE', archive ? '<h2>Published articles</h2>' + archive : '');
   return html;
 }
 

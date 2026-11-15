@@ -139,11 +139,11 @@ test('recent card and archive markup', () => {
   assert.ok(renderRecentCard(weekly.posts[0]).includes('Metcalf Search'));
 
   const archive = renderArchive(posts.posts);
-  assert.ok(archive.includes('<summary>September 2026 '));
-  assert.ok(archive.includes('<ul class="archive-list">'));
+  assert.ok(!archive.includes('<details'), 'small archives must not hide articles');
+  assert.ok(archive.includes('<ul class="blog-post-list">'));
   assert.ok(archive.includes('href="/blog/' + posts.posts[0].slug + '"'));
   assert.deepEqual(unbalancedTags(archive), []);
-  assert.ok(renderArchive([]).includes('archive-empty'));
+  assert.equal(renderArchive([]), '');
 });
 
 test('markdown renderer escapes and converts', () => {
@@ -180,10 +180,14 @@ test('index page renders the archive without reviving retired picks and recent r
   });
   writeFileSync(join(RENDER, 'index.html'), html);
   assertClean(html, 'index');
-  assert.ok(html.includes('<title>Small Business Hiring News and Notes | Metcalf Search</title>'));
-  assert.ok(html.includes('<summary>September 2026 '));
+  assert.ok(html.includes('<title>Practical Hiring Advice and Articles | Metcalf Search</title>'));
+  assert.ok(html.includes('<h2>Published articles</h2>'));
+  assert.ok(html.includes('"headline":"Practical answers to hiring problems."'));
+  assert.ok(html.includes('"dateModified":"2026-11-14"'));
+  assert.ok(html.includes('<ul class="blog-post-list">'));
+  assert.equal((html.match(/class="blog-guide-label">Guide/g) || []).length, 5);
   assert.ok(html.includes('href="/contact"'));
-  assert.ok(html.includes('Grove City, Ohio'));
+  assert.ok(html.includes('Columbus, Ohio'));
   assert.ok(html.includes('https://apply.ms/'));
   const cards = html.match(/class="pick-card"/g) || [];
   assert.equal(cards.length, 0, 'retired picks returned to the index');
@@ -196,7 +200,9 @@ test('index page renders the archive without reviving retired picks and recent r
 test('index page survives a dead API', () => {
   const html = renderIndexPage(template, {});
   assertClean(html, 'index-empty');
-  assert.ok(html.includes('archive-empty'));
+  assert.ok(!html.includes('Published articles'));
+  assert.ok(!html.includes('Archive loading'));
+  assert.equal((html.match(/class="blog-guide-label">Guide/g) || []).length, 5);
 });
 
 test('daily post page renders', () => {
@@ -372,7 +378,7 @@ test('recent cards escape titles, excerpts and authors, and drop bad slugs', () 
 test('archive drops bad slugs and escapes titles', () => {
   const html = renderArchive([
     { slug: '../../admin', title: 'traversal', published_at: '2026-09-01' },
-    { slug: 'ok-post', title: XSS, published_at: '2026-09-01' }
+    { slug: 'ok-post', title: XSS, excerpt: XSS, published_at: '2026-09-01' }
   ], new Date('2026-09-06T00:00:00Z'));
   assertNoInjection(html, 'archive', { bannedTags: FRAGMENT_BANNED });
   assert.ok(!html.includes('/blog/../'), 'archive linked a traversal slug');
@@ -501,4 +507,37 @@ test('security headers are present and the CSP is report-only', () => {
   const merged = withSecurityHeaders({ 'content-type': 'text/html; charset=utf-8' });
   assert.equal(merged['content-type'], 'text/html; charset=utf-8');
   assert.equal(merged['x-frame-options'], 'DENY');
+});
+
+// A fresh page must not make old, real publications disappear inside two folds.
+test('six old articles stay visible when a seventh moves into the older archive', () => {
+  const articles = Array.from({length: 7}, (_, i) => ({slug: 'article-' + i, title: 'Article ' + i, excerpt: 'An existing summary.', published_at: '2026-05-0' + (i + 1)}));
+  const small = renderArchive(articles.slice(0, 6), new Date('2026-11-14T00:00:00Z'));
+  assert.equal((small.match(/<h3>/g) || []).length, 6);
+  assert.ok(!small.includes('<details'));
+  assert.ok(small.indexOf('/blog/article-5') < small.indexOf('/blog/article-0'));
+  const large = renderArchive(articles, new Date('2026-11-14T00:00:00Z'));
+  assert.ok(large.includes('<details'));
+  const visible = large.split('<h3 class="blog-older-heading">')[0];
+  assert.equal((visible.match(/<h3>/g) || []).length, 6);
+  assert.ok(visible.includes('/blog/article-6'));
+  assert.ok(!visible.includes('/blog/article-0'));
+  const withRetired = renderArchive([{slug:'ep-794-can-automation-make-hiring-more-human',title:'Retired',published_at:'2026-12-01'}, ...articles]);
+  assert.ok(!withRetired.includes('/blog/ep-794-can-automation-make-hiring-more-human'));
+  assert.ok(withRetired.split('<h3 class="blog-older-heading">')[0].includes('/blog/article-1'));
+  articles.forEach(post => assert.ok(large.includes('/blog/' + post.slug)));
+  assert.deepEqual(unbalancedTags(small + large), []);
+});
+
+test('new guide list and article list leave retired routes out and do not revive external picks', () => {
+  const html = renderIndexPage(template, {archive: [
+    {slug: 'ep-794-can-automation-make-hiring-more-human', title: 'Retired', published_at: '2026-05-01'},
+    {slug: 'existing-post', title: 'Published', published_at: '2026-05-02'}
+  ], picks: [{permalink:'https://reddit.com/example',display_title:'Not approved for the index'}]});
+  assert.ok(html.includes('/blog/existing-post'));
+  assert.ok(!html.includes('/blog/ep-794-can-automation-make-hiring-more-human'));
+  assert.ok(!html.includes('https://reddit.com/example'));
+  assert.ok(!html.includes('<iframe'));
+  assert.ok(html.includes('/assets/theme.css?v=20261114-footer1'));
+  assert.ok(html.includes('/assets/theme.js?v=20261114-footer1'));
 });
