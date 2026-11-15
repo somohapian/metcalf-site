@@ -22,10 +22,14 @@ from urllib.parse import urlsplit
 import xml.etree.ElementTree as ET
 
 DEFAULT_ORIGINS = ["https://metcalfsearch.com", "https://metcalf-site.pages.dev"]
-KNOWN_BLOG_PATHS = [
+# These intentionally retired posts use the established blog handler's 410
+# contract. Keep them in the live plan so a soft 200 or accidental 404 fails.
+RETIRED_BLOG_PATHS = [
     "/blog/ep-794-can-automation-make-hiring-more-human",
     "/blog/cloudflare-s-matthew-prince-says-ai-has-made-a-category-of-workers-obsolete",
     "/blog/growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality",
+]
+KNOWN_BLOG_PATHS = RETIRED_BLOG_PATHS + [
     "/blog/the-us-is-betting-on-ai-to-catch-insider-trading-in-prediction-markets",
     "/blog/executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver",
 ]
@@ -84,15 +88,28 @@ def schema_types(value):
             yield from schema_types(item)
 
 
+def expected_status(path):
+    if path in RETIRED_BLOG_PATHS or path.startswith("/blog/__site-quality-"):
+        return 410
+    if path.startswith("/__site-quality-"):
+        return 404
+    return 200
+
+
 def inspect_response(path, status, content_type, body):
     problems = []
-    negative = path.startswith("/__site-quality-") or path.startswith("/blog/__site-quality-")
-    expected = 404 if negative else 200
+    expected = expected_status(path)
+    negative = expected in (404, 410)
     if status != expected:
         problems.append(f"HTTP {status}; expected {expected}")
     if negative:
         if "html" not in content_type.lower():
-            problems.append("Missing HTML 404 response")
+            problems.append(f"Missing HTML {expected} response")
+        page = Page(body)
+        if not page.title or page.h1_count != 1:
+            problems.append(f"Expected error-page title and one h1 (title={page.title}, h1={page.h1_count})")
+        if {"Article", "BlogPosting", "NewsArticle"}.intersection(schema_types(page.json_ld)):
+            problems.append("Error response contains article structured data")
         return problems
     if path.endswith(".xml"):
         try:

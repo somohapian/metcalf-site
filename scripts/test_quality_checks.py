@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 import unittest
 
-from live_site_smoke import inspect_response, make_plan, response_result, verdict
+from live_site_smoke import KNOWN_BLOG_PATHS, RETIRED_BLOG_PATHS, inspect_response, make_plan, response_result, verdict
 from site_quality import Document, audit, visible_faq
 
 
@@ -104,8 +104,47 @@ console.log(JSON.stringify(posts.map(post => ({path: '/blog/' + post.slug, html:
         self.assertEqual(inspect_response("/blog/a", 200, "text/html", body), [])
         self.assertTrue(inspect_response("/blog/a", 500, "text/plain", b"Blog template unavailable"))
         self.assertTrue(inspect_response("/blog/a", 200, "application/json", b"{}"))
-        self.assertEqual(inspect_response("/blog/__site-quality-404__", 404, "text/html", b"Not found"), [])
+        error_body = (Path(__file__).resolve().parents[1] / "404.html").read_bytes()
+        self.assertEqual(inspect_response("/__site-quality-404__", 404, "text/html", error_body), [])
         self.assertTrue(inspect_response("/__site-quality-404__", 200, "text/html", body))
+
+    def test_retired_and_missing_routes_require_their_exact_status(self):
+        error_body = (Path(__file__).resolve().parents[1] / "404.html").read_bytes()
+        cases = [(path, 410) for path in RETIRED_BLOG_PATHS]
+        cases += [("/blog/__site-quality-not-a-real-post__", 410),
+                  ("/__site-quality-not-a-real-page__", 404)]
+        for path, expected in cases:
+            with self.subTest(path=path):
+                self.assertEqual(inspect_response(path, expected, "text/html", error_body), [])
+                for wrong in {200, 404, 410} - {expected}:
+                    problems = inspect_response(path, wrong, "text/html", error_body)
+                    self.assertIn(f"HTTP {wrong}; expected {expected}", problems)
+                self.assertTrue(inspect_response(path, expected, "application/json", b"{}"))
+                self.assertTrue(inspect_response(path, expected, "text/html", b"Not found"))
+
+    def test_published_blog_paths_still_require_articles_and_200(self):
+        for path in set(KNOWN_BLOG_PATHS) - set(RETIRED_BLOG_PATHS):
+            with self.subTest(path=path):
+                body = ('<title>Post</title><link rel="canonical" href="https://metcalfsearch.com'
+                        + path + '"><h1>Post</h1><script type="application/ld+json">'
+                        '{"@type":"BlogPosting"}</script>').encode()
+                self.assertEqual(inspect_response(path, 200, "text/html", body), [])
+                for wrong in (404, 410):
+                    self.assertIn(f"HTTP {wrong}; expected 200", inspect_response(path, wrong, "text/html", body))
+                self.assertIn("Error response contains article structured data",
+                              inspect_response(RETIRED_BLOG_PATHS[0], 410, "text/html", body))
+
+    def test_retired_smoke_paths_match_the_production_handler_list(self):
+        node = os.environ.get("METCALF_QA_NODE") or shutil.which("node")
+        if not node:
+            self.skipTest("Node is required to verify the handler contract; set METCALF_QA_NODE")
+        root = Path(__file__).resolve().parents[1]
+        result = subprocess.run([node, "--input-type=module", "-e",
+                                 "import { RETIRED_SLUGS } from './functions/_lib/blog.js'; "
+                                 "console.log(JSON.stringify([...RETIRED_SLUGS]));"],
+                                cwd=root, check=True, capture_output=True, text=True)
+        self.assertEqual(set(RETIRED_BLOG_PATHS),
+                         {"/blog/" + slug for slug in json.loads(result.stdout)})
 
     def test_both_route_modes_and_origins(self):
         with tempfile.TemporaryDirectory() as folder:
