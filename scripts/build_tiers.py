@@ -274,8 +274,8 @@ TIERS = [
         "buys": [
             ("A single point of contact on our team.", "One person owns your role start to finish, backed by the Metcalf Search team."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days."),
-            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
-            ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
+            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("MS Rosie hiring software, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
             ("A focused shortlist.", "You see a focused shortlist, with a write-up explaining each person’s relevant experience."),
             ("Occasional onsite support, when recommended and agreed.", "Most work happens remotely. We may recommend an onsite onboarding session or interview day when it would help the search. Visits are agreed together; this plan does not include scheduled monthly onsite hours."),
             ("The interviews, the offer and the first ninety days.", "We schedule and prep the interviews, build the offer, and run the thirty, sixty and ninety day check-ins with the hire and the manager."),
@@ -314,8 +314,8 @@ TIERS = [
             ("A single point of contact on our team.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
-            ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
+            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("MS Rosie hiring software, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
             ("Move down when hiring slows, back up when it picks up.", "Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund."),
         ],
@@ -352,9 +352,9 @@ TIERS = [
             ("A dedicated recruiter onsite three full days a week.", "Embedded with your managers, on a set schedule, running every open role in your agreed scope."),
             ("All roles in your agreed scope.", "We agree on the roles covered at kickoff and plan the work with you."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
-            ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
-            ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
+            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("MS Rosie hiring software for your whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
+            ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in MS Rosie, not in our heads."),
             ("A single point of contact on our team.", "The embedded recruiter runs the days. Your point of contact keeps you informed, with support from the people working on your search."),
         ],
         "timeline": [
@@ -370,7 +370,7 @@ TIERS = [
         "faq": [
             ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. You have a single point of contact on our team, with support from the people working on your search."),
             (PER_HIRE_Q, PER_HIRE_A),
-            ("What if hiring slows down?", "Move down to " + PLUS_LINK + " or " + PARTNER_LINK + " when your hiring needs change. Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund. Your careers page, pipeline and records stay in your Rosie desk."),
+            ("What if hiring slows down?", "Move down to " + PLUS_LINK + " or " + PARTNER_LINK + " when your hiring needs change. Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund. Your careers page, pipeline and records stay in MS Rosie."),
         ],
     },
 ]
@@ -523,7 +523,7 @@ def page(t):
 <p class="section-sub">Sign up below to get your search started.</p>
 <p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Change tiers when your hiring needs change. Charges or credits are prorated.</span></p>
 </div>
-<p class="checkout-alt">When recruiting ends, keep using Rosie on Starter or choose the paid software plan. Your records remain yours. <a href="https://apply.ms/help/#your-data">See records and account options</a>.</p>
+<p class="checkout-alt">When recruiting ends, keep using Rosie on its free Starter plan or choose the paid software plan. Your records remain yours. <a href="https://apply.ms/help/#your-data">See records and account options</a>.</p>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>
 <p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Request a thirty-minute fit call</a>.</p>

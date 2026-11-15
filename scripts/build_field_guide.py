@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = [
 ('start', 'A practical guide to hiring', 'The STACK Method', '''
 <p class="lede">Find the right people. Keep the process moving. Make decisions from evidence. Help the hire work out.</p>
-<p>Hiring gets easier to manage when each part has a clear next step. Use this guide to prepare for a search, compare notes with your team, and follow through after someone starts.</p>
+<p>STACK is our five-part hiring method. Hiring gets easier to manage when each part has a clear next step. Use this guide to prepare for a search, compare notes with your team, and follow through after someone starts.</p>
 <nav aria-label="Guide contents"><h2>Five parts of the work</h2><ol class="contents">
 <li><a href="#source">Source</a><span>Find people who can do the work.</span></li>
 <li><a href="#tempo">Tempo</a><span>Give every next step an owner and a date.</span></li>
@@ -55,7 +55,7 @@ PAGES = [
 '''),
 ('assess', '03 / Assess', 'Ask for evidence. Then test the transfer.', '''
 <p class="lede">A familiar job title is a starting point. Find out what the person can do in your job.</p>
-<h2>Use the Behavioral Bridge</h2><ol>
+<h2>Use the Behavioral Bridge</h2><p>Connect a real past example to the work in your role.</p><ol>
 <li><strong>Start with a specific past example.</strong> What happened, what did the candidate do, and what was the result?</li>
 <li><strong>Identify the skill.</strong> How did they set priorities, make a decision or solve the problem?</li>
 <li><strong>Apply it to your job.</strong> Describe a concrete task they would face and ask how they would use that approach.</li>
@@ -86,7 +86,7 @@ PAGES = [
 <h2>Follow through</h2><p>Record the promise, its owner and a review date. Return to it next time. If something is delayed, agree on what happens next.</p>
 <div class="note"><h2>Check the effect, not just the action</h2><p>Finishing training does not establish that the work is going better. Ask what changed, what each person has observed and what remains unresolved before closing an issue.</p></div>
 <h2>When a concern needs a closer look</h2><p>Describe the expected work and specific observations. Separate firsthand facts from reports and assumptions. Hear both perspectives and check expectations, resources, training and support before deciding what needs to change.</p>
-<p><a href="#check-in">Use the regular check-in sheet</a> or <a href="#concern">use the concern and follow-through sheet</a>. Both work independently of Rosie.</p>
+<p><a href="#check-in">Use the regular check-in sheet</a> or <a href="#concern">use the concern and follow-through sheet</a>. Both work without hiring software.</p>
 <p class="guide-link">Read the full guide: <a href="https://metcalfsearch.com/keep">metcalfsearch.com/keep</a></p>
 '''),
 ('check-in', 'Keep / Working sheet', 'A regular check-in', '''
@@ -128,7 +128,7 @@ PAGES.extend([
 <li><strong>Can:</strong> Can they do the essential work? What evidence shows it?</li>
 <li><strong>Will:</strong> Do they want the actual work, schedule and responsibilities?</li>
 <li><strong>Fit:</strong> Do the working conditions and support match what they need?</li>
-<li><strong>Locus:</strong> What could they influence, what did they do, and what did they learn?</li>
+<li><strong>Accountability:</strong> What could they influence, what did they do, and what did they learn?</li>
 </ul>
 <p class="small">Fit means the working environment, not similarity to the interviewer. A personality label, total score, or whether a candidate says I or we should not decide the hire.</p>
 <table class="evidence-table"><caption>Record evidence before discussing an overall decision</caption><thead><tr><th>Agreed criterion / area</th><th>Specific evidence</th><th>Unknown / how to check</th></tr></thead><tbody><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></tbody></table>

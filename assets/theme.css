@@ -1,5 +1,5 @@
 /* Shared theme. Photographs and illustrations retain their original colors. */
-:root{color-scheme:light;--theme-nav:rgba(250,250,247,.92);--theme-overlay:rgba(250,250,247,.98);--theme-surface:#fff;--theme-muted:#536158;--theme-accent-text:#42654d;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:0 12px 32px rgba(31,36,33,.08)}
+:root{color-scheme:light;--theme-nav:rgba(250,250,247,.92);--theme-overlay:rgba(250,250,247,.98);--theme-surface:#fff;--theme-muted:#536158;--theme-accent-text:#42654d;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-wordmark-opacity:0;--theme-shadow:0 12px 32px rgba(31,36,33,.08)}
 @media screen and (prefers-color-scheme:dark){
  :root:not([data-theme]){
   color-scheme:dark;
@@ -7,7 +7,7 @@
   --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
   --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
   --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-accent-text:#b0d0b6;--theme-success:#a3d7b1;
-  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
+  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-wordmark-opacity:1;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
  }
 }
 @media screen{
@@ -17,7 +17,7 @@
   --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
   --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
   --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-accent-text:#b0d0b6;--theme-success:#a3d7b1;
-  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
+  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-wordmark-opacity:1;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
  }
 }
 /* Reserve real layout height for the standalone Rosie action and allow narrow FAQ tracks. */
@@ -110,7 +110,7 @@ main[tabindex="-1"]{scroll-margin-top:calc(var(--nav-h,76px) + 16px)}
  .hamburger-btn[aria-expanded="true"] .bar::after{top:0;transform:rotate(-45deg)}
 }
 @media print{
- :root{color-scheme:light;--paper:#fff!important;--paper-warm:#f4f2eb!important;--ink:#1f2421!important;--ink-soft:#4a534f!important;--ink-faint:#536158!important;--rule:#d8dcd6!important;--celadon:#a3c1ad!important;--celadon-deep:#557560!important;--celadon-mist:#e6ede8!important;--brick:#763729!important;--cream:#f4f2eb!important;--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:none}
+ :root{color-scheme:light;--paper:#fff!important;--paper-warm:#f4f2eb!important;--ink:#1f2421!important;--ink-soft:#4a534f!important;--ink-faint:#536158!important;--rule:#d8dcd6!important;--celadon:#a3c1ad!important;--celadon-deep:#557560!important;--celadon-mist:#e6ede8!important;--brick:#763729!important;--cream:#f4f2eb!important;--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-wordmark-opacity:0;--theme-shadow:none}
  .theme-preference,.topnav,.nav-overlay,.skip-link{display:none!important}
  .bio-hero,.method-strip,.bio-close{background:#fff!important;color:#1f2421!important}
  .bio-hero .hero-intro,.bio-hero .hero-thesis,.bio-hero .bio-eyebrow,.bio-topline,.photo-caption,.bio-anchor-nav,.method-steps span,.bio-close p,.bio-close .candidate-link{color:#1f2421!important}
@@ -118,5 +118,17 @@ main[tabindex="-1"]{scroll-margin-top:calc(var(--nav-h,76px) + 16px)}
  .keep-print-copy .kw-sheet{background:#fff!important;color:#1f2421!important}
 }
 
-/* A light backing preserves every part of the original logo in dark mode. */
-.brand-logo,.foot-brand-logo{background:var(--theme-logo-bg);padding:var(--theme-logo-pad);filter:none}
+/* Keep the transparent brand artwork on the page surface. The decorative copy
+   brightens only the wordmark in dark mode; the original colored square stays
+   untouched. Both copies use the same artwork and responsive dimensions. */
+.brand,.foot-brand{position:relative;--brand-art-height:40px}
+.foot-brand{--brand-art-height:36px}
+.brand-logo,.foot-brand-logo{background:transparent;padding:0;filter:none}
+.brand::after,.foot-brand::after{
+ content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+ width:calc(var(--brand-art-height) * 4);height:var(--brand-art-height);
+ background:url("/logo.png") center / 100% 100% no-repeat;
+ clip-path:inset(0 0 0 26%);filter:brightness(1.7);
+ opacity:var(--theme-wordmark-opacity);pointer-events:none;
+}
+@media(max-width:720px){.brand{--brand-art-height:32px}.foot-brand{--brand-art-height:30px}}
