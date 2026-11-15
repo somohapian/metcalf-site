@@ -283,7 +283,7 @@ TIERS = [
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A ninety-minute intake on the role, the team and the pay. Sourcing starts the same day."),
+            ("Within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
             ("Five business days", "The first slate of vetted candidates is in front of you."),
             ("Week two", "Our target for first interviews, depending on availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
@@ -294,7 +294,7 @@ TIERS = [
         "faq": [
             ("What if we have two roles open at once?", "Recruiting Partner runs one active role at a time. Move up to " + PLUS_LINK + " for the month and back down when the second role fills. Tiers change at any monthly cycle and your rate is grandfathered."),
             (PER_HIRE_Q, PER_HIRE_A),
-            ("What happens right after I pay?", "You land on the kickoff page, book the ninety-minute intake, and get the partnership materials by email within minutes. Kickoff happens within 48 hours and sourcing starts that day."),
+            ("What happens right after I pay?", "You land on the kickoff page, book the one-hour intake, and get the partnership materials by email within minutes. Kickoff happens within 48 hours and sourcing starts that day."),
         ],
     },
     {
@@ -321,7 +321,7 @@ TIERS = [
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A ninety-minute intake on the role, the team and the pay. Sourcing starts the same day."),
+            ("Within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
             ("Five business days", "The first slates of vetted candidates, one per open role, are in front of you."),
             ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
@@ -359,7 +359,7 @@ TIERS = [
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A ninety-minute intake across every open role, and the onsite schedule set. Sourcing starts the same day."),
+            ("Within 48 hours", "Kickoff. A one-hour intake across every open role, and the onsite schedule set. Sourcing starts the same day."),
             ("Five business days", "The first slates of vetted candidates are in front of you."),
             ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
