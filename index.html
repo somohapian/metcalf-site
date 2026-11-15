@@ -356,6 +356,13 @@ a { color: inherit; text-decoration: none; }
 .nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
 :focus-visible{outline:3px solid var(--celadon-deep);outline-offset:4px;}
 .nav-links .nav-self-serve{border-top:1px solid var(--rule);margin-top:6px;padding-top:12px;}
+
+.form-fields{min-width:0;width:100%;margin:0;padding:0;border:0;}
+.form-fallback{font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.form-fallback[hidden]{display:none;}
+.book-form .form-fields{display:flex;gap:0;}
+.book-form input:focus-visible{outline:3px solid var(--ink);outline-offset:-3px;}
+.book-form button:focus-visible{outline:3px solid var(--paper);outline-offset:-3px;}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://metcalfsearch.com/#organization","name":"Metcalf Search","alternateName":"Metcalf Search Fractional Recruiting","description":"Fractional recruiting firm serving small and mid-sized businesses in Columbus, Ohio and the surrounding region. Flat monthly fee, no per-hire commissions, built around the STACK Method.","url":"https://metcalfsearch.com","logo":"https://metcalfsearch.com/logo.png","image":"https://metcalfsearch.com/og-default.png","telephone":"+16144346646","email":"info@metcalfsearch.com","priceRange":"$$$$","address":{"@type":"PostalAddress","addressLocality":"Grove City","addressRegion":"OH","postalCode":"43123","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Columbus"},{"@type":"City","name":"Grove City"},{"@type":"City","name":"Dublin"},{"@type":"City","name":"Westerville"},{"@type":"City","name":"Hilliard"},{"@type":"City","name":"Gahanna"},{"@type":"City","name":"New Albany"},{"@type":"AdministrativeArea","name":"Central Ohio"}],"founder":{"@type":"Person","name":"Jay Metcalf","jobTitle":"Managing Partner","worksFor":{"@id":"https://metcalfsearch.com/#organization"}},"knowsAbout":["Fractional Recruiting","Small Business Hiring","Talent Acquisition","STACK Method","Recruitment Process","Candidate Sourcing","Hiring Strategy"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Fractional Recruiting Tiers","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Recruiting Partner"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Recruiting Partner Plus"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Recruiting Partner Pro"}}]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does fractional recruiting cost?","acceptedAnswer":{"@type":"Answer","text":"Recruiting Partner starts at $2,950 a month, or $35,400 for twelve months. Compare the fee with the number of roles you need to fill and the work you want a recruiter to handle. You can review the scope and pricing for the three tiers before deciding."}},{"@type":"Question","name":"Why is it so hard for small businesses to hire good people right now?","acceptedAnswer":{"@type":"Answer","text":"A small business may have trouble reaching suitable candidates, offering competitive terms or finding time to follow up between daily responsibilities. Start by checking where the search slows down: few qualified applicants, delayed interviews or declined offers. That helps you decide whether to change the role, the pay, the search or the way you manage the process."}},{"@type":"Question","name":"When does a small business need to start working with a recruiter?","acceptedAnswer":{"@type":"Answer","text":"Consider a recruiter when an open role is hurting the business, you are not reaching suitable candidates or hiring work keeps slipping behind other priorities. A planned series of hires can also justify ongoing help. If you have one straightforward opening and can manage the search yourself, you may only need better tools or advice."}},{"@type":"Question","name":"How is fractional recruiting different from a staffing or contingency agency?","acceptedAnswer":{"@type":"Answer","text":"Staffing firms often supply temporary or contract workers and handle their payroll, while contingency recruiters generally earn a fee when you hire a candidate they introduce. Fractional recruiting gives you ongoing help with an agreed part of the hiring process; Metcalf Search charges a flat monthly fee for that work. Compare the actual scope, fees, employment arrangements and replacement terms in each provider’s agreement."}},{"@type":"Question","name":"Where can I get help hiring on my own?","acceptedAnswer":{"@type":"Answer","text":"Start with our free hiring guides for finding candidates, interviewing, making offers, and keeping good employees. Each explains what to check and what to do next. If you need software to organize the work, apply.ms offers free and paid Rosie plans. You do not need a recruiting partnership to use either."}},{"@type":"Question","name":"What does it actually cost to make a hire?","acceptedAnswer":{"@type":"Answer","text":"Salary is only part of the cost. Add the time spent finding and interviewing candidates, any advertising or recruiting fees, and the time your team spends training the new hire. If the hire leaves, you may have to repeat that work while covering an open role, so use your own costs and workload to estimate the impact."}}]}</script>
@@ -786,18 +793,22 @@ a { color: inherit; text-decoration: none; }
       <div class="book-eyebrow">A book in progress</div>
       <div class="book-title">Jay is writing a practical book on small-business hiring. Get an update when there is news.</div>
     </div>
-    <form id="book-form" class="book-form" aria-label="Book waitlist signup">
+    <form id="book-form" class="book-form" aria-label="Book waitlist signup" method="post" action="/">
+<fieldset class="form-fields" disabled aria-label="Book waitlist signup">
       <label for="book-email" style="position:absolute;left:-9999px;">Email address</label>
       <input id="book-email" type="email" name="email" placeholder="your@email.com" required>
       <input type="hidden" name="name" value="">
       <button type="submit">Notify Me</button>
-    </form>
+    </fieldset>
+</form>
+<p id="book-form-fallback" class="form-fallback">If this form is unavailable, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a>.</p>
     <div id="book-status" aria-live="polite" style="margin-top:12px;font-size:13px;color:var(--ink-soft);min-height:18px;text-align:right;"></div>
     <script>
       (function(){
         var f = document.getElementById('book-form');
         if(!f) return;
         var status = document.getElementById('book-status');
+  if(typeof fetch!=='function'||typeof FormData!=='function'||typeof Object.fromEntries!=='function')return;
         f.addEventListener('submit', function(e){
           e.preventDefault();
           var data = Object.fromEntries(new FormData(f));
@@ -818,6 +829,8 @@ a { color: inherit; text-decoration: none; }
             status.textContent = "Something went wrong. Try again or email info@metcalfsearch.com.";
           });
         });
+  document.getElementById('book-form-fallback').hidden=true;
+  f.querySelector('.form-fields').disabled=false;
       })();
     </script>
   </div>
@@ -964,3 +977,4 @@ window.addEventListener('scroll', () => {
 <script src="/assets/theme.js?v=20261114-footer1" defer></script>
 </body>
 </html>
+

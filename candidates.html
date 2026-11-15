@@ -87,8 +87,13 @@ a{color:inherit;text-decoration:none;}
 .nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
 :focus-visible{outline:3px solid var(--celadon-deep);outline-offset:4px;}
 .nav-links .nav-self-serve{border-top:1px solid var(--rule);margin-top:6px;padding-top:12px;}
+
+.form-fields{min-width:0;width:100%;margin:0;padding:0;border:0;}
+.form-fallback{font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.form-fallback[hidden]{display:none;}
+.talent-form input:focus-visible,.talent-form textarea:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"A clear conversation about your next move.","description":"Learn what to expect when recruiting with Metcalf Search. Discuss the role, prepare for interviews, and join our Talent Community for future opportunities.","author":{"@type":"Person","name":"Jay Metcalf","url":"https://metcalfsearch.com/jay-metcalf"},"datePublished":"2026-05-17","dateModified":"2026-11-14","publisher":{"@type":"Organization","name":"Metcalf Search","url":"https://metcalfsearch.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://metcalfsearch.com/candidates"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"A clear conversation about your next move.","description":"Learn what to expect when recruiting with Metcalf Search. Discuss the role, prepare for interviews, and join our Talent Community for future opportunities.","author":{"@type":"Person","name":"Jay Metcalf","url":"https://metcalfsearch.com/jay-metcalf"},"datePublished":"2026-05-17","dateModified":"2026-11-15","publisher":{"@type":"Organization","name":"Metcalf Search","url":"https://metcalfsearch.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://metcalfsearch.com/candidates"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Metcalf Search","url":"https://metcalfsearch.com","logo":"https://metcalfsearch.com/logo.png"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://metcalfsearch.com/"},{"@type":"ListItem","position":2,"name":"For Candidates","item":"https://metcalfsearch.com/candidates"}]}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
@@ -217,7 +222,8 @@ a{color:inherit;text-decoration:none;}
 <section class="blog-section">
 <h2>Stay in the network</h2>
 <p>You don't have to be looking right now to join the Talent Community. Fill out the short form below and we will keep you in mind for future searches. We read every entry and will reach out personally when a role fits your background. Tell us where you would like to work and whether you are open to remote roles or relocation.</p>
-<form id="talent-form" class="talent-form" autocomplete="on">
+<form id="talent-form" class="talent-form" autocomplete="on" method="post" action="/candidates">
+<fieldset class="form-fields" disabled aria-label="Talent Community signup">
 <div class="form-grid">
 <label><span>Full name</span><input type="text" name="name" required autocomplete="name"></label>
 <label><span>Email</span><input type="email" name="email" required autocomplete="email"></label>
@@ -229,7 +235,9 @@ a{color:inherit;text-decoration:none;}
 </div>
 <button type="submit" class="form-submit">Join the Talent Community</button>
 <p class="form-note">Submissions are reviewed by a person. New signups receive an email confirmation. If a role fits, a member of our team will follow up personally. <a href="/privacy">How we use your information</a>.</p>
+</fieldset>
 </form>
+<p id="talent-form-fallback" class="form-fallback">If this form is unavailable, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a>.</p>
 <div id="talent-form-result" class="form-result" role="status" aria-live="polite" hidden></div>
 </section>
 <footer class="foot">
@@ -271,6 +279,7 @@ a{color:inherit;text-decoration:none;}
 const form=document.getElementById('talent-form');
 const result=document.getElementById('talent-form-result');
 const ENDPOINT='https://api.metcalfsearch.com/talent';
+  if(typeof fetch!=='function'||typeof FormData!=='function'||typeof Object.fromEntries!=='function')return;
 form.addEventListener('submit',async function(e){
 e.preventDefault();
 const data=Object.fromEntries(new FormData(form).entries());
@@ -289,6 +298,8 @@ result.className='form-result err';
 result.innerHTML='Form submission did not go through. Email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> with the same information and we will add you manually.';
 }
 });
+  document.getElementById('talent-form-fallback').hidden=true;
+  form.querySelector('.form-fields').disabled=false;
 })();
 </script>
 <script>
@@ -376,3 +387,4 @@ window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('sc
 <script src="/assets/theme.js?v=20261114-footer1" defer></script>
 </body>
 </html>
+
