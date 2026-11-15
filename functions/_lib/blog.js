@@ -16,21 +16,14 @@ export const SITE = 'https://metcalfsearch.com';
  * responses, so the blog routes have to set the same headers themselves.
  * Keep this list in sync with `_headers` at the repo root.
  *
- * The CSP is Report-Only on purpose: the pages use inline scripts and inline
- * styles throughout, so it can only be tightened after those are moved out.
+ * Enforce a baseline that blocks framing, plugins and foreign base URLs.
+ * Resource loading stays unrestricted so existing inline code and integrations
+ * continue to work. A full source allowlist needs a separate integration audit.
  */
-export const CSP_REPORT_ONLY = [
-  "default-src 'self'",
+export const CSP = [
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'none'",
-  "form-action 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.stripe.com https://checkout.stripe.com https://assets.calendly.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
-  "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.stripe.com https://*.calendly.com",
-  "connect-src 'self' https://api.metcalfsearch.com https://formsubmit.co https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://api.stripe.com https://checkout.stripe.com https://calendly.com",
-  "frame-src https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com https://calendly.com",
   'upgrade-insecure-requests'
 ].join('; ');
 
@@ -40,7 +33,7 @@ export const SECURITY_HEADERS = {
   'referrer-policy': 'strict-origin-when-cross-origin',
   'permissions-policy': 'camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=(self "https://js.stripe.com" "https://checkout.stripe.com")',
   'strict-transport-security': 'max-age=31536000',
-  'content-security-policy-report-only': CSP_REPORT_ONLY
+  'content-security-policy': CSP
 };
 
 /** Merge the standard headers into a response header bag. */

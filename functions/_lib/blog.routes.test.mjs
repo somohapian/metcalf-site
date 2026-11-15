@@ -4,8 +4,15 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { onRequestGet as getPost } from '../blog/[slug].js';
 import { onRequestGet as getIndex } from '../blog/index.js';
-import { API_BASE, RETIRED_SLUGS } from './blog.js';
+import { API_BASE, RETIRED_SLUGS, SECURITY_HEADERS } from './blog.js';
 import { onRequestGet as getSitemap } from '../blog/sitemap.xml.js';
+
+function assertSecurityHeaders(response) {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    assert.equal(response.headers.get(name), value, name);
+  }
+  assert.equal(response.headers.get('content-security-policy-report-only'), null);
+}
 
 const template = readFileSync(new URL('../../blog.html', import.meta.url), 'utf8');
 const notFound = readFileSync(new URL('../../404.html', import.meta.url), 'utf8');
@@ -47,6 +54,7 @@ test('the published article routes accept the current archive-only template', as
   for (const slug of publishedSlugs) {
     const response = await getPost(context(slug));
     assert.equal(response.status, 200, slug);
+    assertSecurityHeaders(response);
     assert.match(response.headers.get('content-type'), /text\/html/);
     const html = await response.text();
     assert.ok(html.includes(`href="https://metcalfsearch.com/blog/${slug}"`));
@@ -73,6 +81,7 @@ test('index and article use the same template, including the asset fallback', as
       return path === '/blog' ? new Response('Unavailable', { status: 404 }) : new Response(template);
     }));
     assert.equal(response.status, 200);
+    assertSecurityHeaders(response);
     assert.deepEqual(paths, ['/blog', '/blog.html']);
   }
 });
@@ -82,6 +91,7 @@ test('a non-template asset fails explicitly instead of rendering the wrong page'
   for (const handler of [getIndex, getPost]) {
     const response = await handler(context(publishedSlugs[0], async () => new Response(notFound)));
     assert.equal(response.status, 500);
+    assertSecurityHeaders(response);
     assert.equal(response.headers.get('cache-control'), 'no-store');
     assert.equal(await response.text(), 'Blog template unavailable.');
   }
@@ -92,6 +102,7 @@ test('retired, missing and invalid posts return 410 Gone with the 404 page body'
   for (const slug of ['waymo-halts-robotaxi-service-over-flood-detection', '..%2fadmin', '%']) {
     const response = await getPost(context(slug));
     assert.equal(response.status, 410, slug);
+    assertSecurityHeaders(response);
     assert.equal(response.headers.get('cache-control'), 'no-store');
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
     assert.equal(response.headers.get('x-robots-tag'), 'noindex');
@@ -127,6 +138,7 @@ test('hand-retired posts return 410 without calling the API', async (t) => {
   for (const slug of retiredSlugs) {
     const response = await getPost(context(slug));
     assert.equal(response.status, 410, slug);
+    assertSecurityHeaders(response);
     assert.equal(response.headers.get('x-robots-tag'), 'noindex');
     assert.equal(await response.text(), notFound);
   }
@@ -137,7 +149,10 @@ test('hand-retired posts are left out of the /blog index and the blog sitemap', 
   const all = [...retiredSlugs, ...publishedSlugs].map(postFor);
   t.mock.method(globalThis, 'fetch', async () => Response.json({ posts: all, total: all.length }));
   const indexHtml = await (await getIndex(context(''))).text();
-  const sitemap = await (await getSitemap()).text();
+  const sitemapResponse = await getSitemap();
+  assertSecurityHeaders(sitemapResponse);
+  assert.match(sitemapResponse.headers.get('content-type'), /application\/xml/);
+  const sitemap = await sitemapResponse.text();
   for (const slug of retiredSlugs) {
     assert.ok(!indexHtml.includes(`/blog/${slug}`), `index lists ${slug}`);
     assert.ok(!sitemap.includes(`/blog/${slug}`), `sitemap lists ${slug}`);

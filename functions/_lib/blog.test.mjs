@@ -495,17 +495,18 @@ test('index page survives a wholly hostile API payload', () => {
   assertNoInjection(html, 'hostile index');
 });
 
-test('security headers are present and the CSP is report-only', () => {
+test('static and dynamic pages enforce the same integration-safe security baseline', () => {
+  const staticHeaders = Object.fromEntries(readFileSync(join(HERE, '..', '..', '_headers'), 'utf8')
+    .split('\n').filter(line => /^  [^:]+:/.test(line))
+    .map(line => { const split = line.indexOf(':'); return [line.slice(0, split).trim().toLowerCase(), line.slice(split + 1).trim()]; }));
+  assert.deepEqual(SECURITY_HEADERS, staticHeaders);
   assert.equal(SECURITY_HEADERS['x-content-type-options'], 'nosniff');
   assert.equal(SECURITY_HEADERS['x-frame-options'], 'DENY');
   assert.ok(SECURITY_HEADERS['strict-transport-security'].startsWith('max-age='));
-  assert.ok(!('content-security-policy' in SECURITY_HEADERS), 'CSP must not be enforcing yet');
-  const csp = SECURITY_HEADERS['content-security-policy-report-only'];
-  for (const needed of ["default-src 'self'", "frame-ancestors 'none'", "object-src 'none'",
-    'https://www.googletagmanager.com', 'https://js.stripe.com', 'https://assets.calendly.com',
-    'https://fonts.googleapis.com', 'https://fonts.gstatic.com', 'https://api.metcalfsearch.com']) {
-    assert.ok(csp.includes(needed), `CSP missing ${needed}`);
-  }
+  assert.ok(!('content-security-policy-report-only' in SECURITY_HEADERS));
+  assert.deepEqual(SECURITY_HEADERS['content-security-policy'].split('; '), [
+    "base-uri 'self'", "object-src 'none'", "frame-ancestors 'none'", 'upgrade-insecure-requests'
+  ]);
   const merged = withSecurityHeaders({ 'content-type': 'text/html; charset=utf-8' });
   assert.equal(merged['content-type'], 'text/html; charset=utf-8');
   assert.equal(merged['x-frame-options'], 'DENY');
