@@ -1,0 +1,105 @@
+/* Shared theme. Photographs and illustrations retain their original colors. */
+:root{color-scheme:light;--theme-nav:rgba(250,250,247,.92);--theme-overlay:rgba(250,250,247,.98);--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:0 12px 32px rgba(31,36,33,.08)}
+@media screen and (prefers-color-scheme:dark){
+ :root:not([data-theme]){
+  color-scheme:dark;
+  --paper:#171d1a;--paper-warm:#202a23;--ink:#f0f3ee;--ink-soft:#c0cbc1;--ink-faint:#a4b0a5;
+  --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
+  --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
+  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-success:#a3d7b1;
+  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
+ }
+}
+@media screen{
+ :root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#171d1a;--paper-warm:#202a23;--ink:#f0f3ee;--ink-soft:#c0cbc1;--ink-faint:#a4b0a5;
+  --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
+  --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
+  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-success:#a3d7b1;
+  --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
+ }
+}
+/* Semantic replacements for fixed colors in the standalone page styles. */
+html body{background:var(--paper);color:var(--ink)}
+.topnav{background:var(--theme-nav)}
+.nav-overlay{background:var(--theme-overlay)}
+.nav-overlay a{color:var(--ink)}
+.nav-overlay a:hover{color:var(--brick)}
+.nav-overlay a.nav-cta-mobile{border-color:var(--ink)}
+.nav-overlay a.nav-cta-mobile:hover{background:var(--ink);color:var(--paper)}
+.hamburger-btn .bar,.hamburger-btn .bar::before,.hamburger-btn .bar::after{background:var(--ink)}
+.hamburger-btn[aria-expanded="true"] .bar{background:transparent}
+.nav-drop{box-shadow:var(--theme-shadow)}
+.foot-col h4,.foot-bottom,.home-label,.home-hero .hero-eyebrow,.home-hero-note,.home-partner figcaption{color:var(--theme-muted)}
+.home-method-links>a>span:first-child,.tier-tag{color:var(--celadon-deep)}
+.brand-logo,.foot-brand-logo,.client-strip__logo{background:var(--theme-logo-bg);padding:var(--theme-logo-pad);border-radius:2px}
+.client-strip img{background:#fafaf7;padding:6px;border-radius:3px;opacity:1;filter:none;mix-blend-mode:normal}
+.contact-heading,.contact-form label>span{color:var(--ink)}
+.contact-sub{color:var(--ink-soft)}
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),select,textarea{background:var(--paper);color:var(--ink);border-color:var(--rule);color-scheme:inherit}
+.contact-form input,.contact-form select,.contact-form textarea{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+input::placeholder,textarea::placeholder{color:var(--ink-faint);opacity:1}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--celadon-deep)}
+.contact-submit{background:var(--celadon);color:#17231b}
+.contact-submit:hover{background:var(--brick);color:#17231b}
+.contact-status.success{color:var(--theme-success)}
+.contact-status.error,.form-result.err{color:var(--brick)}
+.checkout-card{background:var(--theme-surface);box-shadow:var(--theme-shadow)}
+/* Stripe/Calendly own their iframe theme. Keep those isolated surfaces light. */
+.checkout-mount,.scheduler-frame{background:#fff;color:#1f2421;color-scheme:light}
+.cell-highlight .sym.yes{background:var(--celadon-mist)}
+.terms-toc-links a:hover{background:var(--theme-surface)}
+.activate-cta{background:var(--celadon-mist)!important;color:var(--ink)!important;border-color:var(--celadon)!important}
+html .activate-cta:hover{background:var(--paper-warm)!important;border-color:var(--celadon-deep)!important}
+.activate-cta [style*="color:"]{color:inherit!important}
+.activate-cta>div:first-child{color:var(--celadon-deep)!important}
+[style*="color:#1f2421"]{color:var(--ink)!important}
+[style*="color:#4a534f"]{color:var(--ink-soft)!important}
+[style*="color:#a83e2c"]{color:var(--brick)!important}
+/* The biography has intentional forest-colored sections in both themes. */
+.bio-hero,.method-strip,.bio-close{color:#f0f3ee}
+.stat strong,.note-signature,.copy-bio{color:var(--ink)}
+.stat span,.stat small,.story-footnote,.venture-label,.recommendation figcaption span,.bio-proof .client-strip__label,.bio-dateline,.note-copy .bio-eyebrow{color:var(--theme-muted)}
+.bio-eyebrow,.section-heading em,.chapter-number,.venture-index,.venture-arrow,.venture h3 a:hover,.reading-link:hover,.copy-status{color:var(--celadon-deep)}
+.bio-hero .bio-eyebrow{color:#c4d6cb}
+.bio-proof{background:var(--paper-warm)}
+.quote-mark{color:var(--ink-faint)}
+.bio-button{color:#253d36}
+/* Held Keep pages share the same palette without touching engine behavior. */
+.keep-kicker{color:var(--celadon-deep)!important}
+.keep-moves li>span,.kw-priority{color:var(--celadon-deep)}
+.kw-choice,.kw-sheet{background:var(--theme-surface)}
+.kw-form textarea{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+.kw-choice:has(input:checked){border-color:var(--celadon-deep)}
+.kw-choice input{accent-color:var(--celadon-deep)}
+.kw-action-table th{background:var(--paper-warm)}
+.kw-action-table th,.kw-action-table td{border-color:var(--rule)}
+.kw-app :is(button,input,textarea):focus-visible,.keep-button:focus-visible,.keep-back:focus-visible{outline-color:var(--celadon-deep)}
+/* Both controls are native buttons, with synchronized pressed state. */
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:4px;flex-shrink:0;min-height:44px;padding:8px 10px;margin-left:16px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink-soft);font:400 13px/1.2 var(--body,system-ui,sans-serif);cursor:pointer}
+.theme-toggle:hover{border-color:var(--celadon-deep)}
+.theme-toggle:focus-visible{outline:3px solid var(--celadon-deep);outline-offset:3px}
+.theme-toggle[aria-pressed="false"] .theme-label-light,.theme-toggle[aria-pressed="true"] .theme-label-dark{font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.theme-toggle-mobile{margin:4px 0 0;font-size:16px;padding:10px 20px}
+@media(min-width:769px){.topnav-inner{gap:16px}.topnav-inner .nav-links{gap:clamp(16px,2.3vw,36px)}.topnav-inner>.theme-toggle{margin-left:auto}.topnav-inner>.nav-cta{flex-shrink:0}}
+@media(max-width:768px){.topnav-inner>.theme-toggle{margin-left:auto;margin-right:12px;padding:8px;font-size:12px}.topnav-inner>.hamburger-btn{margin-left:0}}
+/* Leave room for the additional preference control on smaller tablets. */
+@media(min-width:769px) and (max-width:1024px){
+ .topnav .nav-links,.topnav .nav-cta{display:none!important}
+ .hamburger-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:0;cursor:pointer;padding:0;position:relative;flex-shrink:0}
+ .hamburger-btn .bar,.hamburger-btn .bar::before,.hamburger-btn .bar::after{display:block;width:24px;height:2px;background:var(--ink);position:relative}
+ .hamburger-btn .bar::before,.hamburger-btn .bar::after{content:"";position:absolute;left:0}
+ .hamburger-btn .bar::before{top:-8px}.hamburger-btn .bar::after{top:8px}
+ .hamburger-btn[aria-expanded="true"] .bar{background:transparent}
+ .hamburger-btn[aria-expanded="true"] .bar::before{top:0;transform:rotate(45deg)}
+ .hamburger-btn[aria-expanded="true"] .bar::after{top:0;transform:rotate(-45deg)}
+}
+@media print{
+ :root{color-scheme:light;--paper:#fff!important;--paper-warm:#f4f2eb!important;--ink:#1f2421!important;--ink-soft:#4a534f!important;--ink-faint:#536158!important;--rule:#d8dcd6!important;--celadon:#a3c1ad!important;--celadon-deep:#557560!important;--celadon-mist:#e6ede8!important;--brick:#763729!important;--cream:#f4f2eb!important;--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:none}
+ .theme-toggle,.topnav,.nav-overlay{display:none!important}
+ .bio-hero,.method-strip,.bio-close{background:#fff!important;color:#1f2421!important}
+ .bio-hero .hero-intro,.bio-hero .hero-thesis,.bio-hero .bio-eyebrow,.bio-topline,.photo-caption,.bio-anchor-nav,.method-steps span,.bio-close p,.bio-close .candidate-link{color:#1f2421!important}
+ .bio-hero h1 span,.method-steps b{color:#557560!important}
+ .keep-print-copy .kw-sheet{background:#fff!important;color:#1f2421!important}
+}

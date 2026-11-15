@@ -22,6 +22,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from add_theme import with_theme
 
 ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else "/root/metcalf-site")
 ORIGIN = "https://metcalfsearch.com"
@@ -536,7 +537,7 @@ def page(t):
 </body>
 </html>
 """
-    return head + "\n" + body
+    return with_theme(head + "\n" + body)
 
 
 SNIPPET = f"""<!--
