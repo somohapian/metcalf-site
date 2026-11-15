@@ -160,7 +160,7 @@ STRIP_CSS = """<style id="metcalf-client-strip">
 STRIP_DIV = '<div class="client-strip" data-client-ticker data-show="7"></div>'
 HERO_STRIP_DIV = '<div class="client-strip client-strip--hero" data-client-ticker data-show="7"></div>'
 STRIP_SCRIPTS = ('<script src="/assets/clients/clients.js" defer></script>\n'
-                 '<script src="/assets/clients/ticker.js" defer></script>')
+                 '<script src="/assets/clients/ticker.js?v=20261115-logo2" defer></script>')
 
 # ------------------------------------------------------------ checkout JS
 

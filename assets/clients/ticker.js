@@ -79,7 +79,9 @@
         settled = true;
         clearTimeout(timer);
         pending--;
-        if (ok) loaded.push({ i: i, c: c });
+        if (ok) loaded.push({ i: i, c: Object.assign({}, c, {
+          aspectRatio: img.naturalWidth / img.naturalHeight
+        }) });
         pump();
       }
       pending++;
@@ -93,11 +95,16 @@
 
   function logo(c, duplicate) {
     var img = document.createElement('img');
+    img.className = 'client-strip__logo';
+    if (c.aspectRatio > 5) img.className += ' client-strip__logo--wide';
     img.setAttribute('loading', 'lazy');
     img.setAttribute('decoding', 'async');
     img.alt = duplicate ? '' : c.name;
     var h = Math.round(Number(c.h));
-    if (h > 0) img.setAttribute('height', String(h));
+    if (h > 0) {
+      img.setAttribute('height', String(h));
+      img.style.setProperty('--client-logo-height', Math.min(h, 64) + 'px');
+    }
     if (duplicate) img.setAttribute('aria-hidden', 'true');
     img.src = BASE + encodeURIComponent(c.file);
     return img;

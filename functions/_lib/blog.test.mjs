@@ -541,7 +541,7 @@ test('new guide list and article list leave retired routes out and do not revive
   assert.ok(!html.includes('/blog/ep-794-can-automation-make-hiring-more-human'));
   assert.ok(!html.includes('https://reddit.com/example'));
   assert.ok(!html.includes('<iframe'));
-  assert.ok(html.includes('/assets/theme.css?v=20261115-public4'));
+  assert.ok(html.includes('/assets/theme.css?v=20261115-public5'));
   assert.ok(html.includes('/assets/theme.js?v=20261114-footer1'));
 });
 

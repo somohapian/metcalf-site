@@ -41,8 +41,24 @@ html body{background:var(--paper);color:var(--ink)}
 .home-method-links>a>span:first-child,.tier-tag{color:var(--theme-accent-text)}
 .client-strip__label{color:var(--theme-muted)}
 .brand-logo,.foot-brand-logo{background:transparent;padding:0;border-radius:2px}
-.client-strip__logo{background:var(--theme-logo-bg);padding:var(--theme-logo-pad);border-radius:2px}
-.client-strip img{background:#fafaf7;padding:6px;border-radius:3px;opacity:1;filter:none;mix-blend-mode:normal}
+/* A consistent white presentation surface preserves client artwork in both
+   themes, including assets with white backgrounds. Retain each logo's optical
+   height, contain wide artwork, and never recolor or dim another brand. */
+.client-strip__track{gap:16px;padding-right:16px}
+.client-strip img{
+ box-sizing:border-box;width:208px;height:104px;max-width:none;flex:none;
+ padding:calc((104px - var(--client-logo-height,48px) - 2px) / 2) 18px;
+ object-fit:contain;background:#fff;border:1px solid #d8dcd6;border-radius:4px;
+ opacity:1;filter:none;mix-blend-mode:normal;
+}
+.client-strip img.client-strip__logo--wide{width:320px}
+@media(max-width:639px){
+ .client-strip__track{gap:12px;padding:0 24px}
+ .client-strip img{width:184px;height:96px;padding:calc((96px - var(--client-logo-height,48px) - 2px) / 2) 14px}
+ .client-strip img.client-strip__logo--wide{width:280px}
+}
+@media(prefers-reduced-motion:reduce){.client-strip__track{row-gap:16px;padding:0 24px}.client-strip img{max-width:100%}}
+
 .contact-heading,.contact-form label>span{color:var(--ink)}
 .contact-sub{color:var(--ink-soft)}
 input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),select,textarea{background:var(--paper);color:var(--ink);border-color:var(--rule);color-scheme:inherit}
