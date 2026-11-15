@@ -250,8 +250,8 @@ def audit(root, inventory=None):
             footer = footers[-1]
             footer_text = normalize(footer.text(True))
             footer_links = {n.attrs.get("href") for n in footer.all("a")}
-            # Jay explicitly chose Columbus for his personal profile. Other pages retain the firm location.
-            location = "Columbus" if name == "jay-metcalf.html" else "Grove City"
+            # Jay chose Columbus as the public home-base label; legal addresses remain unchanged.
+            location = "Columbus"
             if f"© 2026 Metcalf Search. {location}, Ohio." not in footer_text:
                 add(name, "footer-facts", "Footer needs the canonical 2026 company/location line.", footer.line)
             for link in ("mailto:info@metcalfsearch.com", "tel:+16144346646", "/contact", "/stack-method", "https://apply.ms/"):

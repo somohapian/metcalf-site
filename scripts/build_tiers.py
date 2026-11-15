@@ -234,14 +234,14 @@ def money(n):
 
 P, PLUS, PRO = MONTHLY["partner"], MONTHLY["plus"], MONTHLY["pro"]
 CONTINGENCY = f"contingency hires at a {money(SALARY)} salary and a {FEE_PERCENT} percent fee cost"
-MATH_CLOSE = "The fee never moves with the offer. There is no bonus for a bigger salary and every reason to fill fast and right."
+MATH_CLOSE = "A larger offer does not increase our monthly fee, and there is no placement fee when someone starts. Our job is to keep the search moving and help you make the right hire."
 FIT_CALL = 'Questions first? <span class="nowrap">Book the thirty-minute fit call.</span>'
 
 PER_HIRE_Q = "Are there any per-hire fees?"
 PER_HIRE_A = "No. The monthly subscription is the full cost. A filled role costs the same as an open one, and a bigger offer does not raise our fee."
 
 STEP_TODAY = ("Today", "You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.")
-STEP_FILL = ("Thirty to forty-five days", "A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and the ninety-day keep plan begins when the hire starts.")
+STEP_FILL = ("Thirty to forty-five days", "A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and new-hire check-ins begin when the hire starts.")
 
 PLUS_LINK = '<a href="/recruiting-partner-plus">Recruiting Partner Plus</a>'
 PRO_LINK = '<a href="/recruiting-partner-pro">Recruiting Partner Pro</a>'
@@ -269,13 +269,13 @@ TIERS = [
         "sub": "One active role at a time, run start to finish by a senior recruiter. You interview a short list. You never wade through a thousand resumes again.",
         "hero_sub": "A senior recruiter runs one active role at a time, from the first search to the accepted offer. We find and screen candidates so you can spend your interview time with the people worth meeting.",
         "capsule": f"<strong>Recruiting Partner</strong> is the base Metcalf Search tier: one role open at a time, sourced, screened and closed by us, for a flat {money(P)} a month. No per-hire fees. Month to month.",
-        "who": "Owners with one seat open now and a few more coming this year. Companies of roughly ten to two hundred people, in any industry, where hiring lands on the owner or on one overloaded HR person. If you usually have two or three roles open at once, " + PLUS_LINK + " fits better.",
+        "who": "Owners with one seat open now and a few more coming this year. Companies of roughly ten to two hundred people, in any industry, where hiring lands on the owner or on an HR team balancing hiring with other responsibilities. If you usually have two or three roles open at once, " + PLUS_LINK + " fits better.",
         "buys": [
             ("A senior recruiter is your single point of contact.", "One person owns your role start to finish, backed by the Metcalf Search team."),
-            ("The full STACK Method on the search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan."),
+            ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days."),
             ("Ad spend, included.", "The job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
-            ("A short list, not a pile.", "You see the three or four people worth an hour, with our write-up on each."),
+            ("A focused shortlist.", "You see a focused shortlist, with a write-up explaining each person’s relevant experience."),
             ("A kickoff visit, then onsite as needed.", "We come out to start the partnership and again whenever being in the room moves the hire forward."),
             ("The interviews, the offer and the first ninety days.", "We schedule and prep the interviews, build the offer, and run the thirty, sixty and ninety day check-ins with the hire and the manager."),
             ("One active role at a time.", "When it fills, the next one starts. No per-hire fee when it does."),
@@ -312,7 +312,7 @@ TIERS = [
         "buys": [
             ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
-            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan, per role."),
+            ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
@@ -344,13 +344,13 @@ TIERS = [
         "description": f"Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat {money(PRO)} a month. No per-hire fees. Choose your plan.",
         "eyebrow": f"RECRUITING PARTNER PRO &middot; {money(PRO)} A MONTH",
         "h1": 'A dedicated recruiter, onsite <span class="accent">three</span> days a week.',
-        "sub": "Every open role, no cap, run by a Metcalf Search recruiter embedded with your team three full days a week. The output of a full-time recruiting hire, on a month-to-month subscription.",
+        "sub": "Every open role, no cap, run by a Metcalf Search recruiter embedded with your team three full days a week. Ongoing recruiting support on a month-to-month subscription.",
         "capsule": f"<strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week, every open role in the company, for a flat {money(PRO)} a month. No per-hire fees. Month to month.",
         "who": "Companies hiring constantly: a plant adding a shift, a branch opening, growth that needs ten or twenty hires this year and a recruiting function that does not exist yet. The alternative is hiring a recruiter, with the salary, tools, ramp and management that come with it.",
         "buys": [
             ("A dedicated recruiter onsite three full days a week.", "Embedded with your managers, on a set schedule, running every open role."),
             ("No cap on roles.", "Whatever is open gets worked."),
-            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan, per role."),
+            ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
