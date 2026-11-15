@@ -236,10 +236,10 @@ def money(n):
 P, PLUS, PRO = MONTHLY["partner"], MONTHLY["plus"], MONTHLY["pro"]
 CONTINGENCY = f"contingency hires at a {money(SALARY)} salary and a {FEE_PERCENT} percent fee cost"
 MATH_CLOSE = "A larger offer does not increase our monthly fee, and there is no placement fee when someone starts. Our job is to keep the search moving and help you make the right hire."
-FIT_CALL = 'Questions first? <span class="nowrap">Book the thirty-minute fit call.</span>'
+FIT_CALL = 'Questions first? <span class="nowrap">Request a thirty-minute fit call.</span>'
 
 PER_HIRE_Q = "Are there any per-hire fees?"
-PER_HIRE_A = "No. The monthly subscription is the full cost. A filled role costs the same as an open one, and a bigger offer does not raise our fee."
+PER_HIRE_A = "No. There is no placement fee when you hire someone. The monthly fee covers your plan’s agreed recruiting work. Optional extra onsite days and approved travel or other expenses are separate, as described in the partnership agreement."
 
 STEP_TODAY = ("Today", "You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.")
 STEP_FILL = ("Thirty to forty-five days", "A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and new-hire check-ins begin when the hire starts.")
@@ -251,7 +251,7 @@ PARTNER_LINK = '<a href="/recruiting-partner">Recruiting Partner</a>'
 
 def billing(name, price):
     return (f"{name} is {price} a month, billed monthly in advance, month to month. Move up or down a tier "
-            "at any monthly cycle; rates are grandfathered. Cancel with ten days notice by emailing "
+            "at any time. Upgrades take effect immediately with a prorated charge; downgrades take effect immediately with credit toward future invoices. Grandfathered pricing requires continuous service. Cancellation takes effect at the end of the billing cycle in which ten days written notice is satisfied. Email "
             '<a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The '
             '<a href="/terms#partnership-agreement">partnership agreement</a> governs the partnership; activating accepts it.')
 
@@ -272,7 +272,7 @@ TIERS = [
         "capsule": f"<strong>Recruiting Partner</strong> is the base Metcalf Search tier: one role open at a time, sourced, screened and closed by us, for a flat {money(P)} a month. No per-hire fees. Month to month.",
         "who": "Owners with one seat open now and a few more coming this year. Companies of roughly ten to two hundred people, in any industry, where hiring lands on the owner or on an HR team balancing hiring with other responsibilities. If you usually have two or three roles open at once, " + PLUS_LINK + " fits better.",
         "buys": [
-            ("A senior recruiter is your single point of contact.", "One person owns your role start to finish, backed by the Metcalf Search team."),
+            ("A single point of contact on our team.", "One person owns your role start to finish, backed by the Metcalf Search team."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days."),
             ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
@@ -283,8 +283,8 @@ TIERS = [
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
-            ("Five business days", "The first slate of vetted candidates is in front of you."),
+            ("Target: within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
+            ("Target: five business days", "Our starting target is the first vetted candidates within five business days of kickoff. We confirm a realistic timeline for your role and market together."),
             ("Week two", "Our target for first interviews, depending on availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
@@ -292,9 +292,9 @@ TIERS = [
         "math": (f"Twelve months of Recruiting Partner is <strong>{money(12 * P)}</strong>. Two {CONTINGENCY} <strong>{money(2 * PER_HIRE)}</strong>. "
                  f"For three hires, that contingency example totals: <strong>{money(3 * PER_HIRE)}</strong> for three, against the same <strong>{money(12 * P)}</strong>. {MATH_CLOSE}"),
         "faq": [
-            ("What if we have two roles open at once?", "Recruiting Partner runs one active role at a time. Move up to " + PLUS_LINK + " for the month and back down when the second role fills. Tiers change at any monthly cycle and your rate is grandfathered."),
+            ("What if we have two roles open at once?", "Recruiting Partner runs one active role at a time. Move up to " + PLUS_LINK + " for the month and back down when the second role fills. Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund."),
             (PER_HIRE_Q, PER_HIRE_A),
-            ("What happens right after I pay?", "You land on the kickoff page, book the one-hour intake, and get the partnership materials by email within minutes. Kickoff happens within 48 hours and sourcing starts that day."),
+            ("What happens right after I pay?", "You land on the kickoff page, book the one-hour intake, and get the partnership materials by email within minutes. We aim to hold kickoff within 48 hours of activation. At kickoff, we agree on the search priorities, candidate criteria and delivery targets."),
         ],
     },
     {
@@ -311,18 +311,18 @@ TIERS = [
         "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, a weekly hiring huddle and up to 8 hours onsite a month, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
         "who": "Owners and HR managers with hiring that does not stop: two or three seats open most months, several managers to coordinate, and nobody with the hours to run it properly. Companies of roughly ten to two hundred people, in any industry.",
         "buys": [
-            ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
+            ("A single point of contact on our team.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
             ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
-            ("Move down when hiring slows, back up when it picks up.", "Tiers change at any monthly cycle and your rate is grandfathered."),
+            ("Move down when hiring slows, back up when it picks up.", "Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund."),
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
-            ("Five business days", "The first slates of vetted candidates, one per open role, are in front of you."),
+            ("Target: within 48 hours", "Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day."),
+            ("Target: five business days", "Our starting target is the first vetted candidates within five business days of kickoff. We confirm priorities and timing for each role together."),
             ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
@@ -355,22 +355,22 @@ TIERS = [
             ("Some job advertising included.", "Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available."),
             ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
-            ("A senior recruiter is your single point of contact.", "The embedded recruiter runs the days. Your senior recruiter runs the plan, backed by the Metcalf Search team."),
+            ("A single point of contact on our team.", "The embedded recruiter runs the days. Your point of contact keeps you informed, with support from the people working on your search."),
         ],
         "timeline": [
             STEP_TODAY,
-            ("Within 48 hours", "Kickoff. A one-hour intake across every open role in your agreed scope, and the onsite schedule set. Sourcing starts the same day."),
-            ("Five business days", "The first slates of vetted candidates are in front of you."),
+            ("Target: within 48 hours", "Kickoff. A one-hour intake across every open role in your agreed scope, and the onsite schedule set. Sourcing starts the same day."),
+            ("Target: five business days", "Our starting target is the first vetted candidates within five business days of kickoff. We confirm priorities and timing for each role together."),
             ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
         "result": "Your managers have a recruiter working on every open role in your agreed scope and someone they can go to with questions. When the hiring rush settles down, that recruiter continues to support the team.",
         "math": (f"Twelve months of Recruiting Partner Pro is <strong>{money(12 * PRO)}</strong>. Ten {CONTINGENCY} <strong>{money(10 * PER_HIRE)}</strong>. "
-                 f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus time to learn your company. Pro starts within 48 hours and runs month to month. Cancel with ten days’ notice. {MATH_CLOSE}"),
+                 f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus time to learn your company. We aim to hold kickoff within 48 hours of activation. Pro runs month to month. Cancel with ten days’ notice. {MATH_CLOSE}"),
         "faq": [
-            ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. A senior recruiter is your single point of contact and runs the plan, backed by the Metcalf Search team."),
+            ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. You have a single point of contact on our team, with support from the people working on your search."),
             (PER_HIRE_Q, PER_HIRE_A),
-            ("What if hiring slows down?", "Move down to " + PLUS_LINK + " or " + PARTNER_LINK + " at any monthly cycle. Your rate is grandfathered, and the careers page, pipeline and process stay in your Rosie desk."),
+            ("What if hiring slows down?", "Move down to " + PLUS_LINK + " or " + PARTNER_LINK + " when your hiring needs change. Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund. Your careers page, pipeline and records stay in your Rosie desk."),
         ],
     },
 ]
@@ -459,8 +459,9 @@ def page(t):
 {STRIP_CSS}
 </head>"""
     body = f"""<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 {NAV}
-
+<main id="main-content" tabindex="-1">
 <section class="page-hero">
 <div class="eyebrow">{eyebrow(t['eyebrow'])}</div>
 <h1>{t['h1']}</h1>
@@ -499,7 +500,7 @@ def page(t):
 <section class="cta-band" aria-labelledby="cta-band-heading">
 <h2 class="section-h2" id="cta-band-heading">Ready when you <span class="accent">are</span>.</h2>
 <a href="#checkout" class="btn-solid">Choose this plan</a>
-<p class="cta-band-note">Kickoff within 48 hours. First slate within five business days.</p>
+<p class="cta-band-note">Target kickoff within 48 hours of activation. Agree on candidate-delivery targets at kickoff.</p>
 </section>
 
 <section class="faq-section" aria-labelledby="faq-heading">
@@ -520,13 +521,15 @@ def page(t):
 <div class="section-eyebrow">ACTIVATE</div>
 <h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
 <p class="section-sub">Sign up below to get your search started.</p>
-<p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
+<p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Change tiers when your hiring needs change. Charges or credits are prorated.</span></p>
 </div>
+<p class="checkout-alt">When recruiting ends, keep using Rosie on Starter or choose the paid software plan. Your records remain yours. <a href="https://apply.ms/help/#your-data">See records and account options</a>.</p>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>
-<p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+<p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Request a thirty-minute fit call</a>.</p>
 </div>
 </section>
+</main>
 {FOOTER}
 
 {NAV_SCRIPT}

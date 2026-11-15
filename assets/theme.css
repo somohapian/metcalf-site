@@ -1,12 +1,12 @@
 /* Shared theme. Photographs and illustrations retain their original colors. */
-:root{color-scheme:light;--theme-nav:rgba(250,250,247,.92);--theme-overlay:rgba(250,250,247,.98);--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:0 12px 32px rgba(31,36,33,.08)}
+:root{color-scheme:light;--theme-nav:rgba(250,250,247,.92);--theme-overlay:rgba(250,250,247,.98);--theme-surface:#fff;--theme-muted:#536158;--theme-accent-text:#42654d;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:0 12px 32px rgba(31,36,33,.08)}
 @media screen and (prefers-color-scheme:dark){
  :root:not([data-theme]){
   color-scheme:dark;
   --paper:#171d1a;--paper-warm:#202a23;--ink:#f0f3ee;--ink-soft:#c0cbc1;--ink-faint:#a4b0a5;
   --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
   --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
-  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-success:#a3d7b1;
+  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-accent-text:#b0d0b6;--theme-success:#a3d7b1;
   --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
  }
 }
@@ -16,7 +16,7 @@
   --paper:#171d1a;--paper-warm:#202a23;--ink:#f0f3ee;--ink-soft:#c0cbc1;--ink-faint:#a4b0a5;
   --rule:#415248;--celadon:#a3c1ad;--celadon-deep:#b0d0b6;--celadon-mist:#263a2c;--brick:#eeaaa0;
   --cream:#202a23;--theme-nav:rgba(23,29,26,.96);--theme-overlay:rgba(23,29,26,.98);
-  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-success:#a3d7b1;
+  --theme-surface:#24302a;--theme-muted:#a4b0a5;--theme-accent-text:#b0d0b6;--theme-success:#a3d7b1;
   --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
  }
 }
@@ -38,7 +38,8 @@ html body{background:var(--paper);color:var(--ink)}
 .hamburger-btn[aria-expanded="true"] .bar{background:transparent}
 .nav-drop{box-shadow:var(--theme-shadow)}
 .foot-col h4,.foot-bottom,.home-label,.home-hero .hero-eyebrow,.home-hero-note,.home-partner figcaption{color:var(--theme-muted)}
-.home-method-links>a>span:first-child,.tier-tag{color:var(--celadon-deep)}
+.home-method-links>a>span:first-child,.tier-tag{color:var(--theme-accent-text)}
+.client-strip__label{color:var(--theme-muted)}
 .brand-logo,.foot-brand-logo{background:transparent;padding:0;border-radius:2px}
 .client-strip__logo{background:var(--theme-logo-bg);padding:var(--theme-logo-pad);border-radius:2px}
 .client-strip img{background:#fafaf7;padding:6px;border-radius:3px;opacity:1;filter:none;mix-blend-mode:normal}
@@ -87,6 +88,14 @@ html .activate-cta:hover{background:var(--paper-warm)!important;border-color:var
 .theme-preference{display:inline-flex;align-items:center;gap:8px;color:var(--theme-muted);font:400 12px/1.4 var(--body,system-ui,sans-serif)}
 .theme-preference select{width:auto;min-height:44px;padding:6px 28px 6px 8px;border:1px solid var(--rule);border-radius:2px;background:var(--paper);color:var(--ink-soft);font:inherit;cursor:pointer}
 .theme-preference select:focus-visible{outline:2px solid var(--celadon-deep);outline-offset:3px}
+/* Static bypass links work before scripts load and retain existing page IDs. */
+html .skip-link{position:fixed;top:12px;left:12px;z-index:1000;padding:12px 16px;background:var(--paper);color:var(--ink);border:2px solid currentColor;border-radius:3px;font:600 16px/1.5 var(--body,system-ui,sans-serif);text-decoration:underline;transform:translateY(calc(-100% - 24px))}
+html .skip-link:focus{transform:none}
+main[tabindex="-1"]{scroll-margin-top:calc(var(--nav-h,76px) + 16px)}
+/* Two contrasting rings remain visible on light, dark and colored surfaces.
+   Specificity intentionally wins over page-local outline:none form/nav rules. */
+:root body :is(a,button,input,select,textarea,summary,[tabindex]:not(main)):focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 3px var(--paper)}
+@media(forced-colors:active){:root body :is(a,button,input,select,textarea,summary,[tabindex]:not(main)):focus-visible{outline-color:Highlight}}
 @media(min-width:769px){.topnav-inner{gap:16px}.topnav-inner .nav-links{margin-left:auto;gap:clamp(16px,2.3vw,36px)}.topnav-inner>.nav-cta{margin-left:0;flex-shrink:0}}
 @media(max-width:768px){.topnav-inner>.hamburger-btn{margin-left:auto}.theme-preference{margin-top:8px}}
 /* Preserve the compact navigation on smaller tablets. */
@@ -102,9 +111,12 @@ html .activate-cta:hover{background:var(--paper-warm)!important;border-color:var
 }
 @media print{
  :root{color-scheme:light;--paper:#fff!important;--paper-warm:#f4f2eb!important;--ink:#1f2421!important;--ink-soft:#4a534f!important;--ink-faint:#536158!important;--rule:#d8dcd6!important;--celadon:#a3c1ad!important;--celadon-deep:#557560!important;--celadon-mist:#e6ede8!important;--brick:#763729!important;--cream:#f4f2eb!important;--theme-surface:#fff;--theme-muted:#536158;--theme-success:#2d5f3f;--theme-logo-bg:transparent;--theme-logo-pad:0px;--theme-shadow:none}
- .theme-preference,.topnav,.nav-overlay{display:none!important}
+ .theme-preference,.topnav,.nav-overlay,.skip-link{display:none!important}
  .bio-hero,.method-strip,.bio-close{background:#fff!important;color:#1f2421!important}
  .bio-hero .hero-intro,.bio-hero .hero-thesis,.bio-hero .bio-eyebrow,.bio-topline,.photo-caption,.bio-anchor-nav,.method-steps span,.bio-close p,.bio-close .candidate-link{color:#1f2421!important}
  .bio-hero h1 span,.method-steps b{color:#557560!important}
  .keep-print-copy .kw-sheet{background:#fff!important;color:#1f2421!important}
 }
+
+/* A light backing preserves every part of the original logo in dark mode. */
+.brand-logo,.foot-brand-logo{background:var(--theme-logo-bg);padding:var(--theme-logo-pad);filter:none}

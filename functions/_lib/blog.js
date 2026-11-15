@@ -675,12 +675,28 @@ export function renderIndexPage(templateHtml, data) {
 
 /* ----------------------------------------------------------- post render */
 
+const EDITORIAL_META = {
+  'the-us-is-betting-on-ai-to-catch-insider-trading-in-prediction-markets': {
+    title: 'AI, prediction markets and insider trading',
+    description: 'A Metcalf Search perspective on using AI to detect insider trading in prediction markets, and the questions businesses should ask about automated judgment.'
+  },
+  'executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver': {
+    title: 'Are AI tools really driving layoffs?',
+    description: 'Look beyond the AI headline when evaluating layoffs. A Metcalf Search perspective on business decisions, workforce changes and what hiring managers can learn.'
+  }
+};
+
 export function postDescription(post) {
+  const edited = EDITORIAL_META[safeSlug(post.slug)];
+  if (edited) return edited.description;
+  if (post.meta_description) return cleanInline(post.meta_description);
   const source = post.intro_paragraph
     ? cleanInline(post.intro_paragraph)
     : markdownToText(post.body || '');
   const text = source || 'Small business hiring news and notes from Metcalf Search.';
-  return truncate(text, 155);
+  if (text.length <= 155) return text;
+  const sentence = text.match(/^.{40,154}?[.!?](?=\s|$)/);
+  return sentence ? sentence[0] : "Hiring news and practical perspective from Metcalf Search. Read the full article and explore our guides for small-business owners and hiring managers.";
 }
 
 export function renderPostPage(templateHtml, post) {
@@ -694,8 +710,10 @@ export function renderPostPage(templateHtml, post) {
   const label = authorLabel(data.author).toUpperCase();
   const eyebrowDate = formatDate(data.published_at || data.week_of_date).toUpperCase();
 
-  let pageTitle = `${title} | Metcalf Search`;
-  if (pageTitle.length > 62) pageTitle = `${truncate(title, 62 - ' | Metcalf Search'.length)} | Metcalf Search`;
+  const metadataTitle = EDITORIAL_META[slug]?.title || title;
+  let pageTitle = `${metadataTitle} | Metcalf Search`;
+  // A complete title is more useful than an authored mid-thought ellipsis.
+  if (pageTitle.length > 62) pageTitle = metadataTitle;
 
   let head = headOf(template);
   head = setTag(head, /(<title>)[\s\S]*?(<\/title>)/i, escapeHtml(pageTitle));
@@ -765,10 +783,10 @@ export function renderPostPage(templateHtml, post) {
     `<h1>${escapeHtml(title)}</h1>\n</section>`;
   const prose = `<div class="prose">\n${body}\n` +
     '<p><a href="/blog">Back to all posts</a></p>\n' +
-    '<p>Hiring in Central Ohio? Read how <a href="/fractional-recruiting">fractional recruiting</a> works, or <a href="/contact">start a conversation</a>.</p>\n' +
+    '<p>Need hiring help? Read how <a href="/fractional-recruiting">fractional recruiting</a> works, or <a href="/contact">start a conversation</a>.</p>\n' +
     '</div>';
 
-  return `${head}\n<body>\n${navOf(template)}\n\n${hero}\n${prose}\n\n` +
+  return `${head}\n<body>\n<a class="skip-link" href="#main-content">Skip to main content</a>\n${navOf(template)}\n<main id="main-content" tabindex="-1">\n${hero}\n${prose}\n</main>\n` +
     `${footerOf(template)}\n${tailOf(template).trim()}\n</body>\n</html>\n`;
 }
 

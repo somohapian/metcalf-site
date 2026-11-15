@@ -261,7 +261,25 @@ def audit(root, inventory=None):
             add(name, "mobile-nav", "No mobile menu found.")
         elif "aria-modal" in source and not (".focus(" in source and ("Tab" in source or "inert" in source)):
             add(name, "mobile-focus", "Modal mobile menu needs focus entry, containment and return; verify in browser.", severity="WARN")
-        css = "\n".join(n.text() for n in doc.nodes if n.tag == "style")
+        styles = [n.text() for n in doc.nodes if n.tag == "style"]
+        for link in doc.nodes:
+            if link.tag != "link" or "stylesheet" not in link.attrs.get("rel", "").lower().split():
+                continue
+            target, _ = resolve(link.attrs.get("href", ""), name)
+            # Reuse URL resolution so root-relative paths, nested pages and
+            # cache-version query strings read the actual linked local file.
+            # External stylesheets are not fetched by this offline source gate.
+            if not target or target.startswith("@"):
+                continue
+            stylesheet = (root / target).resolve()
+            if not stylesheet.is_relative_to(root.resolve()):
+                add(name, "stylesheet-read", "Stylesheet resolves outside the site: " + target, link.line, severity="WARN")
+                continue
+            try:
+                styles.append(stylesheet.read_text(encoding="utf-8"))
+            except (OSError, UnicodeError) as error:
+                add(name, "stylesheet-read", "Cannot inspect local stylesheet " + target + ": " + str(error), link.line, severity="WARN")
+        css = "\n".join(styles)
         styled = set(re.findall(r"\.([A-Za-z_][\w-]*)", css))
         missing_classes = {c for n in doc.nodes if not n.attrs.get("style") for c in n.attrs.get("class", "").split() if c not in styled and c not in CLASS_EXCEPTIONS}
         if missing_classes:

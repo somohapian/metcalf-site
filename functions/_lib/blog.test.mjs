@@ -240,14 +240,16 @@ test('weekly post page renders with picks', () => {
   assert.ok(desc.length > 0 && desc.length <= 160, `desc ${desc.length} chars`);
 });
 
-test('long titles are trimmed to 62 characters', () => {
+test('long titles retain their complete meaning without authored ellipses', () => {
   const html = renderPostPage(template, {
     slug: 'x', title: 'A Very Long Post Title About Hiring That Simply Keeps Going And Going And Going',
     body: 'Body text.', published_at: '2026-09-01T11:00:00.000Z', author: 'rosie', picks: []
   });
   const title = html.match(/<title>([^<]*)<\/title>/)[1];
-  assert.ok(title.length <= 62, `title ${title.length}`);
-  assert.ok(title.endsWith(' | Metcalf Search'));
+  assert.equal(title, 'A Very Long Post Title About Hiring That Simply Keeps Going And Going And Going');
+  assert.ok(!title.includes('…'));
+  assert.ok(html.includes('<main id="main-content" tabindex="-1">'));
+  assert.ok(html.includes('Skip to main content'));
 });
 
 test('sitemap lists the index and every post', () => {
@@ -538,6 +540,13 @@ test('new guide list and article list leave retired routes out and do not revive
   assert.ok(!html.includes('/blog/ep-794-can-automation-make-hiring-more-human'));
   assert.ok(!html.includes('https://reddit.com/example'));
   assert.ok(!html.includes('<iframe'));
-  assert.ok(html.includes('/assets/theme.css?v=20261114-layout1'));
+  assert.ok(html.includes('/assets/theme.css?v=20261115-public3'));
   assert.ok(html.includes('/assets/theme.js?v=20261114-footer1'));
+});
+
+test('edited article metadata stays complete and does not rewrite visible history', () => {
+  const html = renderPostPage(template, {slug: 'executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver', title: 'Original complete article title', body: 'The original article.', published_at: '2026-05-18'});
+  assert.ok(html.includes('Are AI tools really driving layoffs? | Metcalf Search'));
+  assert.ok(html.includes('<h1>Original complete article title</h1>'));
+  assert.ok(!html.match(/<meta name="description"[^>]*>/)[0].includes('…'));
 });

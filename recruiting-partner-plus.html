@@ -21,9 +21,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Metcalf Search","description":"Fractional recruiting for small businesses in Columbus and Central Ohio. Embedded recruiting partnerships at flat monthly fees.","url":"https://metcalfsearch.com","telephone":"+16144346646","email":"info@metcalfsearch.com","priceRange":"$$$$","address":{"@type":"PostalAddress","addressLocality":"Grove City","addressRegion":"OH","postalCode":"43123","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":39.8814,"longitude":-83.0974},"areaServed":[{"@type":"City","name":"Columbus"},{"@type":"City","name":"Grove City"},{"@type":"City","name":"Dublin"},{"@type":"City","name":"Westerville"},{"@type":"AdministrativeArea","name":"Central Ohio"}],"serviceType":"Fractional Recruiting"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Metcalf Search","description":"Columbus, Ohio-based recruiting support for small businesses, with remote recruiting across the United States and onsite work agreed by plan and location.","url":"https://metcalfsearch.com","telephone":"+16144346646","email":"info@metcalfsearch.com","priceRange":"$$$$","address":{"@type":"PostalAddress","addressLocality":"Grove City","addressRegion":"OH","postalCode":"43123","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":39.8814,"longitude":-83.0974},"areaServed":{"@type":"Country","name":"United States"},"serviceType":"Fractional Recruiting","@id":"https://metcalfsearch.com/#organization"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Recruiting Partner Plus","serviceType":"Fractional Recruiting","url":"https://metcalfsearch.com/recruiting-partner-plus","description":"Up to three roles running at the same time, up to 8 hours onsite every month and some job advertising included. You interview short lists. We handle the rest.","provider":{"@type":"Organization","name":"Metcalf Search","url":"https://metcalfsearch.com"},"areaServed":"United States","offers":{"@type":"Offer","url":"https://metcalfsearch.com/recruiting-partner-plus","priceSpecification":{"@type":"PriceSpecification","priceCurrency":"USD","description":"Flat monthly subscription. No per-hire fees. Current tier pricing is shown on this page."}}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What counts as a concurrent role?","acceptedAnswer":{"@type":"Answer","text":"Any seat we are actively sourcing for. Recruiting Partner Plus runs up to three at once; when one fills, the next opens. More than three open most months is Recruiting Partner Pro territory."}},{"@type":"Question","name":"Are there any per-hire fees?","acceptedAnswer":{"@type":"Answer","text":"No. The monthly subscription is the full cost. A filled role costs the same as an open one, and a bigger offer does not raise our fee."}},{"@type":"Question","name":"What do the onsite hours cover?","acceptedAnswer":{"@type":"Answer","text":"Up to 8 hours onsite each month, scheduled with you: interview days, debriefs, offer strategy and time with your hiring managers. Unused hours do not roll over. Between visits, a weekly video huddle keeps decisions moving."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What counts as a concurrent role?","acceptedAnswer":{"@type":"Answer","text":"Any seat we are actively sourcing for. Recruiting Partner Plus runs up to three at once; when one fills, the next opens. More than three open most months is Recruiting Partner Pro territory."}},{"@type":"Question","name":"Are there any per-hire fees?","acceptedAnswer":{"@type":"Answer","text":"No. There is no placement fee when you hire someone. The monthly fee covers your plan’s agreed recruiting work. Optional extra onsite days and approved travel or other expenses are separate, as described in the partnership agreement."}},{"@type":"Question","name":"What do the onsite hours cover?","acceptedAnswer":{"@type":"Answer","text":"Up to 8 hours onsite each month, scheduled with you: interview days, debriefs, offer strategy and time with your hiring managers. Unused hours do not roll over. Between visits, a weekly video huddle keeps decisions moving."}}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());if(/^(www\.)?metcalfsearch\.com$/.test(location.hostname))gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
 <style>
@@ -97,6 +97,12 @@ a{color:inherit;text-decoration:none;}
 .nav-close{position:absolute;top:18px;right:20px;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 18px;min-height:44px;cursor:pointer;}
 :focus-visible{outline:3px solid var(--celadon-deep);outline-offset:4px;}
 .nav-links .nav-self-serve{border-top:1px solid var(--rule);margin-top:6px;padding-top:12px;}
+
+.form-fields{min-width:0;width:100%;margin:0;padding:0;border:0;}
+.form-fallback{font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.form-fallback[hidden]{display:none;}
+.contact-form .form-fields{display:flex;flex-direction:column;gap:20px;}
+.contact-form input:focus-visible,.contact-form select:focus-visible,.contact-form textarea:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -278,20 +284,21 @@ a{color:inherit;text-decoration:none;}
   .client-strip img[aria-hidden="true"]{display:none;}
 }
 </style>
-<link rel="stylesheet" href="/assets/theme.css?v=20261114-layout1">
+<link rel="stylesheet" href="/assets/theme.css?v=20261115-public3">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="topnav" id="topnav"><div class="topnav-inner"><a href="/" class="brand" aria-label="Metcalf Search home">
         <img src="/logo.png" alt="Metcalf Search" class="brand-logo" width="160" height="40">
       </a><div class="nav-links"><a href="/stack-method">Hiring Guides</a><div class="nav-drop-wrap"><a href="/activate" class="nav-top">Pricing</a><div class="nav-drop"><a class="nav-sub" href="/recruiting-partner">Recruiting Partner<span class="nav-sub-price">, $2,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-plus">Recruiting Partner Plus<span class="nav-sub-price">, $5,950 a month</span></a><a class="nav-sub" href="/recruiting-partner-pro">Recruiting Partner Pro<span class="nav-sub-price">, $10,950 a month</span></a><a class="nav-sub nav-sub-all" href="/activate">Compare all tiers</a><a class="nav-sub nav-self-serve" href="https://apply.ms/">Self-serve options</a></div></div><a href="/who-we-serve">Who We Serve</a><a href="/about">About</a><a href="/blog">Blog</a></div><a href="/contact" class="nav-cta">Start a Conversation</a></div></nav>
-
+<main id="main-content" tabindex="-1">
 <section class="page-hero">
 <div class="eyebrow"><span class="eyebrow-part">RECRUITING PARTNER PLUS</span> &middot; <span class="eyebrow-part">$5,950 A MONTH</span></div>
 <h1>Two or three roles at once. Recruiting, <span class="accent">done</span> for you.</h1>
 <p class="sub">Up to three roles running at the same time, up to 8 hours onsite every month and some job advertising included. You interview short lists. We handle the rest.</p>
 <div class="hero-cta">
 <a href="#checkout" class="btn-solid">Choose this plan</a>
-<a href="/contact" class="btn-textlink">Questions first? <span class="nowrap">Book the thirty-minute fit call.</span></a>
+<a href="/contact" class="btn-textlink">Questions first? <span class="nowrap">Request a thirty-minute fit call.</span></a>
 </div>
 <div class="client-strip client-strip--hero" data-client-ticker data-show="7"></div>
 </section>
@@ -304,20 +311,20 @@ a{color:inherit;text-decoration:none;}
 
 <h2>What a month <span class="accent">buys</span>.</h2>
 <ul class="buys">
-<li><strong>A senior recruiter is your single point of contact.</strong> Two to three roles at once, backed by the Metcalf Search team.</li>
+<li><strong>A single point of contact on our team.</strong> Two to three roles at once, backed by the Metcalf Search team.</li>
 <li><strong>Up to 8 hours onsite a month, plus a weekly huddle.</strong> Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email.</li>
 <li><strong>Support through each stage of hiring.</strong> A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire.</li>
 <li><strong>Some job advertising included.</strong> Some job advertising is covered through your Talent Points. We plan the channels around the role and the points available.</li>
 <li><strong>MS Rosie, the full desk, from day one.</strong> Your branded careers page, applicant tracking and a live view of every candidate in every search.</li>
 <li><strong>Short lists, write-ups, interviews, offers and the first ninety days.</strong> On every hire, with the thirty, sixty and ninety day check-ins run by us.</li>
-<li><strong>Move down when hiring slows, back up when it picks up.</strong> Tiers change at any monthly cycle and your rate is grandfathered.</li>
+<li><strong>Move down when hiring slows, back up when it picks up.</strong> Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund.</li>
 </ul>
 
 <h2>What happens after you <span class="accent">click</span>.</h2>
 <ol class="timeline">
 <li><span class="timeline-when">Today</span><p>You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.</p></li>
-<li><span class="timeline-when">Within 48 hours</span><p>Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day.</p></li>
-<li><span class="timeline-when">Five business days</span><p>The first slates of vetted candidates, one per open role, are in front of you.</p></li>
+<li><span class="timeline-when">Target: within 48 hours</span><p>Kickoff. A one-hour intake on the role, the team and the pay. Sourcing starts the same day.</p></li>
+<li><span class="timeline-when">Target: five business days</span><p>Our starting target is the first vetted candidates within five business days of kickoff. We confirm priorities and timing for each role together.</p></li>
 <li><span class="timeline-when">Week two</span><p>Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one.</p></li>
 <li><span class="timeline-when">Thirty to forty-five days</span><p>A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and new-hire check-ins begin when the hire starts.</p></li>
 </ol>
@@ -333,7 +340,7 @@ a{color:inherit;text-decoration:none;}
 <section class="cta-band" aria-labelledby="cta-band-heading">
 <h2 class="section-h2" id="cta-band-heading">Ready when you <span class="accent">are</span>.</h2>
 <a href="#checkout" class="btn-solid">Choose this plan</a>
-<p class="cta-band-note">Kickoff within 48 hours. First slate within five business days.</p>
+<p class="cta-band-note">Target kickoff within 48 hours of activation. Agree on candidate-delivery targets at kickoff.</p>
 </section>
 
 <section class="faq-section" aria-labelledby="faq-heading">
@@ -345,7 +352,7 @@ a{color:inherit;text-decoration:none;}
 </details>
 <details class="faq-item">
 <summary>Are there any per-hire fees?</summary>
-<div class="faq-answer">No. The monthly subscription is the full cost. A filled role costs the same as an open one, and a bigger offer does not raise our fee.</div>
+<div class="faq-answer">No. There is no placement fee when you hire someone. The monthly fee covers your plan’s agreed recruiting work. Optional extra onsite days and approved travel or other expenses are separate, as described in the partnership agreement.</div>
 </details>
 <details class="faq-item">
 <summary>What do the onsite hours cover?</summary>
@@ -354,7 +361,7 @@ a{color:inherit;text-decoration:none;}
 </div>
 <details class="terms-fold">
 <summary>Billing terms.</summary>
-<p class="terms-body">Recruiting Partner Plus is $5,950 a month, billed monthly in advance, month to month. Move up or down a tier at any monthly cycle; rates are grandfathered. Cancel with ten days notice by emailing <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The <a href="/terms#partnership-agreement">partnership agreement</a> governs the partnership; activating accepts it.</p>
+<p class="terms-body">Recruiting Partner Plus is $5,950 a month, billed monthly in advance, month to month. Move up or down a tier at any time. Upgrades take effect immediately with a prorated charge; downgrades take effect immediately with credit toward future invoices. Grandfathered pricing requires continuous service. Cancellation takes effect at the end of the billing cycle in which ten days written notice is satisfied. Email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a>. The <a href="/terms#partnership-agreement">partnership agreement</a> governs the partnership; activating accepts it.</p>
 </details>
 </section>
 
@@ -365,16 +372,18 @@ a{color:inherit;text-decoration:none;}
 <div class="section-eyebrow">ACTIVATE</div>
 <h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
 <p class="section-sub">Sign up below to get your search started.</p>
-<p class="price-line"><strong>$5,950 a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
+<p class="price-line"><strong>$5,950 a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Change tiers when your hiring needs change. Charges or credits are prorated.</span></p>
 </div>
+<p class="checkout-alt">When recruiting ends, keep using Rosie on Starter or choose the paid software plan. Your records remain yours. <a href="https://apply.ms/help/#your-data">See records and account options</a>.</p>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>
-<p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
+<p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Request a thirty-minute fit call</a>.</p>
 </div>
 </section>
+</main>
 <footer class="foot"><div class="foot-inner"><div><div class="foot-brand">
         <img src="/logo.png" alt="Metcalf Search" class="foot-brand-logo" width="140" height="35">
-      </div><p class="foot-tag">Practical hiring help for small businesses. Recruiting support and tools to do it yourself.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Choose a plan</a></li><li><a href="/recruiting-partner">Recruiting Partner</a></li><li><a href="/recruiting-partner-plus">Recruiting Partner Plus</a></li><li><a href="/recruiting-partner-pro">Recruiting Partner Pro</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/jay-metcalf">Meet Jay Metcalf</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Columbus, Ohio.</div><div><a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> &middot; <a href="tel:+16144346646">614.434.6646</a></div></div></footer>
+      </div><p class="foot-tag">Practical hiring help for small businesses. Recruiting support and tools to do it yourself.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Choose a plan</a></li><li><a href="/recruiting-partner">Recruiting Partner</a></li><li><a href="/recruiting-partner-plus">Recruiting Partner Plus</a></li><li><a href="/recruiting-partner-pro">Recruiting Partner Pro</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/jay-metcalf">Meet Jay Metcalf</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">MS Rosie hiring software</a></li><li><a href="https://rosie.apply.ms/">Client sign in</a></li><li><a href="https://apply.ms/help/">Rosie help</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Columbus, Ohio.</div><div><a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> &middot; <a href="tel:+16144346646">614.434.6646</a></div></div></footer>
 
 <script>const nav=document.getElementById('topnav');window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');},{passive:true});</script>
 <script>
@@ -515,4 +524,3 @@ a{color:inherit;text-decoration:none;}
 <script src="/assets/theme.js?v=20261114-footer1" defer></script>
 </body>
 </html>
-
