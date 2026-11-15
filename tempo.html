@@ -107,7 +107,7 @@ a{color:inherit;text-decoration:none;}
   transition: border-color 0.2s ease;
 }
 .faq-card:hover { border-color: var(--celadon); }
-.faq-card details { margin: 0; }
+.faq-card details { margin: 0; scroll-margin-top: calc(var(--nav-h, 80px) + 24px); }
 .faq-card summary {
   font-family: 'Fraunces', Georgia, serif;
   font-weight: 500;
@@ -277,6 +277,8 @@ a{color:inherit;text-decoration:none;}
 
 <p>Review due actions each workday and update the record after a conversation or decision. Give the next action one owner and a date. If a decision is waiting on someone else, record what is needed and tell the candidate when you will update them. Mark closed applications clearly so they do not sit in the active list.</p>
 
+<p><a href="/stack-field-guide#candidate-tracker">Use the candidate tracker in the field guide</a> to record the next action, owner, and due date for each person.</p>
+
 <p>If candidate details and follow-ups are scattered across your inbox, <a href="https://apply.ms/#free">MS Rosie Starter</a> gives you candidate records, notes, and next-step tracking in the free plan. Use it to keep track of the conversations and updates you need to handle.</p>
 
 <h2>Where do hiring delays happen?</h2>
@@ -315,7 +317,7 @@ a{color:inherit;text-decoration:none;}
   <h2 id="leaf-faq-heading" class="leaf-faq-heading">Common questions about candidate communication</h2>
   <div class="faq-grid">
     <div class="faq-card">
-      <details>
+      <details id="ghosting-before-interview">
         <summary>
           <span class="q-text">Why do candidates ghost us before the interview?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -326,7 +328,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="first-candidate-message">
         <summary>
           <span class="q-text">What does a good first message to a candidate look like?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -337,7 +339,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="losing-candidates">
         <summary>
           <span class="q-text">Why are we losing candidates between interview and offer?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -348,7 +350,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="candidate-response-time">
         <summary>
           <span class="q-text">What is a reasonable response time to a job candidate?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -359,7 +361,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="interview-ghosting">
         <summary>
           <span class="q-text">Why do candidates keep ghosting during the interview process?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -370,7 +372,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="time-to-hire">
         <summary>
           <span class="q-text">How long should hiring take for a small business?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -383,7 +385,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="interview-availability">
         <summary>
           <span class="q-text">My hiring manager is too busy to interview quickly. What can I do?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -394,7 +396,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="hiring-approvals">
         <summary>
           <span class="q-text">How can we avoid hiring delays when several people must approve?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -498,5 +500,6 @@ a{color:inherit;text-decoration:none;}
 
 
 <script src="/assets/theme.js?v=20261114-footer1" defer></script>
+<script src="/assets/faq-links.js" defer></script>
 </body>
 </html>

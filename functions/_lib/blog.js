@@ -662,7 +662,7 @@ export function renderIndexPage(templateHtml, data) {
   html = replaceRegion(html, 'RECENT_WEEKLY',
     renderRecent(info.weekly || [], 'No weekly roundups in the last thirty days.'));
   const archive = renderArchive(info.archive || []);
-  html = replaceRegion(html, 'ARCHIVE', archive ? '<h2>Published articles</h2>' + archive : '');
+  html = replaceRegion(html, 'ARCHIVE', archive ? '<h2>Published articles</h2><p>Commentary on business, technology and work. These articles explore broader topics. For step-by-step hiring help, start with the guides above.</p>' + archive : '');
   return html;
 }
 

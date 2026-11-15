@@ -106,7 +106,7 @@ a{color:inherit;text-decoration:none;}
   transition: border-color 0.2s ease;
 }
 .faq-card:hover { border-color: var(--celadon); }
-.faq-card details { margin: 0; }
+.faq-card details { margin: 0; scroll-margin-top: calc(var(--nav-h, 80px) + 24px); }
 .faq-card summary {
   font-family: 'Fraunces', Georgia, serif;
   font-weight: 500;
@@ -312,7 +312,7 @@ a{color:inherit;text-decoration:none;}
   <h2 id="leaf-faq-heading" class="leaf-faq-heading">Common questions about employee retention</h2>
   <div class="faq-grid">
     <div class="faq-card">
-      <details>
+      <details id="why-employees-leave">
         <summary>
           <span class="q-text">Why do good employees quit and how do I keep them?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -324,7 +324,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="stay-interviews">
         <summary>
           <span class="q-text">What is a stay interview and should I be doing them?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -336,7 +336,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="first-ninety-days">
         <summary>
           <span class="q-text">Why do new hires quit in the first 90 days?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -348,7 +348,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="onboarding">
         <summary>
           <span class="q-text">What does a good onboarding process include for a small business?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -360,7 +360,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="employee-check-ins">
         <summary>
           <span class="q-text">How often should I do one-on-ones with a new hire?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -372,7 +372,7 @@ a{color:inherit;text-decoration:none;}
       </details>
     </div>
     <div class="faq-card">
-      <details>
+      <details id="retention-concerns">
         <summary>
           <span class="q-text">How do I spot an employee about to quit?</span>
           <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -484,5 +484,6 @@ a{color:inherit;text-decoration:none;}
 
 
 <script src="/assets/theme.js?v=20261114-footer1" defer></script>
+<script src="/assets/faq-links.js" defer></script>
 </body>
 </html>

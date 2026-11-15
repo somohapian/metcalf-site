@@ -183,7 +183,7 @@ test('index page renders the archive without reviving retired picks and recent r
   assert.ok(html.includes('<title>Practical Hiring Advice and Articles | Metcalf Search</title>'));
   assert.ok(html.includes('<h2>Published articles</h2>'));
   assert.ok(html.includes('"headline":"Practical answers to hiring problems."'));
-  assert.ok(html.includes('"dateModified":"2026-11-14"'));
+  assert.ok(html.includes('"dateModified":"2026-11-15"'));
   assert.ok(html.includes('<ul class="blog-post-list">'));
   assert.equal((html.match(/class="blog-guide-label">Guide/g) || []).length, 5);
   assert.ok(html.includes('href="/contact"'));

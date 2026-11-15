@@ -215,27 +215,25 @@ a{color:inherit;text-decoration:none;}
 .btn-ghost:hover { color: var(--brick); border-color: var(--brick); }
 
 /* STACK strip */
-.stack-strip { max-width: 880px; margin: 0 auto; padding: 16px 24px 88px; text-align:center; }
+.stack-strip { scroll-margin-top:calc(var(--nav-h) + 20px); max-width: 880px; margin: 0 auto; padding: 16px 24px 88px; text-align:center; }
 .strip-intro p { font-family: var(--display); font-style: italic; font-weight:400;
   font-size: clamp(19px, 2.2vw, 24px); line-height:1.5; color: var(--ink-soft);
   letter-spacing:-0.01em; margin: 0 auto 44px; max-width: 640px; }
-.strip-letters { display:flex; justify-content:center; align-items:flex-end;
-  gap: clamp(8px, 3.4vw, 36px); }
-.strip-letter { background:none; border:none; cursor:pointer; padding:0 4px;
-  display:flex; flex-direction:column; align-items:center; gap:12px; }
-.sl-glyph { font-family: var(--display); font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144; font-weight:300;
-  font-size: clamp(54px, 9vw, 112px); line-height:1;
-  color: var(--ink-faint); opacity:0.35; transform: translateY(10px);
-  transition: color 0.45s ease, opacity 0.45s ease, transform 0.45s ease; }
-.strip-letter.lit .sl-glyph { color: var(--ink); opacity:1; transform: translateY(0); }
-.sl-word { font-family: var(--body); font-size:11px; font-weight:500;
-  letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-faint);
-  transition: color 0.3s ease; }
-.strip-letter.lit .sl-word { color: var(--celadon-deep); }
-.strip-letter.current .sl-glyph, .strip-letter:hover .sl-glyph { color: var(--brick); }
-.strip-letter.current .sl-word { color: var(--brick); }
-.strip-letter:focus-visible { outline: 2px solid var(--brick); outline-offset: 4px; border-radius:2px; }
+.strip-letters { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:10px; }
+.strip-letter { background:var(--paper); border:1px solid var(--rule); border-radius:4px;
+  cursor:pointer; padding:18px 10px; min-height:132px; text-align:left;
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between; gap:14px; }
+.sl-glyph { font-family:var(--body); font-weight:600; font-size:16px; line-height:1.4; color:var(--ink); }
+.sl-word { font-family:var(--body); font-size:11px; font-weight:500;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); }
+.strip-letter.current { border-color:var(--celadon-deep); background:var(--celadon-mist); }
+.strip-letter.current .sl-glyph, .strip-letter:hover .sl-glyph { color:var(--brick); }
+.strip-letter:focus-visible { outline:3px solid var(--brick); outline-offset:4px; }
+@media (max-width:600px) {
+  .strip-letters { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .strip-letter { min-height:110px; padding:14px; }
+  .strip-letter:last-child { grid-column:1 / -1; min-height:88px; }
+}
 .strip-line { position:relative; height:1px; background: var(--rule);
   max-width:560px; margin:28px auto 0; }
 .strip-line-fill { position:absolute; inset:0; background: var(--celadon);
@@ -255,6 +253,8 @@ a{color:inherit;text-decoration:none;}
   letter-spacing:0.14em; text-transform:uppercase; color: var(--celadon-deep); }
 .strip-panel .leaf-pain { font-size: clamp(19px, 2.2vw, 23px); margin: 0 auto 26px; }
 .strip-panel .leaf-questions { max-width:560px; margin:0 auto; list-style:none; }
+.leaf-questions a { display:block; color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.leaf-questions a:hover { color:var(--brick); }
 
 /* Three buyer choices */
 .choices { background: var(--paper-warm); border-top:1px solid var(--rule);
@@ -315,25 +315,25 @@ a{color:inherit;text-decoration:none;}
   <div class="strip-intro">
     <p>Five parts of hiring to look at, from attracting candidates to keeping good employees.</p>
   </div>
-  <div class="strip-letters" role="tablist" aria-label="STACK letters">
+  <div class="strip-letters" role="tablist" aria-label="Hiring guide topics">
     <button class="strip-letter current" role="tab" id="tab-source" aria-selected="true" tabindex="0" aria-controls="leaf-source">
-      <span class="sl-glyph">S</span>
+      <span class="sl-glyph">Find qualified candidates</span>
       <span class="sl-word">Source</span>
     </button>
     <button class="strip-letter" role="tab" id="tab-tempo" aria-selected="false" tabindex="-1" aria-controls="leaf-tempo">
-      <span class="sl-glyph">T</span>
+      <span class="sl-glyph">Keep candidates interested</span>
       <span class="sl-word">Tempo</span>
     </button>
     <button class="strip-letter" role="tab" id="tab-assess" aria-selected="false" tabindex="-1" aria-controls="leaf-assess">
-      <span class="sl-glyph">A</span>
+      <span class="sl-glyph">Interview and evaluate candidates</span>
       <span class="sl-word">Assess</span>
     </button>
     <button class="strip-letter" role="tab" id="tab-close" aria-selected="false" tabindex="-1" aria-controls="leaf-close">
-      <span class="sl-glyph">C</span>
+      <span class="sl-glyph">Make offers people accept</span>
       <span class="sl-word">Close</span>
     </button>
     <button class="strip-letter" role="tab" id="tab-keep" aria-selected="false" tabindex="-1" aria-controls="leaf-keep">
-      <span class="sl-glyph">K</span>
+      <span class="sl-glyph">Keep good employees</span>
       <span class="sl-word">Keep</span>
     </button>
   </div>
@@ -343,10 +343,10 @@ a{color:inherit;text-decoration:none;}
       <div class="panel-head"><h2 class="panel-word">Finding qualified candidates</h2></div>
       <p class="leaf-pain">When the right candidates can't find your job, or won't apply when they do.</p>
       <ul class="leaf-questions">
-        <li>Why aren't qualified candidates applying to my job?</li>
-        <li>How do I write a job title that candidates actually search for?</li>
-        <li>How does a small business compete with bigger companies for talent?</li>
-        <li>Where should I be posting jobs that aren't Indeed?</li>
+        <li><a href="/source#unqualified-applicants">Why aren't qualified candidates applying to my job?</a></li>
+        <li><a href="/source#write-a-job-posting">How do I write a job title that candidates actually search for?</a></li>
+        <li><a href="/source#compete-for-candidates">How does a small business compete with bigger companies for talent?</a></li>
+        <li><a href="/source#where-to-find-employees">Where should I be posting jobs that aren't Indeed?</a></li>
       </ul>
       <p><a href="/source#careers-page">What should a small-business careers page include?</a> Use the five-point checklist to review yours.</p>
       <a href="/source" class="leaf-cta">Find qualified candidates &rarr;</a>
@@ -355,10 +355,10 @@ a{color:inherit;text-decoration:none;}
       <div class="panel-head"><h2 class="panel-word">Keeping candidates interested</h2></div>
       <p class="leaf-pain">When candidates ghost, your process stalls, and the good ones accept somewhere else first.</p>
       <ul class="leaf-questions">
-        <li>Why do candidates ghost us before the interview?</li>
-        <li>How fast do I need to respond to applicants?</li>
-        <li>What does a good first message to a candidate look like?</li>
-        <li>We're losing candidates between interview and offer. Why?</li>
+        <li><a href="/tempo#ghosting-before-interview">Why do candidates ghost us before the interview?</a></li>
+        <li><a href="/tempo#candidate-response-time">How fast do I need to respond to applicants?</a></li>
+        <li><a href="/tempo#first-candidate-message">What does a good first message to a candidate look like?</a></li>
+        <li><a href="/tempo#losing-candidates">We're losing candidates between interview and offer. Why?</a></li>
       </ul>
       <a href="/tempo" class="leaf-cta">Improve candidate communication &rarr;</a>
     </article>
@@ -366,10 +366,10 @@ a{color:inherit;text-decoration:none;}
       <div class="panel-head"><h2 class="panel-word">Interviewing and choosing candidates</h2></div>
       <p class="leaf-pain">When the resumes look right, the interviews go well, and you still can't tell who will do the job.</p>
       <ul class="leaf-questions">
-        <li>Why do I keep making bad hires even when interviews go well?</li>
-        <li>What's the difference between a structured interview and a regular one?</li>
-        <li>Should I be using a scorecard for hiring?</li>
-        <li>How do I assess for skills I don't have myself?</li>
+        <li><a href="/assess#interviews-and-bad-hires">Why do I keep making bad hires even when interviews go well?</a></li>
+        <li><a href="/assess#structured-interviews">What's the difference between a structured interview and a regular one?</a></li>
+        <li><a href="/assess#interview-scorecard">Should I be using a scorecard for hiring?</a></li>
+        <li><a href="/assess#assessing-unfamiliar-skills">How do I assess for skills I don't have myself?</a></li>
       </ul>
       <a href="/assess" class="leaf-cta">Ask better interview questions &rarr;</a>
     </article>
@@ -377,10 +377,10 @@ a{color:inherit;text-decoration:none;}
       <div class="panel-head"><h2 class="panel-word">Making job offers</h2></div>
       <p class="leaf-pain">When offers get rejected, counter-offers win, and your top choice walks at the eleventh hour.</p>
       <ul class="leaf-questions">
-        <li>How do I make a competitive job offer?</li>
-        <li>What do I do when a candidate gets a counter-offer?</li>
-        <li>How much salary negotiation room should I leave?</li>
-        <li>Why do candidates accept and then back out?</li>
+        <li><a href="/close#competitive-job-offer">How do I make a competitive job offer?</a></li>
+        <li><a href="/close#counteroffers">What do I do when a candidate gets a counter-offer?</a></li>
+        <li><a href="/close#salary-negotiation">How much salary negotiation room should I leave?</a></li>
+        <li><a href="/close#candidate-withdrawals">Why do candidates accept and then back out?</a></li>
       </ul>
       <a href="/close" class="leaf-cta">Prepare a competitive job offer &rarr;</a>
     </article>
@@ -388,10 +388,10 @@ a{color:inherit;text-decoration:none;}
       <div class="panel-head"><h2 class="panel-word">Keeping good employees</h2></div>
       <p class="leaf-pain">Keep your people productive, satisfied, and engaged. Stay connected, make work better, and follow through, for new hires and the people already on your team.</p>
       <ul class="leaf-questions">
-        <li>Why do good employees leave?</li>
-        <li>How can a small business improve employee retention?</li>
-        <li>What should I ask in an employee check-in?</li>
-        <li>How do I help a new hire settle in?</li>
+        <li><a href="/keep#why-employees-leave">Why do good employees leave?</a></li>
+        <li><a href="/keep#stay-interviews">How can a small business improve employee retention?</a></li>
+        <li><a href="/keep#employee-check-ins">What should I ask in an employee check-in?</a></li>
+        <li><a href="/keep#onboarding">How do I help a new hire settle in?</a></li>
       </ul>
       <a href="/keep" class="leaf-cta">Improve employee retention &rarr;</a>
     </article>

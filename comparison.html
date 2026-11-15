@@ -64,7 +64,14 @@ a{color:inherit;text-decoration:none;}
 .legend-key.cost{background:transparent;width:auto;color:var(--ink-soft);font-weight:500;letter-spacing:0.04em;}
 .comparison-wide{max-width:1400px;margin:0 auto 40px;padding:0 32px;}
 .comp-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;background:var(--paper);-webkit-overflow-scrolling:touch;}
-.comp-grid{width:100%;border-collapse:collapse;font-family:var(--body);font-size:14px;min-width:1080px;}
+.choice-grid{width:100%;min-width:760px;border-collapse:collapse;font-family:var(--body);font-size:15px;line-height:1.5;}
+.choice-grid th,.choice-grid td{padding:18px;text-align:left;vertical-align:top;border:1px solid var(--rule);}
+.choice-grid thead th{font-family:var(--display);font-size:20px;font-weight:500;background:var(--paper-warm);}
+.choice-grid tbody th{width:19%;font-weight:500;background:var(--paper-warm);}
+.choice-grid td{width:27%;}
+.choice-grid a,.comparison-sources a{text-decoration:underline;text-underline-offset:3px;}
+.comparison-sources{font-size:13px;line-height:1.6;color:var(--ink-soft);}
+.comp-grid{width:100%;border-collapse:collapse;font-family:var(--body);font-size:14px;min-width:1740px;}
 .comp-grid thead th{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);padding:18px 10px;text-align:center;vertical-align:bottom;border-bottom:1px solid var(--rule);background:var(--paper-warm);line-height:1.25;}
 .comp-grid thead th.row-label-head{text-align:left;background:var(--paper);width:220px;min-width:200px;border-right:1px solid var(--rule);}
 .comp-grid thead th.col-highlight{background:var(--celadon-mist);color:var(--celadon-deep);border-bottom:2px solid var(--celadon-deep);}
@@ -72,7 +79,7 @@ a{color:inherit;text-decoration:none;}
 .comp-grid thead th.col-highlight .col-name{font-weight:600;}
 .comp-grid tbody th{font-family:var(--body);font-weight:500;font-size:14px;color:var(--ink);padding:18px 16px;text-align:left;vertical-align:middle;border-bottom:1px solid var(--rule);background:var(--paper);border-right:1px solid var(--rule);line-height:1.35;}
 .comp-grid tbody th .row-sub{display:block;font-family:var(--body);font-weight:400;font-size:12px;color:var(--ink-faint);margin-top:2px;letter-spacing:0.02em;}
-.comp-grid tbody td{padding:14px 10px;vertical-align:middle;text-align:center;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);background:var(--paper);}
+.comp-grid tbody td{padding:16px 14px;min-width:140px;vertical-align:top;text-align:left;line-height:1.45;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);background:var(--paper);}
 .comp-grid tbody td:last-child{border-right:none;}
 .comp-grid tbody td.cell-highlight{background:var(--celadon-mist);}
 .comp-grid tbody tr:last-child th,.comp-grid tbody tr:last-child td{border-bottom:none;}
@@ -221,21 +228,40 @@ a{color:inherit;text-decoration:none;}
   <h1>Eleven ways to <span class="accent">get hiring done.</span></h1>
   <p class="sub">Compare the work covered, the costs, and the help your team needs.</p>
 </section>
-<div class="capsule">There are <strong>eleven common ways</strong> a business can get hiring work done, from posting jobs solo to retaining executive search firms. Compare each option with the work you need done and the time available in your team. This is an illustrative comparison of typical services, including contingency agencies, RPOs, offshore sourcing, contract recruiters, full-time internal recruiters and fractional recruiting partnerships. Coverage varies by provider and agreement, so confirm what is included before choosing.</div>
+<div class="capsule">Start with <strong>who will do the work.</strong> Will someone on your team run the search, will you hire a recruiter, or will you bring in outside help? Then compare the actual responsibilities, capacity and total cost. The eleven options below are a checklist for that conversation, not a ranking of providers.</div>
 <div class="prose">
-<h2>The chart</h2>
+<h2>Three starting points</h2>
+<p>The main difference is who takes on the daily recruiting work. Here is our starting point for deciding which model to investigate. Specific services and responsibilities still need to be agreed.</p>
 </div>
-<div class="legend" aria-label="Symbol legend">
-  <div class="legend-item"><span class="legend-key cost">$ &rarr; money</span></div>
-  <div class="legend-item"><span class="legend-key cost">&#9200; &rarr; your time</span></div>
+<div class="comparison-wide">
+  <div class="comp-scroll" role="region" aria-label="Three ways to organize recruiting" tabindex="0">
+    <table class="choice-grid">
+      <thead><tr><th scope="col">Compare</th><th scope="col">DIY with software</th><th scope="col">Recruiting service</th><th scope="col">Internal recruiter</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Who does the daily work</th><td>An owner, manager or HR team runs hiring. Software helps organize applicants and automate selected tasks.</td><td>An outside recruiter handles agreed work, such as finding and screening candidates or coordinating the search.</td><td>Your employee finds, screens and interviews candidates as part of their assigned recruiting role.</td></tr>
+        <tr><th scope="row">Worth considering when</th><td>You have someone with the time and experience to run the search, and need tools or a clearer process.</td><td>You need recruiting capacity or experience your team cannot supply, for a particular search or ongoing hiring.</td><td>You expect enough continuing recruiting work to support a permanent role and can manage that employee.</td></tr>
+        <tr><th scope="row">What you still own</th><td>The whole process: deciding where to look, reviewing candidates, following up, interviewing and making the offer.</td><td>Job requirements, interview feedback, pay and the hiring decision. Agree who handles every remaining step.</td><td>Hiring priorities, budget, management of the recruiter and the decisions assigned to each hiring manager.</td></tr>
+        <tr><th scope="row">How costs are structured</th><td>Your team's time, plus any advertising and software costs. Some job boards offer both free and paid postings.</td><td>A provider fee under the agreed terms. Examples include a placement fee or a monthly plan. <a href="/activate">Our plans charge monthly.</a></td><td>Employee pay and related employment costs, plus recruiting tools and advertising. Budget for the role between searches too.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="scroll-hint">On a small screen, scroll sideways to compare the three approaches &rarr;</p>
 </div>
-<p class="prose" style="margin-top:0">Compare who does the work and what you are buying. A capable internal team or outside provider can perform many of these activities. Inclusion depends on the contract, the person, and the time available. The fractional column describes our agreed recruiting plans. Cost symbols are relative illustrations, not quotes or a guarantee that one model costs less.</p>
+<div class="prose">
+<p class="comparison-sources">Examples behind this overview: <a href="https://www.indeed.com/hire/resources/howtohub/how-pricing-works-on-indeed?co=US">Indeed's free and paid posting options</a>, <a href="https://www.bls.gov/ooh/business-and-financial/human-resources-specialists.htm">BLS descriptions of recruiter duties</a>, and Robert Half's <a href="https://www.roberthalf.com/gb/en/insights/hiring-tips/how-to-hire-employees-with-robert-half">recruiting process</a> and <a href="https://www.roberthalf.com/content/dam/roberthalf/documents/us/en/indexed/investor-center/2025-robert-half-annual-report-0426.pdf">placement-fee reporting</a>. These illustrate the models, rather than terms promised by every provider.</p>
+<h2>Start with the decision in front of you</h2>
+<p><strong>Doing it yourself?</strong> Name the person who will review applicants, contact candidates and keep interviews moving. Put that time on the calendar before buying another tool.</p>
+<p><strong>Considering an agency?</strong> Define the role and ask what happens between the first introduction and the start date. Confirm the fee, payment trigger and any replacement terms in writing.</p>
+<p><strong>Considering an internal recruiter or ongoing outside help?</strong> List the roles you expect to open, the work between searches and who will manage priorities. Compare an employee, a contract recruiter, a fractional recruiter and recruitment process outsourcing (RPO) against that same list.</p>
+<h2>The comparison checklist</h2>
+<p>Each cell is a question to settle with your team or a prospective provider. Get written answers for your actual roles. A service label alone does not tell you the price, the recruiter's experience or how much work stays with you. The fractional column includes questions to ask us.</p>
+</div>
 <div class="comparison-wide">
   <div class="comp-scroll" role="region" aria-label="Recruiting partnership comparison" tabindex="0">
     <table class="comp-grid">
       <thead>
         <tr>
-          <th class="row-label-head" scope="col">Key feature comparison<br><span style="font-weight:400;font-size:11px;color:var(--ink-faint);letter-spacing:0.04em;text-transform:none;">across partnership type</span></th>
+          <th class="row-label-head" scope="col">What to clarify<br><span style="font-weight:400;font-size:11px;color:var(--ink-faint);letter-spacing:0.04em;text-transform:none;">before choosing</span></th>
           <th scope="col"><span class="col-name">Ad-Hoc<br>DIY Hiring</span></th>
           <th scope="col"><span class="col-name">Offshore<br>Sourcing</span></th>
           <th scope="col"><span class="col-name">Virtual<br>Assistant</span></th>
@@ -251,146 +277,74 @@ a{color:inherit;text-decoration:none;}
       </thead>
       <tbody>
         <tr>
-          <th scope="row">Cost<span class="row-sub">$ money / &#9200; your time</span></th>
-          <td><div class="cost-cell"><span class="cost-money">$</span><span class="cost-time">&#9200;&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$$</span><span class="cost-time">&#9200;</span></div></td>
-          <td class="cell-highlight"><div class="cost-cell"><span class="cost-money">$$</span><span class="cost-time">&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$$</span><span class="cost-time">&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$</span><span class="cost-time">&#9200;&#9200;</span></div></td>
-          <td><div class="cost-cell"><span class="cost-money">$$$</span><span class="cost-time">&#9200;</span></div></td>
+          <th scope="row">Work to define</th>
+          <td>Who owns the search from posting to start date?</td>
+          <td>Candidate research, outreach or screening too?</td>
+          <td>Scheduling and admin, or candidate screening too?</td>
+          <td>Which tasks does the tool perform, and who reviews them?</td>
+          <td>Which roles and recruiting tasks belong to this hire?</td>
+          <td class="cell-highlight">Which steps and open roles are included in our plan?</td>
+          <td>Candidate introductions or management of the whole search?</td>
+          <td>Temporary coverage, temp-to-hire or direct hire?</td>
+          <td>A specific project, open roles or ongoing recruiting?</td>
+          <td>Which parts of your recruiting process would transfer?</td>
+          <td>What research, assessment and search milestones are included?</td>
         </tr>
         <tr>
-          <th scope="row">Predictable monthly cost<span class="row-sub">no per-hire fees</span></th>
-          <td>Your time + tools</td>
-          <td>Contract terms</td>
-          <td>Contract terms</td>
-          <td>Software pricing</td>
-          <td>Salary + overhead</td>
-          <td class="cell-highlight">Flat monthly fee</td>
-          <td>Usually per hire</td>
-          <td>Hours + markup</td>
-          <td>Contract terms</td>
-          <td>Contract terms</td>
-          <td>Search fee</td>
+          <th scope="row">Costs to confirm</th>
+          <td>Advertising, tools and hours taken from other work?</td>
+          <td>Hourly, project or monthly fees? Are tools extra?</td>
+          <td>Hours, minimum commitment and recruiting tool costs?</td>
+          <td>Seats, usage limits, setup and integration charges?</td>
+          <td>Salary, benefits, tools and recruiting support?</td>
+          <td class="cell-highlight">Monthly price, included capacity and any extra costs?</td>
+          <td>Fee calculation, payment trigger and replacement terms?</td>
+          <td>Hourly bill rate, overtime and conversion fees?</td>
+          <td>Hourly or fixed fee? What happens if the project extends?</td>
+          <td>Setup fees, minimum spend and charges as volume changes?</td>
+          <td>Payment milestones and terms if the search changes?</td>
         </tr>
         <tr>
-          <th scope="row">Full-cycle recruiting<span class="row-sub">planning &rarr; source &rarr; offer</span></th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
+          <th scope="row">Capacity to check</th>
+          <td>Who has time each week to keep candidates moving?</td>
+          <td>How many prospects, and how is relevance checked?</td>
+          <td>How many hours and what recruiting experience?</td>
+          <td>What input, monitoring and corrections will your team supply?</td>
+          <td>Is there enough work for the role between searches?</td>
+          <td class="cell-highlight">How many roles can run at once, and who sets priorities?</td>
+          <td>Who works your role, and how often will you hear from them?</td>
+          <td>Can the firm cover your shifts, location and skill requirements?</td>
+          <td>How many hours, for how long, and with what backup?</td>
+          <td>How does staffing change when your hiring volume changes?</td>
+          <td>Who leads the search, and what comparable roles have they handled?</td>
         </tr>
         <tr>
-          <th scope="row">Dedicated recruiter<span class="row-sub">embedded with your team</span></th>
-          <td>Your team</td>
-          <td>Contract terms</td>
-          <td>Assistant’s remit</td>
-          <td>No human recruiter</td>
-          <td>Internal employee</td>
-          <td class="cell-highlight">Assigned recruiter</td>
-          <td>Agency contact</td>
-          <td>Agency contact</td>
-          <td>Contract terms</td>
-          <td>Contract terms</td>
-          <td>Agency contact</td>
+          <th scope="row">Handoffs to settle</th>
+          <td>Who screens, schedules, gives feedback and makes the offer?</td>
+          <td>Who takes a prospect from first reply through interview?</td>
+          <td>Who makes screening decisions and answers candidate questions?</td>
+          <td>When does a person take over from the tool?</td>
+          <td>What decisions stay with the hiring manager?</td>
+          <td class="cell-highlight">What do we handle, and what feedback do we need from you?</td>
+          <td>Who manages your own applicants alongside agency candidates?</td>
+          <td>Who handles payroll, onboarding and day-to-day supervision?</td>
+          <td>Who owns candidate records and unfinished work at contract end?</td>
+          <td>Who owns systems, reporting and candidate communication?</td>
+          <td>Who checks references, discusses the offer and follows up?</td>
         </tr>
         <tr>
-          <th scope="row">Convert high applicant flow<span class="row-sub">to a curated shortlist</span></th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-        </tr>
-        <tr>
-          <th scope="row">Handles hard-to-fill roles</th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-        </tr>
-        <tr>
-          <th scope="row">Handles active candidate flow</th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-        </tr>
-        <tr>
-          <th scope="row">Actively sources passive candidates</th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-        </tr>
-        
-        
-        <tr>
-          <th scope="row">Offer preparation<span class="row-sub">and candidate follow-up</span></th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-        </tr>
-        <tr>
-          <th scope="row">Ongoing retention support<span class="row-sub">after the hire</span></th>
-          <td>Your team owns it</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Tool + your team</td>
-          <td>Your hire’s remit</td>
-          <td class="cell-highlight">Agreed plan scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
-          <td>Depends on scope</td>
+          <th scope="row">Evidence to request</th>
+          <td>What has your last search shown about the biggest bottleneck?</td>
+          <td>Can you review a sample list against your actual requirements?</td>
+          <td>Can they demonstrate the tasks you need completed?</td>
+          <td>Can you try it on a real workflow and inspect the output?</td>
+          <td>Can the candidate explain results from comparable hiring work?</td>
+          <td class="cell-highlight">Can we show how the proposed plan handles your current hiring problem?</td>
+          <td>What recent searches show experience with this type of role?</td>
+          <td>What shows they can supply the people and coverage you need?</td>
+          <td>What examples show they can deliver within your timeframe?</td>
+          <td>What reporting and transition plan will you receive?</td>
+          <td>What search plan and progress reports will you receive?</td>
         </tr>
       </tbody>
     </table>
@@ -401,12 +355,11 @@ a{color:inherit;text-decoration:none;}
 <p><a href="/fractional-recruiting">See how fractional works</a> or <a href="/contact">start a conversation</a>.</p>
 </div>
 <article class="prose">
-<h2>How to read this chart</h2>
-<p>Start with the rows that matter to your business. Each column shows a different way to get that work done. Compare the help you need, who will do the rest, and what it will cost at your hiring volume. Ask about likely timing for your specific role and how the provider will work with your team. A fee model alone does not tell you either.</p>
-<p><strong>Fractional Recruiter</strong> and <strong>RPO</strong> show broad coverage in this comparison, but neither label tells you everything a provider will do. RPO offerings vary in scope, minimum spend and contract length, so compare those terms with your hiring volume rather than ruling it out by company size. A <strong>Full-Time Internal Recruiter</strong> can make sense when there is enough ongoing work for a permanent role. Compare salary, payroll costs and tools with the cost and scope of outside help at your actual workload.</p>
-<h2>The trade-offs to notice</h2>
-<p>A contingency agency may suit a specific search, while a staffing firm may help with temporary coverage or changing demand. Sourcing services, virtual assistants and AI tools can handle parts of the work, but you still need to decide who owns the remaining steps. If you manage hiring yourself, include advertising, tools and your team’s time in the comparison.</p>
-<p>If you need help across several of these areas, fractional recruiting is one option to compare with an internal recruiter or another provider. From there, here is <a href="/fractional-recruiting">what fractional recruiting is, and what it costs</a>.</p>
+<h2>Compare the same work</h2>
+<p>Write down one current role and the steps you need help with. Ask each provider to price that work, name the person responsible and explain what your team still needs to do. Include the cost of tools and your own time. Compare the total for the same expected hiring workload.</p>
+<h2>Look past the start date</h2>
+<p>Ask who stays in touch after the offer, who helps if the new hire struggles and what happens if they leave. A replacement promise and support for keeping a hire are different things. Get the details of each.</p>
+<p>If you are considering ongoing recruiting help, read <a href="/fractional-recruiting">what fractional recruiting is and what it costs</a>, then <a href="/activate">compare our plans</a>. Bring the same checklist to us.</p>
 </article>
 <div class="cta-bar">
   <p>"What would this look like for my business?"</p>
