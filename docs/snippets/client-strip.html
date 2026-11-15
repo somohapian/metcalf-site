@@ -21,6 +21,7 @@
 .client-strip__track{display:flex;align-items:center;gap:56px;width:max-content;padding-right:56px;animation:client-strip-scroll var(--strip-duration,22.4s) linear infinite;}
 .client-strip img{display:block;flex:none;width:auto;max-width:none;opacity:0.82;}
 .client-strip__viewport:hover .client-strip__track,.client-strip__viewport:focus-within .client-strip__track{animation-play-state:paused;}
+.client-strip__pause{display:block;margin:20px auto 0;padding:10px 16px;min-height:44px;font:500 12px var(--body);color:var(--ink);background:transparent;border:1px solid #8b9b90;cursor:pointer;}.client-strip__pause:hover{background:var(--celadon-mist);}.client-strip__pause:focus-visible{outline:2px solid var(--ink);outline-offset:4px;}@media(max-width:639px),(prefers-reduced-motion:reduce){.client-strip__pause{display:none;}}
 @keyframes client-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 @media(max-width:639px){
   .client-strip__viewport{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);}

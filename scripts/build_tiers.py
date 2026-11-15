@@ -27,29 +27,25 @@ ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else "/root/metcalf-site")
 ORIGIN = "https://metcalfsearch.com"
 
 services = (ROOT / "services.html").read_text(encoding="utf-8")
-lines = services.split("\n")
+def section(start, end):
+    """Extract a shared block by stable boundaries, not changing line numbers."""
+    assert services.count(start) == 1, ('Expected unique block', start)
+    first = services.index(start)
+    last = services.index(end, first + len(start)) + len(end)
+    return services[first:last]
 
-
-def cut(first, last, starts, ends):
-    """Return services.html lines first..last (1-based, inclusive), checked."""
-    chunk = "\n".join(lines[first - 1:last])
-    assert chunk.startswith(starts), (first, chunk[:80])
-    assert chunk.endswith(ends), (last, chunk[-80:])
-    return chunk
-
-
-HEAD_TOP = cut(1, 5, "<!DOCTYPE html>", 'initial-scale=1.0">')
-FONTS = cut(20, 22, '<link rel="preconnect" href="https://fonts.googleapis.com">', 'display=swap" rel="stylesheet">')
-LOCAL_BUSINESS = cut(24, 24, '<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness"', "</script>")
-GA = cut(30, 31, '<script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>', "</script>")
-BASE_STYLE = cut(32, 102, "<style>\n:root{", "</style>")
-FAVICONS = cut(103, 108, '<link rel="icon" type="image/svg+xml"', '<meta name="theme-color" content="#6f9b7c">')
-HAMBURGER_CSS = cut(110, 150, '<style id="metcalf-hamburger-css">', "</style>")
-FAQ_CSS = cut(151, 184, '<style id="metcalf-faq-card-behavior">', "</style>")
-NAV = cut(189, 191, '<nav class="topnav" id="topnav">', "</div></nav>")
-FOOTER = cut(274, 276, '<footer class="foot">', "</footer>")
-NAV_SCRIPT = cut(278, 278, "<script>const nav=document.getElementById('topnav');", "</script>")
-HAMBURGER_SCRIPT = cut(326, 400, "<script>\n(function(){\n  function init(){", "})();\n</script>")
+HEAD_TOP = section('<!DOCTYPE html>', 'initial-scale=1.0">')
+FONTS = section('<link rel="preconnect" href="https://fonts.googleapis.com">', 'display=swap" rel="stylesheet">')
+LOCAL_BUSINESS = section('<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness"', '</script>')
+GA = re.search(r'<script async src="https://www.googletagmanager.com/gtag/js[^>]*>.*?</script>\s*<script>.*?</script>', services, re.S).group(0)
+BASE_STYLE = section('<style>\n:root{', '</style>')
+FAVICONS = section('<link rel="icon" type="image/svg+xml"', '<meta name="theme-color" content="#6f9b7c">')
+HAMBURGER_CSS = section('<style id="metcalf-hamburger-css">', '</style>')
+FAQ_CSS = section('<style id="metcalf-faq-card-behavior">', '</style>')
+NAV = section('<nav class="topnav" id="topnav">', '</nav>')
+FOOTER = section('<footer class="foot">', '</footer>')
+NAV_SCRIPT = section("<script>const nav=document.getElementById('topnav');", '</script>')
+HAMBURGER_SCRIPT = section('<script>\n(function(){\n  function init(){', '</script>')
 
 assert 'Start a Conversation</a>' in NAV and 'href="/contact" class="nav-cta"' in NAV
 # Stripe publishable key (live mode) for the embedded checkout. It used to be
@@ -144,6 +140,7 @@ STRIP_CSS = """<style id="metcalf-client-strip">
 .client-strip__track{display:flex;align-items:center;gap:56px;width:max-content;padding-right:56px;animation:client-strip-scroll var(--strip-duration,22.4s) linear infinite;}
 .client-strip img{display:block;flex:none;width:auto;max-width:none;opacity:0.82;}
 .client-strip__viewport:hover .client-strip__track,.client-strip__viewport:focus-within .client-strip__track{animation-play-state:paused;}
+.client-strip__pause{display:block;margin:20px auto 0;padding:10px 16px;min-height:44px;font:500 12px var(--body);color:var(--ink);background:transparent;border:1px solid #8b9b90;cursor:pointer;}.client-strip__pause:hover{background:var(--celadon-mist);}.client-strip__pause:focus-visible{outline:2px solid var(--ink);outline-offset:4px;}@media(max-width:639px),(prefers-reduced-motion:reduce){.client-strip__pause{display:none;}}
 @keyframes client-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 @media(max-width:639px){
   .client-strip__viewport{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);}
@@ -244,7 +241,7 @@ PER_HIRE_Q = "Are there any per-hire fees?"
 PER_HIRE_A = "No. The monthly subscription is the full cost. A filled role costs the same as an open one, and a bigger offer does not raise our fee."
 
 STEP_TODAY = ("Today", "You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.")
-STEP_FILL = ("Thirty to forty-five days", "Most roles fill. Specialized roles run forty-five to sixty. Then the ninety-day keep plan starts.")
+STEP_FILL = ("Thirty to forty-five days", "A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and the ninety-day keep plan begins when the hire starts.")
 
 PLUS_LINK = '<a href="/recruiting-partner-plus">Recruiting Partner Plus</a>'
 PRO_LINK = '<a href="/recruiting-partner-pro">Recruiting Partner Pro</a>'
@@ -270,11 +267,12 @@ TIERS = [
         "eyebrow": f"RECRUITING PARTNER &middot; {money(P)} A MONTH",
         "h1": 'Recruiting, <span class="accent">done</span> for you.',
         "sub": "One active role at a time, run start to finish by a senior recruiter. You interview a short list. You never wade through a thousand resumes again.",
+        "hero_sub": "A senior recruiter runs one active role at a time, from the first search to the accepted offer. We find and screen candidates so you can spend your interview time with the people worth meeting.",
         "capsule": f"<strong>Recruiting Partner</strong> is the base Metcalf Search tier: one role open at a time, sourced, screened and closed by us, for a flat {money(P)} a month. No per-hire fees. Month to month.",
         "who": "Owners with one seat open now and a few more coming this year. Companies of roughly ten to two hundred people, in any industry, where hiring lands on the owner or on one overloaded HR person. If you usually have two or three roles open at once, " + PLUS_LINK + " fits better.",
         "buys": [
             ("A senior recruiter is your single point of contact.", "One person owns your role start to finish, backed by the Metcalf Search team."),
-            ("The full STACK Method on the search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan."),
+            ("The full STACK Method on the search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan."),
             ("Ad spend, included.", "The job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
             ("A short list, not a pile.", "You see the three or four people worth an hour, with our write-up on each."),
@@ -286,12 +284,12 @@ TIERS = [
             STEP_TODAY,
             ("Within 48 hours", "Kickoff. A ninety-minute intake on the role, the team and the pay. Sourcing starts the same day."),
             ("Five business days", "The first slate of vetted candidates is in front of you."),
-            ("Week two", "First interviews. We schedule them, prep both sides and debrief after each one."),
+            ("Week two", "Our target for first interviews, depending on availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
-        "result": "The seat is filled. The hire is still there at ninety days. You have your week back.",
+        "result": "A search run by your recruiter, with interviews you can evaluate and support through the first ninety days.",
         "math": (f"Twelve months of Recruiting Partner is <strong>{money(12 * P)}</strong>. Two {CONTINGENCY} <strong>{money(2 * PER_HIRE)}</strong>. "
-                 f"The third hire is where contingency stops making sense: <strong>{money(3 * PER_HIRE)}</strong> for three, against the same <strong>{money(12 * P)}</strong>. {MATH_CLOSE}"),
+                 f"For three hires, that contingency example totals: <strong>{money(3 * PER_HIRE)}</strong> for three, against the same <strong>{money(12 * P)}</strong>. {MATH_CLOSE}"),
         "faq": [
             ("What if we have two roles open at once?", "Recruiting Partner runs one active role at a time. Move up to " + PLUS_LINK + " for the month and back down when the second role fills. Tiers change at any monthly cycle and your rate is grandfathered."),
             (PER_HIRE_Q, PER_HIRE_A),
@@ -314,7 +312,7 @@ TIERS = [
         "buys": [
             ("A senior recruiter is your single point of contact.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 hours onsite a month, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
-            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan, per role."),
+            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan, per role."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
@@ -324,10 +322,10 @@ TIERS = [
             STEP_TODAY,
             ("Within 48 hours", "Kickoff. A ninety-minute intake on the role, the team and the pay. Sourcing starts the same day."),
             ("Five business days", "The first slates of vetted candidates, one per open role, are in front of you."),
-            ("Week two", "First interviews on every role. We schedule them, prep both sides and debrief after each one."),
+            ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
-        "result": "Every open seat moving at once. Managers who know where each search stands. Hires still there at ninety days.",
+        "result": "A coordinated search on every agreed role, with clear updates for managers and support after each hire starts.",
         "math": (f"Twelve months of Recruiting Partner Plus is <strong>{money(12 * PLUS)}</strong>. Five {CONTINGENCY} <strong>{money(5 * PER_HIRE)}</strong>. "
                  f"Six cost <strong>{money(6 * PER_HIRE)}</strong>. The subscription stays at <strong>{money(12 * PLUS)}</strong> whether you hire four people this year or eight. {MATH_CLOSE}"),
         "faq": [
@@ -343,7 +341,7 @@ TIERS = [
         "price": money(PRO),
         "value": PRO,
         "title": f"Recruiting Partner Pro, {money(PRO)} a Month | Metcalf Search",
-        "description": f"Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat {money(PRO)} a month. No per-hire fees. Activate here.",
+        "description": f"Recruiting Partner Pro: a dedicated recruiter onsite three days a week, every open role, no cap, for a flat {money(PRO)} a month. No per-hire fees. Choose your plan.",
         "eyebrow": f"RECRUITING PARTNER PRO &middot; {money(PRO)} A MONTH",
         "h1": 'A dedicated recruiter, onsite <span class="accent">three</span> days a week.',
         "sub": "Every open role, no cap, run by a Metcalf Search recruiter embedded with your team three full days a week. The output of a full-time recruiting hire, on a month-to-month subscription.",
@@ -352,7 +350,7 @@ TIERS = [
         "buys": [
             ("A dedicated recruiter onsite three full days a week.", "Embedded with your managers, on a set schedule, running every open role."),
             ("No cap on roles.", "Whatever is open gets worked."),
-            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan, per role."),
+            ("The full STACK Method on every search.", "A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan, per role."),
             ("Ad spend for every open role, included.", "Each job runs where candidates actually look, on our budget, not yours."),
             ("MS Rosie, the full desk, for the whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in your Rosie desk, not in our heads."),
@@ -362,12 +360,12 @@ TIERS = [
             STEP_TODAY,
             ("Within 48 hours", "Kickoff. A ninety-minute intake across every open role, and the onsite schedule set. Sourcing starts the same day."),
             ("Five business days", "The first slates of vetted candidates are in front of you."),
-            ("Week two", "First interviews across the open roles. We schedule them, prep both sides and debrief after each one."),
+            ("Week two", "Our target for first interviews, depending on each role and candidate availability. We schedule them, prep both sides and debrief after each one."),
             STEP_FILL,
         ],
-        "result": "Every open seat has a recruiter on it. Managers get a person, not a ticket. The function is still there when the hiring wave passes.",
+        "result": "Your managers have a recruiter working on every open role and someone they can go to with questions. When the hiring rush settles down, that recruiter continues to support the team.",
         "math": (f"Twelve months of Recruiting Partner Pro is <strong>{money(12 * PRO)}</strong>. Ten {CONTINGENCY} <strong>{money(10 * PER_HIRE)}</strong>. "
-                 f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus the ninety days before they know your company. Pro starts within 48 hours and leaves when you say so. {MATH_CLOSE}"),
+                 f"Twenty cost <strong>{money(20 * PER_HIRE)}</strong>. A full-time in-house recruiter costs salary, payroll taxes, tools and job boards, plus time to learn your company. Pro starts within 48 hours and runs month to month. Cancel with ten days’ notice. {MATH_CLOSE}"),
         "faq": [
             ("Who is onsite?", "A Metcalf Search recruiter dedicated to your company, three full days a week, on a set schedule. A senior recruiter is your single point of contact and runs the plan, backed by the Metcalf Search team."),
             (PER_HIRE_Q, PER_HIRE_A),
@@ -465,9 +463,9 @@ def page(t):
 <section class="page-hero">
 <div class="eyebrow">{eyebrow(t['eyebrow'])}</div>
 <h1>{t['h1']}</h1>
-<p class="sub">{t['sub']}</p>
+<p class="sub">{t.get('hero_sub', t['sub'])}</p>
 <div class="hero-cta">
-<a href="#checkout" class="btn-solid">Activate {t['name']}</a>
+<a href="#checkout" class="btn-solid">Choose this plan</a>
 <a href="/contact" class="btn-textlink">{FIT_CALL}</a>
 </div>
 {HERO_STRIP_DIV}
@@ -499,7 +497,7 @@ def page(t):
 
 <section class="cta-band" aria-labelledby="cta-band-heading">
 <h2 class="section-h2" id="cta-band-heading">Ready when you <span class="accent">are</span>.</h2>
-<a href="#checkout" class="btn-solid">Activate {t['name']}</a>
+<a href="#checkout" class="btn-solid">Choose this plan</a>
 <p class="cta-band-note">Kickoff within 48 hours. First slate within five business days.</p>
 </section>
 
@@ -520,11 +518,11 @@ def page(t):
 <div class="section-head">
 <div class="section-eyebrow">ACTIVATE</div>
 <h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
-<p class="section-sub">Your tier. Your checkout. Right here.</p>
+<p class="section-sub">Sign up below to get your search started.</p>
 <p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
 </div>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
-<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
+<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>
 <p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
 </div>
 </section>

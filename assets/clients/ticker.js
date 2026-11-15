@@ -122,9 +122,24 @@
     for (i = 0; i < logos.length; i++) track.appendChild(logo(logos[i], false));
     for (i = 0; i < logos.length; i++) track.appendChild(logo(logos[i], true));
 
+    var pause = document.createElement('button');
+    pause.type = 'button';
+    pause.className = 'client-strip__pause';
+    pause.textContent = 'Pause logos';
+    pause.setAttribute('aria-pressed', 'false');
+    var paused = false;
+    pause.addEventListener('click', function () {
+      paused = !paused;
+      pause.setAttribute('aria-pressed', String(paused));
+      pause.textContent = paused ? 'Play logos' : 'Pause logos';
+      // Removing the override restores CSS hover/focus and reduced-motion rules.
+      if (paused) track.style.setProperty('animation-play-state', 'paused');
+      else track.style.removeProperty('animation-play-state');
+    });
     viewport.appendChild(track);
     el.appendChild(label);
     el.appendChild(viewport);
+    el.appendChild(pause);
     el.hidden = false;
   }
 

@@ -1,0 +1,14 @@
+{
+  "pages": 26,
+  "errors": 0,
+  "warnings": 1,
+  "issues": [
+    {
+      "severity": "WARN",
+      "file": "fractional-recruiting.html",
+      "line": 0,
+      "check": "class-style",
+      "message": "No explicit class selector found (may inherit styling): comp-row-label"
+    }
+  ]
+}

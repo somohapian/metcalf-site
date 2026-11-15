@@ -1,6 +1,6 @@
 # Metcalf Search
-> Fractional recruiting for small and mid-sized businesses, built around the STACK Method (Source, Tempo, Assess, Close, Keep). Flat monthly subscription, no per-hire fees, one recruiter as your single point of contact. Based in Grove City, Ohio, serving Columbus and Central Ohio.
-Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in recruiting, more than $100 million in salary placed). It serves small and mid-sized businesses, typically 10 to 200 employees making a few hires a year, across skilled trades, light manufacturing, distribution, and professional services. It sits between contingency agencies and full-time internal recruiters as a third option: an embedded recruiting function on a flat monthly subscription. Three tiers: Recruiting Partner ($2,950 a month, one active role at a time), Recruiting Partner Plus ($5,950 a month, two to three concurrent roles and up to 8 hours onsite a month time), Recruiting Partner Pro ($10,950 a month, full embedded recruiting across the company). Month to month, no per-hire fees. Our work is organized around the STACK Method, a five-letter diagnostic that maps every hiring problem to one of five places: Source, Tempo, Assess, Close, or Keep (Keep means the hire sticking: onboarding and the first year).
+> Fractional recruiting for small and mid-sized businesses, built around the STACK Method (Source, Tempo, Assess, Close, Keep). Flat monthly subscription, no per-hire fees, one recruiter as your single point of contact. Based in Columbus, Ohio, serving Central Ohio.
+Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in recruiting, more than $100 million in salary placed). It serves small and mid-sized businesses, typically 10 to 200 employees making a few hires a year, across skilled trades, light manufacturing, distribution, and professional services. It sits between contingency agencies and full-time internal recruiters as a third option: an embedded recruiting function on a flat monthly subscription. Three tiers: Recruiting Partner ($2,950 a month, one active role at a time), Recruiting Partner Plus ($5,950 a month, two to three concurrent roles and up to 8 hours onsite a month time), Recruiting Partner Pro ($10,950 a month, full embedded recruiting across the company). Month to month, no per-hire fees. Our work is organized around the STACK Method, a five-letter diagnostic that maps every hiring problem to one of five places: Source, Tempo, Assess, Close, or Keep. Keep means keeping people productive, satisfied, and engaged, for new hires and existing employees. It asks whether the work is going well and whether this is still a job the person wants to keep. The three moves are Stay connected, Make work better, and Follow through. Record manager and employee commitments, name an owner and review date for each action, and check whether the underlying issue is resolved. Completing an action does not by itself resolve an issue.
 ## Firm
 - [Home](https://metcalfsearch.com/): Fractional recruiting for small businesses in Columbus, Ohio
 - [What is fractional recruiting?](https://metcalfsearch.com/fractional-recruiting): The full explainer: definition, cost math, how a partnership runs, who it fits
@@ -11,7 +11,8 @@ Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in r
 - [Recruiting Partner Pro](https://metcalfsearch.com/recruiting-partner-pro): $10,950 a month. A dedicated recruiter onsite three days a week on every open role, no cap, for companies hiring constantly
 - [Comparison chart](https://metcalfsearch.com/comparison): Fractional recruiter vs contingency agency vs staffing vs in-house vs RPO, side by side
 - [Who We Serve](https://metcalfsearch.com/who-we-serve): Small business focus, one client per competitive lane, Central Ohio
-- [About](https://metcalfsearch.com/about): Jay Metcalf, 27 years of recruiting, why the firm exists
+- [About](https://metcalfsearch.com/about): Why the firm exists
+- [Jay Metcalf](https://metcalfsearch.com/jay-metcalf): Columbus-based founder, professional background, hiring philosophy and public recommendations
 - [FAQ](https://metcalfsearch.com/faq): Questions small business owners actually ask
 - [Contact](https://metcalfsearch.com/contact): Book the thirty-minute fit call
 ## Method
@@ -20,7 +21,7 @@ Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in r
 - [TEMPO: keeping candidates warm](https://metcalfsearch.com/tempo): Process rhythm, ghosting, response time
 - [ASSESS: vetting candidates](https://metcalfsearch.com/assess): Structured interviews, scorecards, skill assessment
 - [CLOSE: making offers stick](https://metcalfsearch.com/close): Counter-offers, offer acceptance, late-stage drops
-- [KEEP: retaining new hires](https://metcalfsearch.com/keep): Onboarding, the first ninety days, stay interviews
+- [KEEP: productive, satisfied, engaged people](https://metcalfsearch.com/keep): Ongoing check-ins, recognition, growth, and follow-through for new hires and existing employees, with ninety-day and annual milestones
 ## Resources
 - [Blog](https://metcalfsearch.com/blog): Daily notes and weekly picks on small business hiring
 - [Blog sitemap](https://metcalfsearch.com/blog/sitemap.xml): Every post
@@ -29,4 +30,4 @@ Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in r
 ## Contact
 - Email: info@metcalfsearch.com
 - Phone: 614.434.6646
-- Location: Grove City, Ohio (Columbus metro)
+- Location: Columbus, Ohio

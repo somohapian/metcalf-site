@@ -68,11 +68,11 @@ a{color:inherit;text-decoration:none;}
 .foot-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;}
 .foot-brand{font-family:var(--display);font-weight:500;font-size:22px;letter-spacing:-0.01em;margin-bottom:12px;}
 .foot-tag{font-family:var(--body);font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.5;}
-.foot-col h4{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:18px;}
+.foot-col h4{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#536158;margin-bottom:18px;}
 .foot-col ul{list-style:none;}
 .foot-col li{font-size:14px;margin-bottom:10px;color:var(--ink-soft);}
 .foot-col a:hover{color:var(--brick);}
-.foot-bottom{max-width:1100px;margin:60px auto 0;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);letter-spacing:0.02em;}
+.foot-bottom{max-width:1100px;margin:60px auto 0;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12px;color:#536158;letter-spacing:0.02em;}
 @media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:32px;}.foot-bottom{flex-direction:column;gap:12px;text-align:center;}}
 .contact-section{max-width:720px;margin:96px auto;padding:0 32px;scroll-margin-top:calc(var(--nav-h) + 24px);}
 .contact-heading{font-family:'Fraunces',Georgia,serif;font-size:clamp(28px,4vw,40px);font-weight:500;margin:0 0 16px;color:#1f2421;}
@@ -261,6 +261,7 @@ a{color:inherit;text-decoration:none;}
 .client-strip__track{display:flex;align-items:center;gap:56px;width:max-content;padding-right:56px;animation:client-strip-scroll var(--strip-duration,22.4s) linear infinite;}
 .client-strip img{display:block;flex:none;width:auto;max-width:none;opacity:0.82;}
 .client-strip__viewport:hover .client-strip__track,.client-strip__viewport:focus-within .client-strip__track{animation-play-state:paused;}
+.client-strip__pause{display:block;margin:20px auto 0;padding:10px 16px;min-height:44px;font:500 12px var(--body);color:var(--ink);background:transparent;border:1px solid #8b9b90;cursor:pointer;}.client-strip__pause:hover{background:var(--celadon-mist);}.client-strip__pause:focus-visible{outline:2px solid var(--ink);outline-offset:4px;}@media(max-width:639px),(prefers-reduced-motion:reduce){.client-strip__pause{display:none;}}
 @keyframes client-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 @media(max-width:639px){
   .client-strip__viewport{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);}
@@ -284,9 +285,9 @@ a{color:inherit;text-decoration:none;}
 <section class="page-hero">
 <div class="eyebrow"><span class="eyebrow-part">RECRUITING PARTNER</span> &middot; <span class="eyebrow-part">$2,950 A MONTH</span></div>
 <h1>Recruiting, <span class="accent">done</span> for you.</h1>
-<p class="sub">One active role at a time, run start to finish by a senior recruiter. You interview a short list. You never wade through a thousand resumes again.</p>
+<p class="sub">A senior recruiter runs one active role at a time, from the first search to the accepted offer. We find and screen candidates so you can spend your interview time with the people worth meeting.</p>
 <div class="hero-cta">
-<a href="#checkout" class="btn-solid">Activate Recruiting Partner</a>
+<a href="#checkout" class="btn-solid">Choose this plan</a>
 <a href="/contact" class="btn-textlink">Questions first? <span class="nowrap">Book the thirty-minute fit call.</span></a>
 </div>
 <div class="client-strip client-strip--hero" data-client-ticker data-show="7"></div>
@@ -301,7 +302,7 @@ a{color:inherit;text-decoration:none;}
 <h2>What a month <span class="accent">buys</span>.</h2>
 <ul class="buys">
 <li><strong>A senior recruiter is your single point of contact.</strong> One person owns your role start to finish, backed by the Metcalf Search team.</li>
-<li><strong>The full STACK Method on the search.</strong> A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and a ninety-day keep plan.</li>
+<li><strong>The full STACK Method on the search.</strong> A sourcing plan, a tempo commitment, a structured assessment, an offer sequence and an initial ninety-day Keep plan.</li>
 <li><strong>Ad spend, included.</strong> The job runs where candidates actually look, on our budget, not yours.</li>
 <li><strong>MS Rosie, the full desk, from day one.</strong> Your branded careers page, applicant tracking and a live view of every candidate in the search.</li>
 <li><strong>A short list, not a pile.</strong> You see the three or four people worth an hour, with our write-up on each.</li>
@@ -315,21 +316,21 @@ a{color:inherit;text-decoration:none;}
 <li><span class="timeline-when">Today</span><p>You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.</p></li>
 <li><span class="timeline-when">Within 48 hours</span><p>Kickoff. A ninety-minute intake on the role, the team and the pay. Sourcing starts the same day.</p></li>
 <li><span class="timeline-when">Five business days</span><p>The first slate of vetted candidates is in front of you.</p></li>
-<li><span class="timeline-when">Week two</span><p>First interviews. We schedule them, prep both sides and debrief after each one.</p></li>
-<li><span class="timeline-when">Thirty to forty-five days</span><p>Most roles fill. Specialized roles run forty-five to sixty. Then the ninety-day keep plan starts.</p></li>
+<li><span class="timeline-when">Week two</span><p>Our target for first interviews, depending on availability. We schedule them, prep both sides and debrief after each one.</p></li>
+<li><span class="timeline-when">Thirty to forty-five days</span><p>A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and the ninety-day keep plan begins when the hire starts.</p></li>
 </ol>
 
 <h2>The <span class="accent">result</span>.</h2>
-<p class="result-line">The seat is filled. The hire is still there at ninety days. You have your week back.</p>
+<p class="result-line">A search run by your recruiter, with interviews you can evaluate and support through the first ninety days.</p>
 <aside class="mathbox" aria-labelledby="math-heading">
 <h3 id="math-heading">The <span class="accent">math</span>.</h3>
-<p>Twelve months of Recruiting Partner is <strong>$35,400</strong>. Two contingency hires at a $65,000 salary and a 25 percent fee cost <strong>$32,500</strong>. The third hire is where contingency stops making sense: <strong>$48,750</strong> for three, against the same <strong>$35,400</strong>. The fee never moves with the offer. There is no bonus for a bigger salary and every reason to fill fast and right.</p>
+<p>Twelve months of Recruiting Partner is <strong>$35,400</strong>. Two contingency hires at a $65,000 salary and a 25 percent fee cost <strong>$32,500</strong>. For three hires, that contingency example totals: <strong>$48,750</strong> for three, against the same <strong>$35,400</strong>. The fee never moves with the offer. There is no bonus for a bigger salary and every reason to fill fast and right.</p>
 </aside>
 </article>
 
 <section class="cta-band" aria-labelledby="cta-band-heading">
 <h2 class="section-h2" id="cta-band-heading">Ready when you <span class="accent">are</span>.</h2>
-<a href="#checkout" class="btn-solid">Activate Recruiting Partner</a>
+<a href="#checkout" class="btn-solid">Choose this plan</a>
 <p class="cta-band-note">Kickoff within 48 hours. First slate within five business days.</p>
 </section>
 
@@ -361,17 +362,17 @@ a{color:inherit;text-decoration:none;}
 <div class="section-head">
 <div class="section-eyebrow">ACTIVATE</div>
 <h2 class="section-h2" id="checkout-heading">Hand us the hiring. Go run your <span class="accent">business</span>.</h2>
-<p class="section-sub">Your tier. Your checkout. Right here.</p>
+<p class="section-sub">Sign up below to get your search started.</p>
 <p class="price-line"><strong>$2,950 a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Move up or down a tier at any monthly cycle.</span></p>
 </div>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
-<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will activate it by hand.</p>
+<p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>
 <p class="checkout-alt">Activating accepts the <a href="/terms#partnership-agreement">partnership agreement</a>. Questions first? <a href="/contact">Book the thirty-minute fit call</a>.</p>
 </div>
 </section>
 <footer class="foot"><div class="foot-inner"><div><div class="foot-brand">
         <img src="/logo.png" alt="Metcalf Search" class="foot-brand-logo" width="140" height="35">
-      </div><p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Activate</a></li><li><a href="/recruiting-partner">Recruiting Partner</a></li><li><a href="/recruiting-partner-plus">Recruiting Partner Plus</a></li><li><a href="/recruiting-partner-pro">Recruiting Partner Pro</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Grove City, Ohio.</div><div><a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> &middot; <a href="tel:+16144346646">614.434.6646</a></div></div></footer>
+      </div><p class="foot-tag">Fractional recruiting for small businesses. Built around the STACK Method.</p></div><div class="foot-col"><h4>Method</h4><ul><li><a href="/stack-method">The STACK Method</a></li><li><a href="/source">Source</a></li><li><a href="/tempo">Tempo</a></li><li><a href="/assess">Assess</a></li><li><a href="/close">Close</a></li><li><a href="/keep">Keep</a></li></ul></div><div class="foot-col"><h4>Firm</h4><ul><li><a href="/activate">Choose a plan</a></li><li><a href="/recruiting-partner">Recruiting Partner</a></li><li><a href="/recruiting-partner-plus">Recruiting Partner Plus</a></li><li><a href="/recruiting-partner-pro">Recruiting Partner Pro</a></li><li><a href="/fractional-recruiting">Fractional Recruiting</a></li><li><a href="/services">Services</a></li><li><a href="/comparison">Comparison</a></li><li><a href="/who-we-serve">Who We Serve</a></li><li><a href="/about">About</a></li><li><a href="/jay-metcalf">Meet Jay Metcalf</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="foot-col"><h4>Resources</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="/candidates">For Candidates</a></li><li><a href="https://apply.ms/">Careers Pages</a></li><li><a href="/#book-waitlist">Book Waitlist</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div><div class="foot-bottom"><div>&copy; 2026 Metcalf Search. Grove City, Ohio.</div><div><a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> &middot; <a href="tel:+16144346646">614.434.6646</a></div></div></footer>
 
 <script>const nav=document.getElementById('topnav');window.addEventListener('scroll',()=>{if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');},{passive:true});</script>
 <script>

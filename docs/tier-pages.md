@@ -3,8 +3,8 @@
 ## The three sales pages
 `recruiting-partner.html`, `recruiting-partner-plus.html`, `recruiting-partner-pro.html` are
 generated, never hand-edited: `python3 scripts/build_tiers.py .` regenerates all three plus
-`docs/snippets/client-strip.html`. Nav, footer, base CSS and scripts are cut byte for byte from
-`services.html`, so a line-count change there needs the cut() ranges in the generator checked.
+`docs/snippets/client-strip.html`. Nav, footer, base CSS and scripts are extracted by unique block boundaries from
+`services.html`. The generator fails if a boundary is missing or ambiguous.
 Prices live in one place in the generator (MONTHLY). Order of the page: hero with Activate
 button, green capsule, checkout card (#checkout), logo strip, who it is for, what a month buys,
 after you click, result and math, repeat CTA, three questions, billing terms.
@@ -25,6 +25,6 @@ any JSON-LD Offer.
 ## Logo strip
 `assets/clients/clients.js` is the list (name, file, display height, optional group);
 `assets/clients/ticker.js` shuffles it, shows `data-show` logos (7), never two from the same
-group (Keller Williams with Dream Home Team, Howard Hanna with Julie & Company), pauses on hover,
+group (Keller Williams with Dream Home Team, Howard Hanna with Julie & Company), pauses on hover and focus, includes a persistent Pause/Play button,
 becomes a swipe row under 640px. To add a client: drop a single-color ink PNG (#1f2421 on
 transparent, twice the display height) in `assets/clients/` and add one line to clients.js.
