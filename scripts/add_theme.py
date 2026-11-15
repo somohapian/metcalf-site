@@ -5,12 +5,12 @@ import sys
 from pathlib import Path
 
 INIT = '<script src="/assets/theme-init.js"></script>'
-STYLE = '<link rel="stylesheet" href="/assets/theme.css?v=20261114-footer1">'
+STYLE = '<link rel="stylesheet" href="/assets/theme.css?v=20261114-layout1">'
 CONTROL = '<script src="/assets/theme.js?v=20261114-footer1" defer></script>'
 
 def with_theme(source):
     # Remove prior tags first so their position remains correct after page edits.
-    for tag in (INIT, STYLE, CONTROL, '<link rel="stylesheet" href="/assets/theme.css">', '<script src="/assets/theme.js" defer></script>'):
+    for tag in (INIT, STYLE, CONTROL, '<link rel="stylesheet" href="/assets/theme.css?v=20261114-footer1">', '<link rel="stylesheet" href="/assets/theme.css">', '<script src="/assets/theme.js" defer></script>'):
         source = source.replace(tag + '\n', '').replace(tag, '')
     source, count = re.subn(r'(<meta name="viewport"[^>]*>)', lambda m: m[1] + '\n' + INIT, source, count=1)
     if count != 1:

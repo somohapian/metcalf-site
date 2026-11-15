@@ -20,6 +20,12 @@
   --theme-logo-bg:#fafaf7;--theme-logo-pad:4px;--theme-shadow:0 12px 32px rgba(0,0,0,.25);
  }
 }
+/* Reserve real layout height for the standalone Rosie action and allow narrow FAQ tracks. */
+.home-rosie .btn-solid{display:flex;align-items:center;justify-content:center;width:fit-content;max-width:100%;white-space:normal;text-align:center;clear:both}
+.home-tools-grid>*{min-width:0}
+/* Keep Calendly at its supported width on narrow screens without overflowing the page. */
+@media(max-width:400px){#kickoff-scheduler{padding-left:0;padding-right:0}#kickoff-scheduler .scheduler-wrap{padding-left:0;padding-right:0}}
+.faq-list{grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))!important}
 /* Semantic replacements for fixed colors in the standalone page styles. */
 html body{background:var(--paper);color:var(--ink)}
 .topnav{background:var(--theme-nav)}
