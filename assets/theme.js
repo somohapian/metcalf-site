@@ -5,43 +5,37 @@
   var preference = root.getAttribute('data-theme-preference');
   if (preference !== 'light' && preference !== 'dark') preference = null;
   try { media = window.matchMedia('(prefers-color-scheme: dark)'); } catch (_) {}
-  var buttons = [];
+  var controls = [];
   function apply() {
     var theme = preference || (media && media.matches ? 'dark' : 'light');
     root.setAttribute('data-theme', theme);
     root.setAttribute('data-theme-preference', preference || 'auto');
-    buttons.forEach(function (button) {
-      button.setAttribute('aria-pressed', String(theme === 'dark'));
-      button.title = 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode';
-    });
+    controls.forEach(function (control) { control.value = preference || 'auto'; });
   }
-  function toggle() {
-    preference = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    try { window.localStorage.setItem(key, preference); } catch (_) {}
+  function choose(event) {
+    var value = event.target.value;
+    preference = value === 'light' || value === 'dark' ? value : null;
+    try {
+      if (preference) window.localStorage.setItem(key, preference);
+      else window.localStorage.removeItem(key);
+    } catch (_) { /* The choice still applies when preference storage is blocked. */ }
     apply();
   }
-  function makeButton(mobile) {
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'theme-toggle' + (mobile ? ' theme-toggle-mobile' : '');
-    button.setAttribute('aria-label', 'Dark mode');
-    var light = document.createElement('span'), divider = document.createElement('span'), dark = document.createElement('span');
-    light.className = 'theme-label-light'; light.textContent = 'Light';
-    divider.textContent = ' / ';
-    dark.className = 'theme-label-dark'; dark.textContent = 'Dark';
-    [light, divider, dark].forEach(function (span) { span.setAttribute('aria-hidden', 'true'); button.appendChild(span); });
-    button.addEventListener('click', toggle);
-    buttons.push(button);
-    return button;
-  }
   function mount() {
-    var nav = document.querySelector('.topnav-inner');
-    if (nav && !nav.querySelector('.theme-toggle')) {
-      var before = nav.querySelector('.hamburger-btn') || nav.querySelector('.nav-cta');
-      nav.insertBefore(makeButton(false), before);
+    var footer = document.querySelector('footer .foot-bottom') || document.querySelector('footer');
+    if (footer && !footer.querySelector('.theme-preference')) {
+      var label = document.createElement('label'), text = document.createElement('span');
+      var select = document.createElement('select');
+      label.className = 'theme-preference';
+      text.textContent = 'Appearance';
+      [['auto', 'System'], ['light', 'Light'], ['dark', 'Dark']].forEach(function (item) {
+        var option = document.createElement('option');
+        option.value = item[0]; option.textContent = item[1]; select.appendChild(option);
+      });
+      select.addEventListener('change', choose);
+      controls.push(select);
+      label.appendChild(text); label.appendChild(select); footer.appendChild(label);
     }
-    var overlay = document.querySelector('.nav-overlay');
-    if (overlay && !overlay.querySelector('.theme-toggle')) overlay.appendChild(makeButton(true));
     apply();
   }
   if (media) {
@@ -51,12 +45,10 @@
   }
   window.addEventListener('storage', function (event) {
     if (event.key !== key && event.key !== null) return;
-    // Ignore another storage area; only this site's local preference is shared.
     try { if (event.storageArea && event.storageArea !== window.localStorage) return; } catch (_) { return; }
     preference = event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : null;
     apply();
   });
-  // Existing navigation creates its mobile dialog on DOMContentLoaded first.
-  if (document.readyState === 'complete') mount();
-  else document.addEventListener('DOMContentLoaded', mount, {once: true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, {once: true});
+  else mount();
 }());
