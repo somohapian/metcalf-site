@@ -28,11 +28,10 @@ RETIRED_BLOG_PATHS = [
     "/blog/ep-794-can-automation-make-hiring-more-human",
     "/blog/cloudflare-s-matthew-prince-says-ai-has-made-a-category-of-workers-obsolete",
     "/blog/growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality",
-]
-KNOWN_BLOG_PATHS = RETIRED_BLOG_PATHS + [
     "/blog/the-us-is-betting-on-ai-to-catch-insider-trading-in-prediction-markets",
     "/blog/executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver",
 ]
+KNOWN_BLOG_PATHS = list(RETIRED_BLOG_PATHS)
 
 
 class Page(HTMLParser):

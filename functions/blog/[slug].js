@@ -1,11 +1,9 @@
-import { API_BASE, fetchJson, isRetired, loadBlogTemplate, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
+import { isRetired, loadBlogTemplate, renderPostPage, safeSlug, withSecurityHeaders } from '../_lib/blog.js';
 import { onRequestGet as sitemapGet } from './sitemap.xml.js';
 
-const TTL = 600;
+import { PUBLISHED_POSTS } from '../_lib/publications.js';
 
-// Retired and unknown posts answer 410 Gone so search engines drop them fast.
-// A transient upstream failure keeps the softer 404 so a live post is never
-// marked gone by an outage.
+// Removed and unapproved articles are not served from the retired feed.
 async function errorPage(context, status) {
   const { request, env } = context;
   const headers = withSecurityHeaders({
@@ -28,7 +26,6 @@ async function errorPage(context, status) {
 }
 
 const gone = (context) => errorPage(context, 410);
-const notFound = (context) => errorPage(context, 404);
 
 export async function onRequestGet(context) {
   const { params, request } = context;
@@ -50,15 +47,7 @@ export async function onRequestGet(context) {
   if (slug.length > 160 || safeSlug(slug) !== slug) return gone(context);
   if (isRetired(slug)) return gone(context);
 
-  let post = null;
-  try {
-    post = await fetchJson(`${API_BASE}/posts/${encodeURIComponent(slug)}`, TTL);
-  } catch (err) {
-    // The API answering 404 or 410 means the post is not published: gone.
-    // Anything else (5xx, timeout, network) is transient: plain 404.
-    const message = String(err && err.message || '');
-    return /^upstream 4(04|10)$/.test(message) ? gone(context) : notFound(context);
-  }
+  const post = PUBLISHED_POSTS.find((entry) => entry.slug === slug);
   if (!post || !post.title) return gone(context);
 
   const template = await loadBlogTemplate(context);

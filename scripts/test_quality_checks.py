@@ -122,17 +122,16 @@ console.log(JSON.stringify(posts.map(post => ({path: '/blog/' + post.slug, html:
                 self.assertTrue(inspect_response(path, expected, "application/json", b"{}"))
                 self.assertTrue(inspect_response(path, expected, "text/html", b"Not found"))
 
-    def test_published_blog_paths_still_require_articles_and_200(self):
-        for path in set(KNOWN_BLOG_PATHS) - set(RETIRED_BLOG_PATHS):
+    def test_all_known_blog_paths_are_retired_and_reject_article_schema(self):
+        self.assertEqual(set(KNOWN_BLOG_PATHS), set(RETIRED_BLOG_PATHS))
+        error_body = (Path(__file__).resolve().parents[1] / "404.html").read_bytes()
+        for path in KNOWN_BLOG_PATHS:
             with self.subTest(path=path):
-                body = ('<title>Post</title><link rel="canonical" href="https://metcalfsearch.com'
-                        + path + '"><h1>Post</h1><script type="application/ld+json">'
+                self.assertEqual(inspect_response(path, 410, "text/html", error_body), [])
+                body = ('<title>Post</title><h1>Post</h1><script type="application/ld+json">'
                         '{"@type":"BlogPosting"}</script>').encode()
-                self.assertEqual(inspect_response(path, 200, "text/html", body), [])
-                for wrong in (404, 410):
-                    self.assertIn(f"HTTP {wrong}; expected 200", inspect_response(path, wrong, "text/html", body))
                 self.assertIn("Error response contains article structured data",
-                              inspect_response(RETIRED_BLOG_PATHS[0], 410, "text/html", body))
+                              inspect_response(path, 410, "text/html", body))
 
     def test_retired_smoke_paths_match_the_production_handler_list(self):
         node = os.environ.get("METCALF_QA_NODE") or shutil.which("node")
@@ -152,6 +151,9 @@ console.log(JSON.stringify(posts.map(post => ({path: '/blog/' + post.slug, html:
             (root / "sitemap.xml").write_text('<urlset><url><loc>https://metcalfsearch.com/services</loc></url></urlset>')
             plan = make_plan(root, ["https://metcalfsearch.com", "https://metcalf-site.pages.dev"], [])
             self.assertEqual(len([p for p in plan if p["path"] == "/services"]), 4)
+            for path in KNOWN_BLOG_PATHS:
+                with self.subTest(path=path):
+                    self.assertEqual(len([p for p in plan if p["path"] == path]), 4)
             self.assertEqual({p["mode"] for p in plan}, {"plain", "cache-busted"})
             self.assertTrue(all("?cb=" in p["url"] for p in plan if p["mode"] == "cache-busted"))
 

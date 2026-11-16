@@ -6,7 +6,6 @@
  * `node --test`.
  */
 
-export const API_BASE = 'https://metcalf-blog-scraper.jay-9e2.workers.dev';
 export const SITE = 'https://metcalfsearch.com';
 
 /* -------------------------------------------------------------- headers */
@@ -133,6 +132,8 @@ export function safeSlug(value) {
  * still lists them. Approved by Jay 2026-11-03.
  */
 export const RETIRED_SLUGS = new Set([
+  'the-us-is-betting-on-ai-to-catch-insider-trading-in-prediction-markets',
+  'executives-are-blaming-layoffs-on-ai-but-it-is-not-the-main-driver',
   'ep-794-can-automation-make-hiring-more-human',
   'cloudflare-s-matthew-prince-says-ai-has-made-a-category-of-workers-obsolete',
   'growing-tribe-of-jobless-techies-is-stuck-in-silicon-valley-s-new-reality'
@@ -213,51 +214,6 @@ export function monthLabel(key) {
   const match = /^(\d{4})-(\d{2})$/.exec(key || '');
   if (!match) return 'Undated';
   return `${MONTHS[Number(match[2]) - 1]} ${match[1]}`;
-}
-
-/* ------------------------------------------------------------------ fetch */
-
-/**
- * JSON GET with the Cache API in front of it where the runtime has one.
- * Throws on a non-2xx response so callers can fall back to an empty state.
- */
-export async function fetchJson(url, ttlSeconds = 300, timeoutMs = 4000) {
-  const request = new Request(url, { headers: { accept: 'application/json' } });
-  let store = null;
-  try {
-    if (typeof caches !== 'undefined' && caches && caches.default) store = caches.default;
-  } catch (err) {
-    store = null;
-  }
-  if (store) {
-    try {
-      const hit = await store.match(request);
-      if (hit) return await hit.json();
-    } catch (err) { /* cache miss behaves like no cache */ }
-  }
-  // A hung upstream must not hold the page open. AbortSignal.timeout exists in
-  // the Workers runtime and in Node 18+; where it does not, we simply skip it.
-  const options = { cf: { cacheTtl: ttlSeconds, cacheEverything: true } };
-  try {
-    if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
-      options.signal = AbortSignal.timeout(timeoutMs);
-    }
-  } catch (err) { /* no abort support: fall through without one */ }
-  const response = await fetch(request, options);
-  if (!response.ok) throw new Error(`upstream ${response.status}`);
-  const text = await response.text();
-  const data = JSON.parse(text);
-  if (store) {
-    try {
-      await store.put(request, new Response(text, {
-        headers: {
-          'content-type': 'application/json; charset=utf-8',
-          'cache-control': `public, max-age=${ttlSeconds}`
-        }
-      }));
-    } catch (err) { /* caching is best effort */ }
-  }
-  return data;
 }
 
 /* ----------------------------------------------------------------- picks */
@@ -662,7 +618,7 @@ export function renderIndexPage(templateHtml, data) {
   html = replaceRegion(html, 'RECENT_WEEKLY',
     renderRecent(info.weekly || [], 'No weekly roundups in the last thirty days.'));
   const archive = renderArchive(info.archive || []);
-  html = replaceRegion(html, 'ARCHIVE', archive ? '<h2>Published articles</h2><p>Commentary on business, technology and work. These articles explore broader topics. For step-by-step hiring help, start with the guides above.</p>' + archive : '');
+  html = replaceRegion(html, 'ARCHIVE', archive ? '<h2>Videos and practical hiring advice</h2>' + archive : '');
   return html;
 }
 
