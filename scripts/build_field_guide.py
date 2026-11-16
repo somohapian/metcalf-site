@@ -96,7 +96,7 @@ PAGES = [
 <h2>What would make the job better?</h2><p class="prompt">Consider priorities, tools, support, learning and responsibilities. Record both perspectives.</p><div class="write lines-2" aria-label="Space for notes"></div>
 <h2>What remains open from last time?</h2><p class="prompt">What changed after the last action? What still needs attention?</p><div class="write lines-2" aria-label="Space for notes"></div>
 <h2>Agree on the next step</h2><table><caption>Commitments to review together</caption><thead><tr><th>Action or promise</th><th>Owner</th><th>Review date</th></tr></thead><tbody><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></tbody></table>
-<p class="prompt">Next conversation: ____________________</p><p class="small">Need a deeper conversation? Use the <a href="#concern">concern and follow-through worksheet</a>. Keep notes factual and share them only with people who need them.</p>
+<p class="prompt">Next conversation: <span class="worksheet-blank" aria-hidden="true">____________________</span></p><p class="small">Need a deeper conversation? Use the <a href="#concern">concern and follow-through worksheet</a>. Keep notes factual and share them only with people who need them.</p>
 '''),
 ('concern', 'Keep / Working sheet', 'Understand a concern. Check the change.', '''
 <div class="fields"><div>Employee / role<span></span></div><div>Manager / date<span></span></div></div>
@@ -209,6 +209,7 @@ def build(print_output=None, print_only=False):
         return result
     public=head+'''<meta name="description" content="A practical, printable guide to finding candidates, interviewing, offers and employee retention, with interview, candidate follow-up and Keep worksheets."><style>'''+scoped(css)+'''.field-guide .brand{height:auto;display:flex}.field-guide p,.field-guide li{font-family:Arial,sans-serif}.field-guide .page{color:#26382e}.field-guide .chapter-title{max-width:none}.field-guide .footer{background:#fff}.field-guide h2,.field-guide h3{color:#26382e}.field-guide .download{max-width:8.5in;margin:20px auto;padding:0 24px}@media print{body>nav,body>.skip-link,body>footer,.field-guide .download{display:none!important}.field-guide{background:white}.field-guide .page{margin:0}.field-guide .footer{display:flex}} </style></head><body>'''+before+'''<main id="main-content" tabindex="-1" class="field-guide"><p class="download"><a href="/stack-field-guide.pdf">Download the printable PDF</a> · <a href="/stack-method">Browse the full hiring guides</a></p>'''+''.join(sections)+'''</main>'''+after
     public=public.replace('</style></head>', '.field-guide .page{color-scheme:light;--ink:#26382e;--ink-soft:#42594b;--ink-faint:#4b6556;--paper:#fff;--paper-warm:#f2f5f2}.field-guide .page p{color:#26382e}.field-guide .page .lede{color:#42594b}.field-guide .page .eyebrow{color:#4b6556}</style></head>')
+    public=re.sub(r'(/assets/theme\.css)\?v=[^"]+', r'\1?v=20261116-worksheets', public)
     (ROOT/'stack-field-guide.html').write_text(public)
     print(ROOT/'stack-field-guide.html')
 

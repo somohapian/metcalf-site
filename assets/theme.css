@@ -148,3 +148,12 @@ main[tabindex="-1"]{scroll-margin-top:calc(var(--nav-h,76px) + 16px)}
  opacity:var(--theme-wordmark-opacity);pointer-events:none;
 }
 @media(max-width:720px){.brand{--brand-art-height:32px}.foot-brand{--brand-art-height:30px}}
+
+/* Writing spaces belong to paper; web worksheets read as conversation guides. */
+@media screen{
+ html .keep-sheet .write,html .field-guide .write,
+ html .keep-sheet .fields span,html .field-guide .fields span,
+ html .keep-sheet .worksheet-blank,html .field-guide .worksheet-blank{display:none}
+ html .field-guide .page{min-height:0}
+ html .field-guide .footer{position:static;margin-top:32px;flex-wrap:wrap}
+}
