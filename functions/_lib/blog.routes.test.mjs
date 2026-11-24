@@ -44,7 +44,7 @@ test('empty approved list keeps all five guides and removes all article listings
   assertSecurityHeaders(response);
   const html = await response.text();
   assert.equal((html.match(/class="blog-guide-label">Guide/g) || []).length, 5);
-  for (const guide of ['source', 'tempo', 'assess', 'close', 'keep']) assert.ok(html.includes(`href="/${guide}"`));
+  for (const guide of ['source', 'talk', 'assess', 'close', 'keep']) assert.ok(html.includes(`href="/${guide}"`));
   assert.ok(!html.includes('<!--BLOG:'));
   assert.ok(!/href="\/blog\/[^"#]+"/.test(html));
   assert.ok(!html.includes('Published articles'));

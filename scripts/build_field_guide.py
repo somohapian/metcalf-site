@@ -14,17 +14,17 @@ import argparse
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = [
 ('start', 'A practical guide to hiring', 'The STACK Method', '''
-<p class="lede">Find the right people. Keep the process moving. Make decisions from evidence. Help the hire work out.</p>
+<p class="lede">Find the right people. Keep them in the conversation. Make decisions from evidence. Help the hire work out.</p>
 <p>STACK is our five-part hiring method. Hiring gets easier to manage when each part has a clear next step. Use this guide to prepare for a search, compare notes with your team, and follow through after someone starts.</p>
 <nav aria-label="Guide contents"><h2>Five parts of the work</h2><ol class="contents">
 <li><a href="#source">Source</a><span>Find people who can do the work.</span></li>
-<li><a href="#tempo">Tempo</a><span>Give every next step an owner and a date.</span></li>
+<li><a href="#talk">Talk</a><span>Keep every candidate in the conversation.</span></li>
 <li><a href="#assess">Assess</a><span>Connect experience to the job in front of you.</span></li>
 <li><a href="#close">Close</a><span>Understand the move before making the offer.</span></li>
 <li><a href="#keep">Keep</a><span>Stay connected, make work better, follow through.</span></li>
 </ol><h2>Print a working sheet</h2><p><a href="#interview-worksheet">Interview worksheet</a> · <a href="#candidate-tracker">Candidate follow-up tracker</a><br><a href="#check-in">Regular check-in worksheet</a> · <a href="#concern">Concern and follow-through worksheet</a></p></nav>
 <div class="note"><h2>Use it yourself or with your team</h2><p>These are working prompts, not a formula that guarantees a hire. Choose questions and checks that fit the actual job. Keep factual notes and distinguish what you know from what you still need to check.</p></div>
-<p class="small">Prepared by Metcalf Search. Updated November 15, 2026.<br>Full guides: <a href="https://metcalfsearch.com/stack-method">metcalfsearch.com/stack-method</a></p>
+<p class="small">Prepared by Metcalf Search. Updated November 24, 2026.<br>Full guides: <a href="https://metcalfsearch.com/stack-method">metcalfsearch.com/stack-method</a></p>
 '''),
 ('source', '01 / Source', 'Find people who can do the work.', '''
 <p class="lede">Start with the work you need done. Then choose where to look.</p>
@@ -40,18 +40,18 @@ PAGES = [
 <h2>Decide before launch</h2><p>What must this person accomplish? What will you teach? Which channels will you try first? Who will review the results, and when?</p>
 <p class="guide-link">Read the full guide: <a href="https://metcalfsearch.com/source">metcalfsearch.com/source</a></p>
 '''),
-('tempo', '02 / Tempo', 'Keep the next step clear.', '''
+('talk', '02 / Talk', 'Keep the conversation going.', '''
 <p class="lede">Candidates should know what happens next. Your team should know who owns it.</p>
-<h2>Set the process before interviews begin</h2><p>Agree on the interview stages, decision-makers, checks and offer approvals. Reserve time for feedback. Keep the process proportionate to the role.</p>
+<h2>Talk inside your team first</h2><p>Agree on the interview stages, decision-makers, checks and offer approvals before interviews begin. Reserve time for feedback. Keep the process proportionate to the role.</p>
 <h2>Keep one useful record</h2><ul>
 <li>Candidate and role.</li><li>Current stage and the latest conversation.</li><li>Next action, owner and promised date.</li><li>Questions still open and the information needed to answer them.</li>
 </ul>
-<h2>Use a dependable rhythm</h2><p>Acknowledge suitable applicants promptly. Collect interview feedback within twenty-four hours when possible. Tell the candidate when they should hear from you, even if the next update is that a decision needs more time.</p>
+<h2>Set your tempo</h2><p>Tempo is the pace of the conversation. Acknowledge suitable applicants promptly. Collect interview feedback within twenty-four hours when possible. Tell the candidate when they should hear from you, even if the next update is that a decision needs more time.</p>
 <p>Send a written offer after the necessary checks and approvals are complete. Speed should remove waiting and repeated work, not skip a useful check.</p>
-<div class="note"><h2>When a step stalls</h2><p>Name the missing decision or information. Give it an owner and a realistic date. Update the candidate before the promised response date passes.</p></div>
+<div class="note"><h2>When the conversation stalls</h2><p>Name the missing decision or information. Give it an owner and a realistic date. Update the candidate before the promised response date passes.</p></div>
 <h2>A useful weekly review</h2><p>Which candidates are waiting? What did we promise? Which role has no next action? Which approval could delay an offer?</p>
 <p><a href="#candidate-tracker">Use the blank candidate follow-up tracker</a>.</p>
-<p class="guide-link">Read the full guide: <a href="https://metcalfsearch.com/tempo">metcalfsearch.com/tempo</a></p>
+<p class="guide-link">Read the full guide: <a href="https://metcalfsearch.com/talk">metcalfsearch.com/talk</a></p>
 '''),
 ('assess', '03 / Assess', 'Ask for evidence. Then test the transfer.', '''
 <p class="lede">A familiar job title is a starting point. Find out what the person can do in your job.</p>
@@ -136,7 +136,7 @@ PAGES.extend([
 <h2>What did the candidate ask or need clarified?</h2><div class="write lines-2" aria-label="Space for notes"></div>
 <p class="small">Record only necessary, job-related information. Share notes only with people involved in the decision. Return to the <a href="#interview-worksheet">interview prompts</a>.</p>
 '''),
-('candidate-tracker', 'Tempo / Working sheet', 'Keep the next promise visible.', '''
+('candidate-tracker', 'Talk / Working sheet', 'Keep the next promise visible.', '''
 <p class="lede">Use one sheet per candidate. Review open actions before the next update is due.</p>
 <p class="small"><a href="/candidate-tracker.pdf">Download this one-page candidate follow-up tracker</a></p>
 <div class="fields"><div>Candidate / role<span></span></div><div>Current stage / record owner<span></span></div></div>
