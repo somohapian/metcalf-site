@@ -39,3 +39,36 @@
  .cost-totals { font-size:10pt; padding-top:5pt; }
  .cost-totals strong { min-height:16pt; }
 }
+
+/* The entered figures remain usable on a phone and on a single printed sheet. */
+#worksheet-inputs { scroll-margin-top:6rem; }
+.worksheet-entry { margin:1.2rem auto 0; }
+.worksheet-entry a,.cost-jump a,.cost-handoff a { text-decoration:underline; text-underline-offset:.18em; }
+.cost-worksheet details summary { cursor:pointer; font:600 1.06rem/1.4 var(--body); padding:.5rem 0; }
+.cost-worksheet details[open]>summary { margin-bottom:.5rem; }
+.cost-worksheet caption { text-align:left; font-weight:600; padding:.4rem 0; }
+.cost-worksheet .cost-comparison th:first-child { width:39%; }
+.cost-worksheet .cost-comparison td { font-variant-numeric:tabular-nums; }
+.cost-worksheet input { border:2px solid var(--theme-muted); }
+.cost-worksheet input[aria-invalid=true] { border-color:var(--brick); }
+.cost-worksheet :focus-visible,.worksheet-entry a:focus-visible { outline:3px solid var(--brick); outline-offset:3px; }
+.cost-field-error { display:block; font:500 .84rem/1.3 var(--body); color:var(--brick); margin-top:.35rem; }
+.cost-field-error[hidden] { display:none; }
+.cost-result-table tbody tr:last-child { font-weight:700; border-top:2px solid var(--ink); }
+.cost-handoff { border-top:1px solid var(--rule); margin-top:1.25rem; padding-top:.25rem; }
+@media screen and (max-width:500px) {
+ .cost-example { padding:.7rem .45rem .35rem; }
+ .cost-worksheet .cost-comparison { table-layout:auto; }
+ .cost-worksheet .cost-comparison th:first-child { width:auto; }
+ .cost-worksheet .cost-comparison td { white-space:nowrap; }
+}
+@media print {
+ .cost-example,.cost-jump,.cost-handoff { display:none!important; }
+ .cost-field-error { font-size:8pt; }
+ .prose .cost-worksheet #worksheet-inputs { margin-top:8pt; }
+ .cost-worksheet .cost-result-table th,.cost-worksheet .cost-result-table td { padding:4pt; }
+ .cost-worksheet .cost-result-table { margin-bottom:0; }
+}
+
+.cost-sr-status { position:absolute; width:1px; height:1px; padding:0; border:0; clip-path:inset(50%); overflow:hidden; white-space:nowrap; }
+@media print { .cost-sr-status { display:none!important; } }
