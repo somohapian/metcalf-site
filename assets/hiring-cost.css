@@ -24,7 +24,7 @@
 }
 @media print {
  @page { margin:.55in; }
- body>*,main>*:not(article),main article>*:not(.cost-worksheet),#cost-print { display:none!important; }
+ body>*,main>*:not(article),main article>*:not(.cost-worksheet),.cost-monthly,#cost-print { display:none!important; }
  body>main { display:block!important; }
  main,main .prose,main .cost-worksheet { max-width:none!important; padding:0!important; margin:0!important; border:0!important; }
  .prose .cost-worksheet { color:#111; font-size:10pt; }
@@ -33,8 +33,8 @@
  .prose .cost-worksheet p { font-size:9.5pt; line-height:1.35; margin:0 0 5pt; }
  .cost-example { padding:3pt 8pt; border-color:#777; }
  .cost-worksheet table { margin:4pt 0 7pt; font-size:9pt; }
- .cost-worksheet th,.cost-worksheet td { padding:3pt; border-color:#777; }
- .cost-worksheet input { appearance:textfield; min-height:22pt; color:#111; background:white; border:1px solid #888; }
+ .cost-worksheet th,.cost-worksheet td { padding:2pt; border-color:#777; }
+ .cost-worksheet input { appearance:textfield; min-height:20pt; color:#111; background:white; border:1px solid #888; }
  .cost-worksheet input::-webkit-inner-spin-button { appearance:none; }
  .cost-totals { font-size:10pt; padding-top:5pt; }
  .cost-totals strong { min-height:16pt; }

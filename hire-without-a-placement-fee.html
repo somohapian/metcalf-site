@@ -290,8 +290,8 @@ a{color:inherit;text-decoration:none;}
     }
   ]
 }</script>
-<link rel="stylesheet" href="/assets/hiring-cost.css">
-<script defer src="/assets/hiring-cost.js"></script>
+<link rel="stylesheet" href="/assets/hiring-cost.css?v=20261126-scenarios">
+<script defer src="/assets/hiring-cost.js?v=20261126-scenarios"></script>
 <script src="/assets/site-analytics.js"></script>
 </head>
 <body>
@@ -312,11 +312,13 @@ a{color:inherit;text-decoration:none;}
 <section class="cost-worksheet" id="hiring-cost-worksheet" aria-labelledby="worksheet-title">
 <h2 id="worksheet-title">Hiring cost worksheet</h2>
 <p>Compare one opening over the same number of weeks. You can fill this in here or print a blank copy.</p>
-<aside class="cost-example"><h3>A worked example</h3>
-<p>Suppose the owner spends eight hours screening at $45 an hour ($360), a coordinator spends four hours scheduling at $30 an hour ($120), and the company spends $180 on ads. That adds up to $660. The owner also spends two hours interviewing at $45 an hour, bringing the in-house total to $750.</p>
-<p>Suppose an outside recruiter quotes $1,000 for the same search, including screening, scheduling and ads. The owner still spends $90 interviewing. The total with outside help is $1,090. These figures are examples. Use your own costs below.</p></aside>
+<aside class="cost-example"><h3>What one search could cost</h3>
+<p>Suppose a sponsored job runs for 30 billed days at an average of $95 a day. That’s $2,850 in ads. At $90 a day it’s $2,700. At $100 a day it’s $3,000, and more if you spend more or run it longer. Use the dates and spend for your own opening. <a href="https://www.indeed.com/help/employers/articles/360026629712?co=US&amp;hl=en">Indeed explains how its daily budgets work.</a></p>
+<p><strong>Doing it yourself.</strong> The owner screens for eight hours at $45 an hour ($360), a coordinator schedules for four hours at $30 an hour ($120), and the owner interviews for two hours at $45 an hour ($90). That’s $570 of team time and $3,420 to run that search. You can spend it and still have an opening.</p>
+<p><strong>Paying a placement fee.</strong> On a $52,000 starting salary, a 20% fee is $10,400. At 25% it’s $13,000. In this example, you owe the fee when you hire someone the recruiter introduced. If the fee covers the ads, screening and scheduling, add the same $90 of interviews. That brings the total to $10,490 or $13,090. Check which pay figure the fee uses and which expenses the quote covers.</p>
+<p class="cost-monthly"><strong>Paying monthly.</strong> Our <a href="/recruiting-partner">Recruiting Partner plan</a> is $2,950 a month for one active role. One billed month plus those interviews comes to $3,040 before extra expenses, whether or not you’ve hired. Two billed months cost $5,900 before your team’s time and extra expenses. Check the available ad credits and add only the ad spend you’d pay separately.</p></aside>
 <h3>Your team’s time</h3>
-<p>Use the hourly cost of the person doing each task. If two people share a task at different rates, use the last row for the second person. Include hours your team would still spend interviewing or making a decision in both columns.</p>
+<p>Use pay plus employer taxes and benefits, or your best hourly estimate for the owner’s time. If two people share a task at different rates, use the last row for the second person. Include hours your team would still spend interviewing or making a decision in both columns.</p>
 <table id="cost-time"><thead><tr><th scope="col">Task</th><th scope="col" id="cost-time-rate">Hourly cost ($)</th><th scope="col" id="cost-time-in">In-house hours</th><th scope="col" id="cost-time-out">Hours with outside help</th></tr></thead><tbody>
 <tr><th scope="row" id="cost-time-0">Finding and screening candidates</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="rate" aria-labelledby="cost-time-0 cost-time-rate"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-time-0 cost-time-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-time-0 cost-time-out"></td></tr>
 <tr><th scope="row" id="cost-time-1">Scheduling and follow-up</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="rate" aria-labelledby="cost-time-1 cost-time-rate"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-time-1 cost-time-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-time-1 cost-time-out"></td></tr>
@@ -324,15 +326,23 @@ a{color:inherit;text-decoration:none;}
 <tr><th scope="row" id="cost-time-3">Other hiring work</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="rate" aria-labelledby="cost-time-3 cost-time-rate"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-time-3 cost-time-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-time-3 cost-time-out"></td></tr>
 </tbody></table>
 <h3>What you’ll pay out of pocket</h3>
-<p>Enter expenses for the full search in dollars. If a fee is monthly, multiply it by the months you expect to use it. Leave out anything the quote already covers. Enter the quoted fee when you have it. Enter zero only if there’s no fee.</p>
-<table id="cost-cash"><thead><tr><th scope="col">Expense</th><th scope="col" id="cost-cash-in">In-house ($)</th><th scope="col" id="cost-cash-out">With outside help ($)</th></tr></thead><tbody>
-<tr><th scope="row" id="cost-cash-0">Job ads</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-cash-0 cost-cash-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-cash-0 cost-cash-out"></td></tr>
-<tr><th scope="row" id="cost-cash-1">Software, checks and other expenses</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-cash-1 cost-cash-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-cash-1 cost-cash-out"></td></tr>
-<tr><th scope="row" id="cost-cash-2">Outside recruiting fee</th><td>n/a</td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" id="outside-fee" aria-labelledby="cost-cash-2 cost-cash-out"></td></tr>
+<p>For a daily ad, enter the average spend and billed days. For an invoice or several ads, use their total in the ad invoice row instead. Count each ad once. Enter only costs you’d pay separately from the recruiting fee. Use the full fee for the period. Enter zero only if there’s no fee.</p>
+<table id="cost-cash"><thead><tr><th scope="col">Expense</th><th scope="col" id="cost-cash-in">In-house</th><th scope="col" id="cost-cash-out">With outside help</th></tr></thead><tbody>
+<tr id="daily-ads"><th scope="row" id="cost-daily-rate">Daily ad spend ($)</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-daily-rate cost-cash-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-daily-rate cost-cash-out"></td></tr>
+<tr id="ad-days"><th scope="row" id="cost-daily-days">Billed ad days</th><td><input type="number" min="0" step="1" inputmode="numeric" data-col="in" aria-label="Billed ad days, in-house"></td><td><input type="number" min="0" step="1" inputmode="numeric" data-col="out" aria-label="Billed ad days, with outside help"></td></tr>
+<tr id="invoice-ads"><th scope="row" id="cost-cash-0">Ad invoice or flat-price ads ($)</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-cash-0 cost-cash-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-cash-0 cost-cash-out"></td></tr>
+<tr><th scope="row" id="cost-cash-1">Software, checks and other expenses ($)</th><td><input type="number" min="0" step="any" inputmode="decimal" data-col="in" aria-labelledby="cost-cash-1 cost-cash-in"></td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" aria-labelledby="cost-cash-1 cost-cash-out"></td></tr>
+<tr><th scope="row" id="cost-cash-2">Outside recruiting fee ($)</th><td>n/a</td><td><input type="number" min="0" step="any" inputmode="decimal" data-col="out" id="outside-fee" aria-labelledby="cost-cash-2 cost-cash-out"></td></tr>
 </tbody></table>
-<p>For each option, multiply the hours on each row by its hourly cost, then add the out-of-pocket expenses. Leave unused fields blank.</p>
+<p>On paper, multiply hours by hourly cost and daily ad spend by billed days. Add those amounts and the other expenses for each option. Leave unused rows blank.</p>
 <div class="cost-totals" aria-live="polite"><div>In-house total <strong id="cost-in">________</strong></div><div>Total with outside help <strong id="cost-out">________</strong></div></div>
 <button type="button" id="cost-print" aria-label="Print this worksheet" hidden>Print this worksheet</button>
+</section>
+<section aria-labelledby="staffing-invoice">
+<h2 id="staffing-invoice">How does a temporary staffing invoice compare?</h2>
+<p>Suppose an agency quotes $25 an hour in wages with a 40% markup for a 13-week assignment. At 40 hours a week, the worker earns $13,000. The markup adds $10 an hour, or $5,200. The bill rate is $35 an hour and the invoice comes to $18,200 before any other charges.</p>
+<p>You’d pay the same $13,000 in wages if you employed the worker directly for those hours at that rate. The $5,200 above wages helps cover the agency’s payroll costs and service. You’d need its actual costs to know its margin. To compare, add your own employer taxes, insurance, benefits and hiring costs to those same wages. Keep the staffing invoice out of the direct-hire fee field above.</p>
+<p>Ask about the minimum number of weeks or hours, overtime rates and any fee to put the worker on your own payroll. For example, a <a href="https://lcapps.co.lucas.oh.us/carts/resos/26920.pdf">Lucas County staffing agreement (PDF, section 5)</a> set 520 hours before a fee-free transfer. Use the terms in your agreement.</p>
 </section>
 <section aria-labelledby="where-to-look">
 <h2 id="where-to-look" class="faq-q">Where should we look first?</h2>

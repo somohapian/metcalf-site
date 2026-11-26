@@ -4,7 +4,7 @@
   const sheet = document.querySelector('.cost-worksheet');
   if (!sheet) return;
   const labor = sheet.querySelectorAll('#cost-time tbody tr');
-  const cash = sheet.querySelectorAll('#cost-cash tbody tr');
+  const cash = sheet.querySelectorAll('#cost-cash tbody tr:not(#daily-ads):not(#ad-days)');
   const money = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'});
 
   function estimate(side) {
@@ -18,6 +18,18 @@
       if (hours.valueAsNumber > 0 && (!rate.validity.valid || rate.value === '')) return 'Check the hourly cost';
       entered = true;
       if (hours.valueAsNumber > 0) total += hours.valueAsNumber * rate.valueAsNumber;
+    }
+    const dailySpend = sheet.querySelector('#daily-ads [data-col="' + side + '"]');
+    const days = sheet.querySelector('#ad-days [data-col="' + side + '"]');
+    if (dailySpend && days) {
+      if (!dailySpend.validity.valid || !days.validity.valid) return 'Check the ad rate and days';
+      if (dailySpend.value !== '' || days.value !== '') {
+        const invoice = sheet.querySelector('#invoice-ads [data-col="' + side + '"]');
+        if (invoice.value !== '') return 'Choose daily spend or an ad invoice';
+        if (dailySpend.value === '' || days.value === '') return 'Enter the ad rate and days';
+        total += dailySpend.valueAsNumber * days.valueAsNumber;
+        entered = true;
+      }
     }
     for (const row of cash) {
       const expense = row.querySelector('[data-col="' + side + '"]');
