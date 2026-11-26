@@ -642,6 +642,7 @@ a { color: inherit; text-decoration: none; }
   <div class="tiers-inner">
     <h2 id="tiers-heading">Recruiting plans and prices</h2>
     <p class="tiers-sub">Choose the scope you need. Every plan includes a recruiter, support from sourcing through onboarding, and MS Rosie. Month to month, with no per-hire fees.</p>
+    <p class="tiers-sub">We recruit remotely across the U.S. Plus and Pro include onsite time in Central Ohio only. Out-of-state visits cost extra. For visits outside Central Ohio, we agree on the location and schedule and send you the total, including any visit fees and travel, for your written approval before you activate.</p>
     <div class="tier-row">
       <div class="tier-card">
         <span class="tier-name">Recruiting Partner</span>
@@ -649,7 +650,7 @@ a { color: inherit; text-decoration: none; }
         <span class="tier-line">One active role at a time.</span>
         <ul class="tier-points">
           <li>A single point of contact on our team</li>
-          <li>Occasional onsite support, when recommended and agreed</li>
+          <li>Remote recruiting with no scheduled visits</li>
           <li>Talent Points, credits for approved job advertising, plus MS Rosie hiring software</li>
         </ul>
         <span class="tier-actions"><a class="tier-activate" href="/recruiting-partner#checkout" aria-label="Choose Recruiting Partner">Choose this plan</a><a class="tier-more" href="/recruiting-partner" aria-label="See what's included in Recruiting Partner">See what's included</a></span>
@@ -660,7 +661,7 @@ a { color: inherit; text-decoration: none; }
         <span class="tier-price"><strong>$5,950</strong> a month</span>
         <span class="tier-line">Two to three roles at once.</span>
         <ul class="tier-points">
-          <li>Up to 8 hours onsite a month</li>
+          <li>Up to 8 onsite hours a month in Central Ohio</li>
           <li>Talent Points, credits for approved job advertising, plus MS Rosie hiring software</li>
           <li>Short lists on every role</li>
         </ul>
@@ -672,7 +673,7 @@ a { color: inherit; text-decoration: none; }
         <span class="tier-price"><strong>$10,950</strong> a month</span>
         <span class="tier-line">Every open role in your agreed scope.</span>
         <ul class="tier-points">
-          <li>A dedicated recruiter onsite three days a week</li>
+          <li>A dedicated recruiter onsite three days a week in Central Ohio</li>
           <li>Talent Points, credits for approved job advertising, plus MS Rosie hiring software</li>
           <li>The recruiting function your company keeps</li>
         </ul>
@@ -692,9 +693,9 @@ a { color: inherit; text-decoration: none; }
   var quiz=document.getElementById('tier-quiz');
   if(!quiz)return;
   var tiers=[
-    {slug:'recruiting-partner',name:'Recruiting Partner',line:'one active role at a time, $2,950 a month.'},
-    {slug:'recruiting-partner-plus',name:'Recruiting Partner Plus',line:'two to three roles at once and up to 8 hours onsite a month, $5,950 a month.'},
-    {slug:'recruiting-partner-pro',name:'Recruiting Partner Pro',line:'a recruiter onsite three days a week and every open role in your agreed scope, $10,950 a month.'}
+    {slug:'recruiting-partner',name:'Recruiting Partner',line:'one active role at a time, $2,950 a month. No scheduled visits. Out-of-state visits cost extra.'},
+    {slug:'recruiting-partner-plus',name:'Recruiting Partner Plus',line:'two to three roles at once and up to 8 onsite hours a month in Central Ohio, $5,950 a month. Out-of-state visits cost extra.'},
+    {slug:'recruiting-partner-pro',name:'Recruiting Partner Pro',line:'a recruiter onsite three days a week in Central Ohio and every open role in your agreed scope, $10,950 a month. Out-of-state visits cost extra.'}
   ];
   var answers=[null,null,null],sent=null;
   var result=quiz.querySelector('.tq-result'),line=quiz.querySelector('.tq-line');
