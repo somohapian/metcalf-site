@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="/assets/theme-init.js"></script>
+<script src="/assets/inquiry-attribution.js" defer></script>
 <title>Activate Your Plan | Metcalf Search</title>
 <meta name="description" content="Choose your fractional recruiting tier: Recruiting Partner, Recruiting Partner Plus, or Recruiting Partner Pro. From $2,950 a month, no per-hire fees.">
 <link rel="canonical" href="https://metcalfsearch.com/activate">
@@ -435,6 +436,8 @@ a{color:inherit;text-decoration:none;}
   var status=form.querySelector('.contact-status');
   var submit=form.querySelector('.contact-submit');
   if(typeof fetch!=='function'||typeof FormData!=='function'||typeof Object.fromEntries!=='function'||typeof Promise.prototype.finally!=='function')return;
+  var pendingRef=null;
+  form.addEventListener('input',function(){ pendingRef=null; });
   form.addEventListener('submit',function(e){
     e.preventDefault();
     status.textContent='';
@@ -445,6 +448,10 @@ a{color:inherit;text-decoration:none;}
       status.className='contact-status error';
       return;
     }
+    if (submit.disabled) return;
+    if (!pendingRef && window.crypto && window.crypto.randomUUID) pendingRef=window.crypto.randomUUID();
+    if (pendingRef) data.submission_ref=pendingRef;
+    if (window.metcalfInquiryAttribution) data.attribution=window.metcalfInquiryAttribution();
     submit.disabled=true;
     submit.textContent='Sending…';
     fetch('https://api.metcalfsearch.com/contact',{
@@ -456,9 +463,12 @@ a{color:inherit;text-decoration:none;}
         status.textContent="Got it. You'll hear from us within one business day.";
         status.className='contact-status success';
         form.reset();
-        if(typeof gtag==='function'){
-          gtag('event','client_inquiry_submit',{source:data.source||'unknown'});
-        }
+        pendingRef=null;
+        return res.json().catch(function(){ return null; }).then(function(receipt){
+          if (receipt && receipt.ok && receipt.created!==false && !data.website && typeof gtag==='function') {
+            gtag('event','client_inquiry_submit',{source:data.source||'unknown'});
+          }
+        });
       }else{
         return res.json().catch(function(){return{};}).then(function(err){
           status.textContent=err.error||'Something went sideways. Try again, or email info@metcalfsearch.com directly.';
