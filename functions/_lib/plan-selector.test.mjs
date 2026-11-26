@@ -16,7 +16,7 @@ function createSelector(html) {
   const [markup] = html.match(/<div class="tier-quiz" id="tier-quiz" hidden>[\s\S]+?<script [^>]*><\/script>/);
   assert.ok(markup.includes('src="' + asset + '?'));
   assert.ok(markup.includes('aria-live="polite" aria-atomic="true"'));
-  assert.match(markup, /data-question="visits" data-level="0" aria-pressed="false">Remote, with occasional visits by agreement</);
+  assert.match(markup, /data-question="visits" data-level="0" aria-pressed="false">None</);
   assert.doesNotMatch(markup, /How often do you hire|Constantly/);
   const callbacks = new Map();
   const buttons = Array.from(markup.matchAll(/<button type="button" class="tq-opt" data-question="(roles|visits)" data-level="(\d)" aria-pressed="false">/g),
@@ -60,12 +60,17 @@ for (const page of ['index', 'activate']) {
         assert.equal(elements['.tq-actions .tq-more'].href, scope ? '/recruiting-partner-pro' : '/' + tier);
         const text = elements['[data-result-title]'].textContent + ' ' + elements['[data-result-reason]'].textContent;
         if (scope) assert.match(text, /\$10,950/);
-        if (roles === 2) assert.match(text, /stagger/);
+        if (roles === 2) {
+          assert.match(text, /stagger/);
+          assert.equal(elements['[data-result-title]'].textContent, 'Which openings need to be filled first?');
+        } else if (visits === 2) {
+          assert.equal(elements['[data-result-title]'].textContent, 'How often do you need a recruiter onsite?');
+        }
         if (visits === 2) {
-          assert.match(text, /schedule/);
+          assert.match(text, /onsite/);
           assert.doesNotMatch(text, /Plus can cover/);
         }
-        if (roles === 0 && visits === 1) assert.match(text, /occasional visit/);
+        if (roles === 0 && visits === 1) assert.doesNotMatch(text, /\$2,950/);
         if (tier === 'recruiting-partner') assert.match(text, /screen/i);
         click('visits', visits);
         assert.equal(events.length, 1);
