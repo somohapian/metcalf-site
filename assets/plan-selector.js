@@ -16,13 +16,13 @@
   const partner = {
     name: 'Recruiting Partner',
     tier: 'recruiting-partner',
-    heading: 'Recruiting Partner is $2,950 a month.',
-    explanation: 'We run one search at a time. There are no scheduled visits. If a visit would help, we agree on the location, schedule and total in writing before you activate.'
+    heading: 'You interview a shortlist for your opening.',
+    explanation: 'Recruiting Partner is $2,950 a month. Your recruiter finds and screens candidates, coordinates interviews and helps you make the offer. We work with your team remotely on one search at a time and can arrange an occasional visit together.'
   };
   const plus = {
     name: 'Recruiting Partner Plus',
     tier: 'recruiting-partner-plus',
-    heading: 'Recruiting Partner Plus is $5,950 a month.'
+    heading: 'You interview a shortlist for each role.'
   };
 
   function showResult() {
@@ -33,17 +33,17 @@
     let outcome;
     if (needsScope) {
       outcome = 'scope_review';
-      title.textContent = 'Let’s talk through the scope first.';
+      title.textContent = 'Let’s plan the recruiting work around your team.';
       const notes = [];
       if (roles === 2) {
         notes.push(visits === 2
-          ? 'Which searches need to run together, and which could you stagger?'
-          : 'Which roles need to move together? If you can stagger the searches, Plus can cover up to three at once.');
+          ? 'We’ll help you decide which searches to run together and which you can stagger.'
+          : 'We’ll help you prioritize the openings. If you can stagger the searches, Plus can cover up to three at once.');
       }
       if (visits === 2) {
-        notes.push('Tell us how many hours you need and where. We’ll talk through the right schedule for the work.');
+        notes.push('Tell us where your managers need help and when. We’ll work out an onsite schedule around the interviews and hiring decisions.');
       }
-      notes.push('For reference, Recruiting Partner Pro is $10,950 a month for roles in the agreed scope. It includes three full onsite days a week in Central Ohio only.');
+      notes.push('For reference, Recruiting Partner Pro is $10,950 a month. A dedicated recruiter works with your managers on the roles we agree to cover. Three full onsite days a week are included in Central Ohio.');
       reason.textContent = notes.join(' ');
       primary.textContent = 'Talk with us about your search';
       primary.href = '/contact';
@@ -56,9 +56,9 @@
       if (plan === partner) {
         reason.textContent = plan.explanation;
       } else if (roles === 0) {
-        reason.textContent = 'Plus includes up to 8 scheduled onsite hours a month in Central Ohio. If an occasional visit would do, Partner can handle one role for $2,950 a month with visits by agreement.';
+        reason.textContent = 'Recruiting Partner Plus is $5,950 a month. You can use up to 8 scheduled onsite hours a month in Central Ohio for interviews or time with your hiring manager. If an occasional visit would do, Partner can handle one role for $2,950 a month with visits by agreement.';
       } else {
-        reason.textContent = 'We can work on up to three roles at the same time. The plan includes up to 8 scheduled onsite hours a month in Central Ohio. You can use the plan remotely.';
+        reason.textContent = 'Recruiting Partner Plus is $5,950 a month for up to three roles at once. A weekly hiring huddle keeps the searches coordinated. We can work with you remotely or use up to 8 onsite hours a month in Central Ohio for interviews and time with your managers.';
       }
       primary.textContent = 'Choose ' + plan.name;
       primary.href = '/' + plan.tier + '#checkout';

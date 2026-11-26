@@ -240,12 +240,7 @@ MATH_CLOSE = "A larger offer does not increase our monthly fee, and there is no 
 FIT_CALL = 'Questions first? <span class="nowrap">Request a thirty-minute fit call.</span>'
 
 PER_HIRE_Q = "Are there any per-hire fees?"
-VISIT_NOTES = {
-    "partner": 'This plan includes no scheduled visits. For an occasional visit, <a href="/contact">contact us before you activate</a> so we can agree on the location and schedule. We’ll send you the total, including any visit fees and travel, for your written approval. Out-of-state visits cost extra.',
-    "plus": 'The included onsite hours apply in Central Ohio only. Out-of-state visits cost extra. For visits outside Central Ohio, <a href="/contact">contact us before you activate</a> so we can agree on the location and schedule. We’ll send you the total, including any visit fees and travel, for your written approval.',
-    "pro": 'The included onsite days apply in Central Ohio only. Out-of-state visits cost extra. For visits outside Central Ohio, <a href="/contact">contact us before you activate</a> so we can agree on the location and schedule. We’ll send you the total, including any visit fees and travel, for your written approval.',
-}
-PER_HIRE_A = "No. There is no placement fee when you hire someone. The monthly fee covers your plan’s agreed recruiting work. An extra day beyond your plan costs $2,500, including standard travel within the continental U.S. We agree on other expenses separately."
+PER_HIRE_A = "No. There is no placement fee when you hire someone. The monthly fee covers your plan’s agreed recruiting work."
 
 STEP_TODAY = ("Today", "You activate. A confirmation lands in your inbox within minutes, and you book the kickoff on the next page.")
 STEP_FILL = ("Thirty to forty-five days", "A planning estimate for filling a role. Specialized searches may need forty-five to sixty days or longer. We discuss timing at kickoff, and new-hire check-ins begin when the hire starts.")
@@ -280,10 +275,10 @@ TIERS = [
         "buys": [
             ("A single point of contact on our team.", "One person owns your role start to finish, backed by the Metcalf Search team."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days."),
-            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("Talent Points included.", "These are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
             ("MS Rosie hiring software, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in the search."),
             ("A focused shortlist.", "You see a focused shortlist, with a write-up explaining each person’s relevant experience."),
-            ("Occasional onsite support, when recommended and agreed.", "Most work happens remotely. We may recommend an onsite onboarding session or interview day when it would help the search. This plan includes no scheduled visits. If we both want an occasional visit, we agree on the location, schedule and total in writing before you activate. Out-of-state visits cost extra."),
+            ("Occasional onsite support, when recommended and agreed.", "We work with your team remotely. If it would help to meet for onboarding or an interview day, we can arrange an occasional visit together."),
             ("The interviews, the offer and the first ninety days.", "We schedule and prep the interviews, build the offer, and run the thirty, sixty and ninety day check-ins with the hire and the manager."),
             ("One active role at a time.", "When it fills, the next one starts. No per-hire fee when it does."),
         ],
@@ -313,14 +308,14 @@ TIERS = [
         "description": f"Recruiting Partner Plus: two to three roles at once and up to 8 onsite hours a month in Central Ohio, for a flat {money(PLUS)} a month. No per-hire fees.",
         "eyebrow": f"RECRUITING PARTNER PLUS &middot; {money(PLUS)} A MONTH",
         "h1": 'Two or three roles at once. Recruiting, <span class="accent">done</span> for you.',
-        "sub": "Up to three roles running at the same time, up to 8 onsite hours a month in Central Ohio and some job advertising included. You interview short lists. We handle the rest. Out-of-state visits cost extra.",
+        "sub": "We find and screen candidates for up to three roles at once. You interview a shortlist for each role. You can use up to 8 onsite hours a month in Central Ohio for interviews and time with your hiring managers.",
         "capsule": f"<strong>Recruiting Partner Plus</strong> is the Metcalf Search mid tier: two to three concurrent roles, a weekly hiring huddle and up to 8 onsite hours a month in Central Ohio, for a flat {money(PLUS)} a month. No per-hire fees. Month to month.",
         "who": "Owners and HR managers with hiring that does not stop: two or three seats open most months, several managers to coordinate, and nobody with the hours to run it properly. Companies of roughly ten to two hundred people, in any industry.",
         "buys": [
             ("A single point of contact on our team.", "Two to three roles at once, backed by the Metcalf Search team."),
             ("Up to 8 onsite hours a month in Central Ohio, plus a weekly huddle.", "Scheduled with you: one full day or two half days a month for interview days, debriefs and hiring manager time. A standing video huddle every week keeps decisions from stalling over email."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("Talent Points included.", "These are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
             ("MS Rosie hiring software, from day one.", "Your branded careers page, applicant tracking and a live view of every candidate in every search."),
             ("Short lists, write-ups, interviews, offers and the first ninety days.", "On every hire, with the thirty, sixty and ninety day check-ins run by us."),
             ("Move down when hiring slows, back up when it picks up.", "Tier changes take effect immediately. Upgrades have a prorated charge; downgrades have a credit toward future invoices, not a cash refund."),
@@ -348,17 +343,17 @@ TIERS = [
         "price": money(PRO),
         "value": PRO,
         "title": f"Recruiting Partner Pro, {money(PRO)} a Month | Metcalf Search",
-        "description": f"Recruiting Partner Pro covers the roles in your scope, with three onsite days a week in Central Ohio only, for {money(PRO)} a month. No per-hire fees.",
+        "description": f"Recruiting Partner Pro covers the roles in your scope, with three onsite days a week in Central Ohio, for {money(PRO)} a month. No per-hire fees.",
         "eyebrow": f"RECRUITING PARTNER PRO &middot; {money(PRO)} A MONTH",
         "h1": 'A dedicated recruiter, onsite <span class="accent">three</span> days a week in Central Ohio.',
-        "sub": "Every open role in your agreed scope, run by a Metcalf Search recruiter working with your team. Ongoing recruiting support on a month-to-month subscription. Out-of-state visits cost extra.",
+        "sub": "Every open role in your agreed scope, run by a Metcalf Search recruiter working with your team. Ongoing recruiting support on a month-to-month subscription.",
         "capsule": f"<strong>Recruiting Partner Pro</strong> is full embedded recruiting: a dedicated Metcalf Search recruiter onsite three days a week in Central Ohio, every open role in your agreed scope, for a flat {money(PRO)} a month. No per-hire fees. Month to month.",
         "who": "Companies hiring constantly: a plant adding a shift, a branch opening, growth that needs ten or twenty hires this year and a recruiting function that does not exist yet. The alternative is hiring a recruiter, with the salary, tools, ramp and management that come with it.",
         "buys": [
             ("A dedicated recruiter onsite three full days a week in Central Ohio.", "Embedded with your managers, on a set schedule, running every open role in your agreed scope."),
             ("All roles in your agreed scope.", "We agree on the roles covered at kickoff and plan the work with you."),
             ("Support through each stage of hiring.", "A sourcing plan, agreed updates, structured interviews, offer preparation, and check-ins during the first ninety days for each hire."),
-            ("Some job advertising included.", "Talent Points are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
+            ("Talent Points included.", "These are credits toward approved recruiting expenses, including job advertising. We plan the channels around the role and the points available."),
             ("MS Rosie hiring software for your whole company.", "Careers page, applicant tracking and hiring numbers you can put in front of the owner."),
             ("A recruiting function your company keeps.", "The process, the scorecards and the pipeline live in MS Rosie, not in our heads."),
             ("A single point of contact on our team.", "The embedded recruiter runs the days. Your point of contact keeps you informed, with support from the people working on your search."),
@@ -530,7 +525,6 @@ def page(t):
 <p class="section-sub">Sign up below to get your search started.</p>
 <p class="price-line"><strong>{t['price']} a month.</strong> Month to month. <span class="nowrap">No per-hire fees.</span> <span class="price-terms">Change tiers when your hiring needs change. Charges or credits are prorated.</span></p>
 </div>
-<p class="checkout-alt">{VISIT_NOTES[t['key']]}</p>
 <p class="checkout-alt">When recruiting ends, keep using Rosie on its free Starter plan or choose the paid software plan. Your records remain yours. <a href="https://apply.ms/help/#your-data">See records and account options</a>.</p>
 <div id="stripe-checkout" class="checkout-mount" aria-live="polite"></div>
 <p class="checkout-fallback" id="checkout-fallback">If the checkout does not load, email <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a> and we will help you sign up.</p>

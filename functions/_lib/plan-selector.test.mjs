@@ -16,7 +16,7 @@ function createSelector(html) {
   const [markup] = html.match(/<div class="tier-quiz" id="tier-quiz" hidden>[\s\S]+?<script [^>]*><\/script>/);
   assert.ok(markup.includes('src="' + asset + '?'));
   assert.ok(markup.includes('aria-live="polite" aria-atomic="true"'));
-  assert.match(markup, /class="tq-result" hidden>[\s\S]*Out-of-state visits cost extra[\s\S]*written approval[\s\S]*class="tq-actions"/);
+  assert.match(markup, /data-question="visits" data-level="0" aria-pressed="false">Remote, with occasional visits by agreement</);
   assert.doesNotMatch(markup, /How often do you hire|Constantly/);
   const callbacks = new Map();
   const buttons = Array.from(markup.matchAll(/<button type="button" class="tq-opt" data-question="(roles|visits)" data-level="(\d)" aria-pressed="false">/g),
@@ -66,6 +66,7 @@ for (const page of ['index', 'activate']) {
           assert.doesNotMatch(text, /Plus can cover/);
         }
         if (roles === 0 && visits === 1) assert.match(text, /occasional visit/);
+        if (tier === 'recruiting-partner') assert.match(text, /screen/i);
         click('visits', visits);
         assert.equal(events.length, 1);
       }
