@@ -2,8 +2,8 @@
  * GET /api/checkout-status?session_id=cs_...
  *
  * Looks up one Checkout Session for the onboarding page (Stripe returns the
- * buyer there with ?session_id=...) and answers with four fields only:
- * {status, paymentStatus, tier, email}. The raw session never leaves the
+ * buyer there with ?session_id=...) and returns its bounded receipt fields:
+ * {status, paymentStatus, tier, email} and the confirmed USD total when available. The raw session never leaves the
  * function. Uses the same STRIPE_SECRET_KEY secret as /api/checkout.
  */
 
@@ -56,6 +56,8 @@ export async function onRequestGet({ request, env }) {
     status: text(session.status),
     paymentStatus: text(session.payment_status),
     tier: text(metadata.tier),
+    ...(session.currency === "usd" && Number.isSafeInteger(session.amount_total) && session.amount_total >= 0
+      ? {amountUsd: session.amount_total / 100} : {}),
     email: text(details.email)
   });
 }

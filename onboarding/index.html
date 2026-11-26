@@ -11,8 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0R74SX6WZX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());if(/^(www\.)?metcalfsearch\.com$/.test(location.hostname))gtag('config','G-0R74SX6WZX',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
 <style>
 :root{--paper:#fafaf7;--paper-warm:#f4f2eb;--ink:#1f2421;--ink-soft:#4a534f;--ink-faint:#8a918d;--celadon:#a3c1ad;--celadon-deep:#6f9b7c;--celadon-mist:#e6ede8;--brick:#a83e2c;--rule:#d8dcd6;--display:'Fraunces','Times New Roman',serif;--body:'Geist',system-ui,sans-serif;--nav-h:70px;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -181,6 +179,7 @@ a{color:inherit;text-decoration:none;}
   }
 </style>
 <link rel="stylesheet" href="/assets/theme.css?v=20261115-public5">
+<script src="/assets/site-analytics.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -263,18 +262,22 @@ if(location.hash){
   // checkout session (sessionStorage guard) after the session reads paid. Fails silently.
   try{
     var id=new URLSearchParams(location.search).get('session_id')||'';
-    if(id.length>255||!/^cs_[A-Za-z0-9_]+$/.test(id))return;
-    var TIERS={partner:['Recruiting Partner',2950],plus:['Recruiting Partner Plus',5950],pro:['Recruiting Partner Pro',10950]};
+    if(location.protocol!=='https:' || !/^(www\.)?metcalfsearch\.com$/.test(location.hostname))return;
+    if(id.length>255||!/^cs_live_[A-Za-z0-9_]+$/.test(id)||!window.crypto||!window.crypto.subtle)return;
+    var TIERS={partner:'Recruiting Partner',plus:'Recruiting Partner Plus',pro:'Recruiting Partner Pro'};
     var key='ms_purchase_'+id;
     try{if(sessionStorage.getItem(key))return;}catch(e){}
     fetch('/api/checkout-status?session_id='+encodeURIComponent(id),{headers:{Accept:'application/json'}})
       .then(function(res){return res.ok?res.json():null;})
       .then(function(s){
-        if(!s||!(s.paymentStatus==='paid'||s.status==='complete'))return;
+        if(!s||s.paymentStatus!=='paid'||!(s.amountUsd>0))return;
         var t=Object.prototype.hasOwnProperty.call(TIERS,s.tier)?TIERS[s.tier]:null;
         if(!t||typeof gtag!=='function')return;
-        try{if(sessionStorage.getItem(key))return;sessionStorage.setItem(key,'1');}catch(e){}
-        gtag('event','purchase',{transaction_id:id,currency:'USD',value:t[1],items:[{item_name:t[0],price:t[1]}]});
+        return window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(id)).then(function(hash){
+          try{if(sessionStorage.getItem(key))return;sessionStorage.setItem(key,'1');}catch(e){}
+          var transaction=Array.from(new Uint8Array(hash),function(byte){return byte.toString(16).padStart(2,'0');}).join('');
+          gtag('event','purchase',{transaction_id:transaction,currency:'USD',value:s.amountUsd,items:[{item_name:t,price:s.amountUsd}]});
+        });
       })
       .catch(function(){});
   }catch(e){}

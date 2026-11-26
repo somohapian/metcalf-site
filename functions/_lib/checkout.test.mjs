@@ -130,20 +130,20 @@ function status(query) {
   return new Request(`${SITE}/api/checkout-status${query}`);
 }
 
-test('checkout-status returns only status, paymentStatus, tier and email', async (t) => {
+test('checkout-status returns a bounded paid receipt with the actual USD amount', async (t) => {
   const calls = [];
   t.mock.method(globalThis, 'fetch', async (url, init) => {
     calls.push({ url, init });
     return Response.json({
       id: 'cs_live_a1B2_c3', object: 'checkout.session', status: 'complete', payment_status: 'paid',
       client_secret: 'cs_live_a1B2_c3_secret_zzz', customer: 'cus_123', amount_total: 295000,
-      metadata: { tier: 'partner' }, customer_details: { email: 'owner@example.com', phone: '+16145550100' }
+      metadata: { tier: 'partner' }, customer_details: { email: 'owner@example.com', phone: '+16145550100' }, currency: 'usd'
     });
   });
   const response = await getStatus({ request: status('?session_id=cs_live_a1B2_c3'), env: ENV });
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('cache-control'), 'no-store');
-  assert.deepEqual(await response.json(), { status: 'complete', paymentStatus: 'paid', tier: 'partner', email: 'owner@example.com' });
+  assert.deepEqual(await response.json(), { status: 'complete', paymentStatus: 'paid', tier: 'partner', email: 'owner@example.com', amountUsd: 2950 });
   assert.equal(calls[0].url, 'https://api.stripe.com/v1/checkout/sessions/cs_live_a1B2_c3');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer sk_test_example');
 });

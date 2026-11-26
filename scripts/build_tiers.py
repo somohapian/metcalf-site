@@ -38,7 +38,8 @@ def section(start, end):
 HEAD_TOP = section('<!DOCTYPE html>', 'initial-scale=1.0">')
 FONTS = section('<link rel="preconnect" href="https://fonts.googleapis.com">', 'display=swap" rel="stylesheet">')
 LOCAL_BUSINESS = section('<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness"', '</script>')
-GA = re.search(r'<script async src="https://www.googletagmanager.com/gtag/js[^>]*>.*?</script>\s*<script>.*?</script>', services, re.S).group(0)
+ATTRIBUTION = section('<script src="/assets/inquiry-attribution.js"', '</script>')
+GA = section('<script src="/assets/site-analytics.js"', '</script>')
 BASE_STYLE = section('<style>\n:root{', '</style>')
 FAVICONS = section('<link rel="icon" type="image/svg+xml"', '<meta name="theme-color" content="#6f9b7c">')
 HAMBURGER_CSS = section('<style id="metcalf-hamburger-css">', '</style>')
@@ -449,7 +450,7 @@ def page(t):
 {LOCAL_BUSINESS}
 {ld(service)}
 {ld(faq_ld)}
-{GA}
+{ATTRIBUTION}
 {BASE_STYLE}
 {FAVICONS}
 
@@ -457,6 +458,7 @@ def page(t):
 {FAQ_CSS}
 {TIER_CSS}
 {STRIP_CSS}
+{GA}
 </head>"""
     body = f"""<body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
