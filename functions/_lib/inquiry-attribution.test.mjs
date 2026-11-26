@@ -99,20 +99,22 @@ test('only approved upstream labels travel to an employer link', () => {
 
 test('public analytics uses the canonical path, strips private data, and loads only on production', () => {
   const analytics=readFileSync(new URL('../../assets/site-analytics.js',import.meta.url),'utf8');
-  function measure(host) {
+  function measure(host, query) {
     const window={}, loads=[];
     const document={referrer:'https://elsewhere.example/resume/secret?id=private',
       querySelector:()=>({href:'https://metcalfsearch.com/onboarding/'}),
       createElement:()=>({}), head:{appendChild:script=>loads.push(script.src)}};
-    runInNewContext(analytics,{window,document,location:new URL('https://'+host+'/onboarding/?session_id=cs_live_secret&utm_source=newsletter&utm_medium=owner%40email.example'),URL,URLSearchParams});
+    runInNewContext(analytics,{window,document,location:new URL('https://'+host+'/onboarding/?'+query),URL,URLSearchParams});
     return {commands:(window.dataLayer||[]).map(args=>Array.from(args)),loads};
   }
-  const live=measure('metcalfsearch.com');
+  const live=measure('metcalfsearch.com','session_id=cs_live_secret&utm_source=newsletter&utm_medium=owner%40email.example&utm_content=private-name&utm_campaign=cs_live_private&utm_id=somebody');
   assert.equal(live.loads.length,1);
   const cfg=live.commands.find(x=>x[0]==='config')[2];
   assert.equal(cfg.page_location,'https://metcalfsearch.com/onboarding/?utm_source=newsletter');
   assert.equal(cfg.page_referrer,'https://elsewhere.example/');
   assert.equal(live.commands.filter(x=>x[0]==='config').length,1);
+  const tagged=measure('metcalfsearch.com','utm_source=LINKEDIN&utm_medium=social&utm_campaign=careers-page');
+  assert.equal(tagged.commands.find(x=>x[0]==='config')[2].page_location,'https://metcalfsearch.com/onboarding/?utm_source=linkedin&utm_medium=social&utm_campaign=careers-page');
   assert.equal(measure('metcalf-site.pages.dev').loads.length,0);
 });
 

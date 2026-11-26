@@ -14,9 +14,16 @@
   }
   var publicUrl = new URL(path, location.origin);
   var params = new URLSearchParams(location.search);
-  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_term', 'utm_content'].forEach(function (key) {
-    var value = params.get(key);
-    if (value && /^[a-z0-9][a-z0-9 _.-]{0,79}$/i.test(value) && !/\d{7,}/.test(value)) publicUrl.searchParams.set(key, value);
+  // Use the same public campaign vocabulary as the inquiry receipt.
+  // Free-text terms, ad content and externally supplied IDs can identify an individual.
+  var publicLabels = {
+    utm_source: 'apply.ms bing chatgpt chatgpt.com claude claude.ai copilot duckduckgo email event facebook facebook.com fb gemini gemini.google.com glassdoor google google.com grok grok.com ig indeed instagram linkedin linkedin.com lnkd.in metcalfsearch metcalfsearch.com newsletter openai partner perplexity perplexity.ai podcast print qr reddit referral sms t.co threads tiktok twitter x yahoo youtube',
+    utm_medium: 'affiliate ai-assistant banner check cpc display e-mail email event footer groups newsletter organic paid paid-search paid-social paid_search paid_social paidsearch paidsocial partner ppc print qr referral sms social social-media social_media video',
+    utm_campaign: 'careers-page diy-hiring partner-referrals'
+  };
+  Object.keys(publicLabels).forEach(function (key) {
+    var value = (params.get(key) || '').trim().toLowerCase();
+    if (publicLabels[key].split(' ').includes(value)) publicUrl.searchParams.set(key, value);
   });
   var referrer = '';
   try {
