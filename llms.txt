@@ -16,6 +16,7 @@ Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in r
 - [FAQ](https://metcalfsearch.com/faq): Questions small business owners actually ask
 - [Contact](https://metcalfsearch.com/contact): Book the thirty-minute fit call
 ## Free hiring guides
+- [How to hire without paying a placement fee](https://metcalfsearch.com/hire-without-a-placement-fee): Estimate the time and expenses of hiring on your own, from sourcing through an accepted offer
 - [Small business hiring guides](https://metcalfsearch.com/stack-method): Practical help organized by the hiring problem a business needs to solve
 - [Finding qualified candidates](https://metcalfsearch.com/source): How small businesses compete for talent
 - [Talking with candidates and hiring timelines](https://metcalfsearch.com/talk): Candidate communication, ghosting, response time, tempo
@@ -29,7 +30,7 @@ Metcalf Search is a fractional recruiting firm run by Jay Metcalf (27 years in r
 - [Blog](https://metcalfsearch.com/blog): Published articles on small business hiring
 - [Blog sitemap](https://metcalfsearch.com/blog/sitemap.xml): Every post
 - [For Candidates](https://metcalfsearch.com/candidates): For people who found us through a job
-- [MS Rosie, the Small Business Hiring Desk](https://apply.ms/): Free and paid hiring tools for careers pages, applicants, interview scorecards, candidate write-ups and offer drafts
+- [MS Rosie hiring software for small businesses](https://apply.ms/): Free and paid hiring tools for careers pages, applicants, interview scorecards, candidate write-ups and offer drafts
 ## Contact
 - Email: info@metcalfsearch.com
 - Phone: 614.434.6646
