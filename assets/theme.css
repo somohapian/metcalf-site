@@ -134,18 +134,32 @@ main[tabindex="-1"]{scroll-margin-top:calc(var(--nav-h,76px) + 16px)}
  .keep-print-copy .kw-sheet{background:#fff!important;color:#1f2421!important}
 }
 
-/* Keep the transparent brand artwork on the page surface. The decorative copy
-   brightens only the wordmark in dark mode; the original colored square stays
-   untouched. Both copies use the same artwork and responsive dimensions. */
+/* Reuse the image alpha so only the METCALF lettering changes color in dark mode.
+   SEARCH retains its existing brightening and the square retains its original pixels. */
 .brand,.foot-brand{position:relative;--brand-art-height:40px}
 .foot-brand{--brand-art-height:36px}
 .brand-logo,.foot-brand-logo{background:transparent;padding:0;filter:none}
-.brand::after,.foot-brand::after{
+.topnav .brand::before,.topnav .brand::after,.foot-brand::before,.foot-brand::after{
  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
  width:calc(var(--brand-art-height) * 4);height:var(--brand-art-height);
- background:url("/logo.png") center / 100% 100% no-repeat;
- clip-path:inset(0 0 0 26%);filter:brightness(1.7);
  opacity:var(--theme-wordmark-opacity);pointer-events:none;
+}
+.topnav .brand::before,.foot-brand::before{
+ background:#94b4cc;
+ -webkit-mask:url("/logo.png") center / 100% 100% no-repeat;
+ mask:url("/logo.png") center / 100% 100% no-repeat;
+ clip-path:inset(0 0 45% 26%);
+}
+.topnav .brand::after,.foot-brand::after{
+ background:url("/logo.png") center / 100% 100% no-repeat;
+ clip-path:inset(55% 0 0 26%);filter:brightness(1.7);
+}
+@media screen and (min-width:360px) and (max-width:768px){
+ .foot .foot-inner{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px}
+ .foot .foot-inner>div:first-child,.foot .foot-col:last-child{grid-column:1/-1}
+ .foot .foot-col:last-child ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px}
+ .foot .foot-col li{margin:0}
+ .foot .foot-col a{display:flex;align-items:center;min-height:44px;line-height:1.3}
 }
 @media(max-width:720px){.brand{--brand-art-height:32px}.foot-brand{--brand-art-height:30px}}
 

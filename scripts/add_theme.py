@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 INIT = '<script src="/assets/theme-init.js"></script>'
-STYLE = '<link rel="stylesheet" href="/assets/theme.css?v=20261115-public5">'
+STYLE = '<link rel="stylesheet" href="/assets/theme.css?v=20261125-home">'
 CONTROL = '<script src="/assets/theme.js?v=20261114-footer1" defer></script>'
 
 def with_theme(source):

@@ -1,0 +1,41 @@
+.cost-worksheet { scroll-margin-top:5.5rem; margin:2.25rem 0; padding:1.6rem; border:1px solid var(--rule); }
+.prose .cost-worksheet h2 { margin:0 0 .6rem; }
+.cost-worksheet h3 { font:500 1.26rem/1.3 var(--display); margin:1.5rem 0 .45rem; }
+.prose .cost-worksheet p { margin:0 0 .75rem; font:400 1rem/1.55 var(--body); }
+.cost-example { background:var(--paper-warm); border-left:3px solid var(--celadon-deep); padding:1rem 1.1rem .35rem; }
+.cost-example h3 { margin-top:0; }
+.cost-worksheet table { border-collapse:collapse; width:100%; table-layout:fixed; margin:.65rem 0 1rem; font:400 .9rem/1.35 var(--body); }
+.cost-worksheet th,.cost-worksheet td { border-bottom:1px solid var(--rule); text-align:left; padding:.5rem .3rem; overflow-wrap:break-word; }
+.cost-worksheet th { font-weight:500; }
+.cost-worksheet th:first-child { width:40%; }
+.cost-worksheet thead th { vertical-align:bottom; }
+.cost-worksheet input { width:100%; min-width:0; min-height:44px; border:1px solid var(--theme-muted); border-radius:3px; background:var(--paper); color:var(--ink); padding:.25rem; font:inherit; }
+.cost-worksheet input:focus-visible,.cost-worksheet button:focus-visible { outline:2px solid var(--brick); outline-offset:2px; }
+.cost-worksheet input:invalid { border-color:var(--brick); }
+.cost-totals { display:grid; grid-template-columns:1fr 1fr; gap:1rem; border-top:2px solid var(--ink); padding-top:.75rem; }
+.cost-totals strong { display:block; margin:.15rem 0; }
+#cost-print { color:var(--paper); background:var(--ink); border:0; padding:.75rem 1rem; min-height:44px; font:inherit; margin-top:1rem; cursor:pointer; }
+@media screen and (max-width:600px) {
+ .prose .cost-worksheet { padding:1rem .65rem; margin-left:-.4rem; margin-right:-.4rem; }
+ .cost-worksheet table { font-size:.8125rem; }
+ .cost-worksheet th:first-child { width:34%; }
+ .cost-worksheet th,.cost-worksheet td { padding:.45rem .16rem; }
+ .cost-worksheet input { font-size:1rem; }
+}
+@media print {
+ @page { margin:.55in; }
+ body>*,main>*:not(article),main article>*:not(.cost-worksheet),#cost-print { display:none!important; }
+ body>main { display:block!important; }
+ main,main .prose,main .cost-worksheet { max-width:none!important; padding:0!important; margin:0!important; border:0!important; }
+ .prose .cost-worksheet { color:#111; font-size:10pt; }
+ .prose .cost-worksheet h2 { font-size:20pt; margin:0 0 4pt; }
+ .prose .cost-worksheet h3 { font-size:12pt; margin:9pt 0 3pt; }
+ .prose .cost-worksheet p { font-size:9.5pt; line-height:1.35; margin:0 0 5pt; }
+ .cost-example { padding:3pt 8pt; border-color:#777; }
+ .cost-worksheet table { margin:4pt 0 7pt; font-size:9pt; }
+ .cost-worksheet th,.cost-worksheet td { padding:3pt; border-color:#777; }
+ .cost-worksheet input { appearance:textfield; min-height:22pt; color:#111; background:white; border:1px solid #888; }
+ .cost-worksheet input::-webkit-inner-spin-button { appearance:none; }
+ .cost-totals { font-size:10pt; padding-top:5pt; }
+ .cost-totals strong { min-height:16pt; }
+}
