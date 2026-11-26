@@ -62,6 +62,13 @@ class QualityGateTests(unittest.TestCase):
 
 
 class LiveSmokeTests(unittest.TestCase):
+    def test_homepage_has_one_real_shared_analytics_script(self):
+        tag = '<script defer src="/assets/site-analytics.js"></script>'
+        for markup, valid in [(tag, True), ("", False), (tag + tag, False), ("<!--" + tag + "-->", False)]:
+            with self.subTest(markup=markup):
+                html = VALID.replace("</head>", markup + "</head>").encode()
+                self.assertEqual(not inspect_response("/", 200, "text/html", html), valid)
+
     def test_actual_blog_renderer_output(self):
         node = os.environ.get("METCALF_QA_NODE") or shutil.which("node")
         if not node:

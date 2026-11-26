@@ -39,6 +39,7 @@ class Page(HTMLParser):
         super().__init__()
         self.h1_count = 0
         self.anchors = []
+        self.scripts = []
         self.title = False
         self.canonical = ""
         self.json_ld = []
@@ -51,6 +52,8 @@ class Page(HTMLParser):
         attrs = dict(attrs)
         if tag == "h1":
             self.h1_count += 1
+        if tag == "script" and "src" in attrs:
+            self.scripts.append(attrs["src"])
         if tag == "title":
             self.title = True
         if tag == "a" and "href" in attrs:
@@ -126,6 +129,8 @@ def inspect_response(path, status, content_type, body):
         page = Page(body)
         if not page.title or page.h1_count != 1:
             problems.append(f"Expected title and one h1 (title={page.title}, h1={page.h1_count})")
+        if path == "/" and page.scripts.count("/assets/site-analytics.js") != 1:
+            problems.append("Homepage must link the shared Analytics script exactly once")
         if path.startswith("/blog/"):
             if page.json_ld_errors:
                 problems.append("Blog article has invalid JSON-LD")

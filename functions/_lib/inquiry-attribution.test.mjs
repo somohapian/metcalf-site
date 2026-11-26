@@ -109,7 +109,12 @@ test('public analytics uses the canonical path, strips private data, and loads o
   }
   const live=measure('metcalfsearch.com','session_id=cs_live_secret&utm_source=newsletter&utm_medium=owner%40email.example&utm_content=private-name&utm_campaign=cs_live_private&utm_id=somebody');
   assert.equal(live.loads.length,1);
-  const cfg=live.commands.find(x=>x[0]==='config')[2];
+  const [configCommand] = live.commands.filter(x=>x[0]==='config');
+  const [, stream, cfg] = configCommand;
+  assert.equal(stream,'G-0R74SX6WZX');
+  assert.equal(live.loads[0],'https://www.googletagmanager.com/gtag/js?id='+stream);
+  assert.equal(cfg.allow_google_signals,false);
+  assert.equal(cfg.allow_ad_personalization_signals,false);
   assert.equal(cfg.page_location,'https://metcalfsearch.com/onboarding/?utm_source=newsletter');
   assert.equal(cfg.page_referrer,'https://elsewhere.example/');
   assert.equal(live.commands.filter(x=>x[0]==='config').length,1);
