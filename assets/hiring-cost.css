@@ -23,8 +23,8 @@
  .cost-worksheet input { font-size:1rem; }
 }
 @media print {
- @page { margin:.55in; }
- body>*,main>*:not(article),main article>*:not(.cost-worksheet),.cost-monthly,#cost-print { display:none!important; }
+ @page { margin:.5in; }
+ body>*,main>*:not(article),main article>*:not(.cost-worksheet),.cost-monthly,.cost-screen-note,#cost-print { display:none!important; }
  body>main { display:block!important; }
  main,main .prose,main .cost-worksheet { max-width:none!important; padding:0!important; margin:0!important; border:0!important; }
  .prose .cost-worksheet { color:#111; font-size:10pt; }
