@@ -294,55 +294,29 @@ a{color:inherit;text-decoration:none;}
 </div>
 </div>
 <div class="tier-quiz" id="tier-quiz" hidden>
-<h3 class="tier-quiz-h">Which tier fits?</h3>
-<p class="tier-quiz-sub">Tell us how many searches overlap and how much onsite help you want. Your hiring frequency helps us plan the workload.</p>
-<div class="tq-q" role="group" aria-labelledby="tq-l1"><p class="tq-label" id="tq-l1">How many roles do you have open at once?</p><div class="tq-opts"><button type="button" class="tq-opt" data-q="0" data-t="0" aria-pressed="false">One</button><button type="button" class="tq-opt" data-q="0" data-t="1" aria-pressed="false">Two or three</button><button type="button" class="tq-opt" data-q="0" data-t="2" aria-pressed="false">Four or more</button></div></div>
-<div class="tq-q" role="group" aria-labelledby="tq-l2"><p class="tq-label" id="tq-l2">How often do you hire?</p><div class="tq-opts"><button type="button" class="tq-opt" data-q="1" data-t="0" aria-pressed="false">A few times a year</button><button type="button" class="tq-opt" data-q="1" data-t="1" aria-pressed="false">Most months</button><button type="button" class="tq-opt" data-q="1" data-t="2" aria-pressed="false">Constantly</button></div></div>
-<div class="tq-q" role="group" aria-labelledby="tq-l3"><p class="tq-label" id="tq-l3">How much onsite help do you want?</p><div class="tq-opts"><button type="button" class="tq-opt" data-q="2" data-t="0" aria-pressed="false">Only when it helps</button><button type="button" class="tq-opt" data-q="2" data-t="1" aria-pressed="false">About a day a month</button><button type="button" class="tq-opt" data-q="2" data-t="2" aria-pressed="false">Several days a week</button></div></div>
-<div class="tq-result" aria-live="polite" hidden><p class="tq-line"></p><div class="tq-actions"><a class="tq-activate" href="/activate">Choose a plan</a><a class="tq-more" href="/activate">See what's included</a></div></div>
+<h3 class="tier-quiz-h">Which recruiting plan fits?</h3>
+<div class="tq-q" role="group" aria-labelledby="tq-roles"><p class="tq-label" id="tq-roles">How many roles do you want us to work on at the same time?</p>
+<div class="tq-opts">
+<button type="button" class="tq-opt" data-question="roles" data-level="0" aria-pressed="false">One</button>
+<button type="button" class="tq-opt" data-question="roles" data-level="1" aria-pressed="false">Two or three</button>
+<button type="button" class="tq-opt" data-question="roles" data-level="2" aria-pressed="false">Four or more</button>
+</div></div>
+<div class="tq-q" role="group" aria-labelledby="tq-visits"><p class="tq-label" id="tq-visits">How much scheduled onsite time do you need?</p>
+<div class="tq-opts">
+<button type="button" class="tq-opt" data-question="visits" data-level="0" aria-pressed="false">No scheduled visits</button>
+<button type="button" class="tq-opt" data-question="visits" data-level="1" aria-pressed="false">Up to 8 hours a month</button>
+<button type="button" class="tq-opt" data-question="visits" data-level="2" aria-pressed="false">More than 8 hours a month</button>
+</div></div>
+<p class="tier-quiz-sub">Occasional visits are by agreement. Planning your first hire or need a different schedule? <a class="tq-more" href="/contact">Talk with us</a>.</p>
+<div aria-live="polite" aria-atomic="true">
+<div class="tq-result" hidden>
+<p class="tq-line"><strong data-result-title></strong> <span data-result-reason></span></p>
+<p class="tier-quiz-sub">Out-of-state visits cost extra. For visits outside Central Ohio, <a class="tq-more" href="/contact">contact us before you activate</a>. We’ll send the location, schedule and total, including any visit fees and travel, for your written approval.</p>
+<div class="tq-actions"><a class="tq-activate" href="/activate">Choose a plan</a><a class="tq-more" href="/activate">See what’s included</a></div>
 </div>
-<script>
-(function(){
-  var quiz=document.getElementById('tier-quiz');
-  if(!quiz)return;
-  var tiers=[
-    {slug:'recruiting-partner',name:'Recruiting Partner',line:'one active role at a time, $2,950 a month. No scheduled visits. Out-of-state visits cost extra.'},
-    {slug:'recruiting-partner-plus',name:'Recruiting Partner Plus',line:'two to three roles at once and up to 8 onsite hours a month in Central Ohio, $5,950 a month. Out-of-state visits cost extra.'},
-    {slug:'recruiting-partner-pro',name:'Recruiting Partner Pro',line:'a recruiter onsite three days a week in Central Ohio and every open role in your agreed scope, $10,950 a month. Out-of-state visits cost extra.'}
-  ];
-  var answers=[null,null,null],sent=null;
-  var result=quiz.querySelector('.tq-result'),line=quiz.querySelector('.tq-line');
-  var act=quiz.querySelector('.tq-activate'),more=quiz.querySelector('.tq-more');
-  quiz.hidden=false;
-  quiz.addEventListener('click',function(e){
-    var b=e.target.closest('.tq-opt');
-    if(!b)return;
-    var q=Number(b.getAttribute('data-q'));
-    answers[q]=Number(b.getAttribute('data-t'));
-    Array.prototype.forEach.call(quiz.querySelectorAll('.tq-opt[data-q="'+q+'"]'),function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
-    if(answers.indexOf(null)>-1)return;
-    // Role overlap and scheduled onsite support determine the plan capacity.
-    // Frequency shapes the workload discussion; it does not independently upsell a tier.
-    var t=tiers[Math.max(answers[0],answers[2])];
-    var roles=['one role at a time','two or three roles at once','four or more roles at once'];
-    var onsite=['occasional onsite support','about a day onsite each month','several days onsite each week'];
-    var cadence=[
-      'If you hire only occasionally, we can discuss whether a monthly partnership makes sense.',
-      'We will plan the workload around your recurring searches.',
-      'For continuous hiring, discuss the workload with us before choosing a plan.'
-    ];
-    line.innerHTML='';
-    var s=document.createElement('strong');s.textContent=t.name;
-    line.appendChild(s);line.appendChild(document.createTextNode(' is a starting point: '+t.line));
-    line.appendChild(document.createElement('br'));
-    line.appendChild(document.createTextNode('Based on '+roles[answers[0]]+' and '+onsite[answers[2]]+'. '+cadence[answers[1]]));
-    act.href='/'+t.slug+'#checkout';act.setAttribute('aria-label','Choose '+t.name);
-    more.href='/'+t.slug;more.setAttribute('aria-label','See what\'s included in '+t.name);
-    result.hidden=false;
-    if(t.slug!==sent){sent=t.slug;if(typeof window.gtag==='function'){window.gtag('event','tier_quiz_result',{tier:t.slug});}}
-  });
-})();
-</script>
+</div>
+</div>
+<script src="/assets/plan-selector.js?v=20261126"></script>
 <p class="tier-note">To activate by email or phone instead, write to <a href="mailto:info@metcalfsearch.com">info@metcalfsearch.com</a> or call <a href="tel:+16144346646">614.434.6646</a>.</p>
 </section>
 
